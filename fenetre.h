@@ -2,6 +2,7 @@
 #define FENETRE_H_INCLUDED
 
 #include "graph.h"
+#include "const.h"
 
 class FenetreInterface
 {
@@ -15,6 +16,15 @@ class FenetreInterface
 
         /// La boite qui contient toute l'interface d'un graphe
         grman::WidgetBox m_top_box;
+
+        grman::WidgetBox m_graphe_box;
+
+        grman::WidgetButton m_save_button;
+        grman::WidgetText m_save_button_label;
+        grman::WidgetButton m_load_button;
+        grman::WidgetText m_load_button_label;
+        grman::WidgetButton m_move_button;
+        grman::WidgetText m_move_button_label;
 
     public :
 
@@ -34,10 +44,10 @@ class Fenetre
 
     public:
 
-        Fenetre (FenetreInterface *interface=nullptr) : m_interface(interface), m_graphe(Graph())  {if(!m_interface) m_interface = std::make_shared<FenetreInterface>(0, 0, 1024, 768);}
+        Fenetre (FenetreInterface *interface=nullptr) : m_interface(interface), m_graphe(Graph())  {m_interface = std::make_shared<FenetreInterface>(0, 0, 1024, 768);}
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
-        void update() {m_graphe.update();}
+        void update();
         void make_example() {m_graphe.make_example();}
 };
 

@@ -77,6 +77,7 @@
 #include <memory>
 
 #include "grman/grman.h"
+#include "const.h"
 
 /***************************************************
                     VERTEX
@@ -249,9 +250,6 @@ class GraphInterface
 
         /// Dans cette boite seront ajoutés les (interfaces des) sommets et des arcs...
         grman::WidgetBox m_main_box;
-
-        /// Dans cette boite seront ajoutés des boutons de contrôle etc...
-        grman::WidgetBox m_tool_box;
 
 
         // A compléter éventuellement par des widgets de décoration ou

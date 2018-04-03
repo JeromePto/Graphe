@@ -2,6 +2,11 @@
 #include <iostream>
 
 #include "fenetre.h"
+volatile int close_button_pressed = 0;
+void close_button_handler()
+{
+    close_button_pressed = 1;
+}
 
 int main()
 {
@@ -15,10 +20,14 @@ int main()
     Fenetre g;
     g.make_example();
 
+    END_OF_FUNCTION(close_button_handler)
+
+    LOCK_FUNCTION(close_button_handler);
+    set_close_button_callback(close_button_handler);
 
     /// Vous gardez la main sur la "boucle de jeu"
     /// ( contrairement à des frameworks plus avancés )
-    while ( !key[KEY_ESC] )
+    while ( !key[KEY_ESC] && !close_button_pressed)
     {
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();

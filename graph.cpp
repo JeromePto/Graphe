@@ -112,15 +112,10 @@ void Edge::post_update()
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
     m_top_box.set_dim(w, h);
-    m_top_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
-
-    m_top_box.add_child(m_tool_box);
-    m_tool_box.set_dim(w,80);
-    m_tool_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
-    m_tool_box.set_bg_color(BLANCBLEU);
+    m_top_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
 
     m_top_box.add_child(m_main_box);
-    m_main_box.set_dim(w,h-80);
+    m_main_box.set_dim(w,h-TAILLE_BAR);
     m_main_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Down);
     m_main_box.set_bg_color(BLANCJAUNE);
 }
@@ -133,7 +128,7 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
 /// "à la main" dans le code comme ça.
 void Graph::make_example()
 {
-    m_interface = std::make_shared<GraphInterface>(0, 0, 1024, 768);
+    m_interface = std::make_shared<GraphInterface>(0, 0, LARGEUR_FENETRE, HAUTEUR_FENETRE);
     // La ligne précédente est en gros équivalente à :
     // m_interface = new GraphInterface(50, 0, 750, 600);
 
