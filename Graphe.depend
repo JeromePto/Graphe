@@ -1,0 +1,69 @@
+# depslib dependency file v1.0
+1522575069 source:d:\documents\ece\ing2\informatique\projet 2\graphe\grman\coords.cpp
+	"coords.h"
+
+1522575424 d:\documents\ece\ing2\informatique\projet 2\graphe\grman\coords.h
+	<cmath>
+
+1522515823 source:d:\documents\ece\ing2\informatique\projet 2\graphe\grman\grman.cpp
+	<cmath>
+	<unordered_map>
+	<unordered_set>
+	<utility>
+	<string>
+	<iostream>
+	<regex>
+	"grman.h"
+	<allegro.h>
+	<png.h>
+	<loadpng.h>
+	<jpgalleg.h>
+
+1522539041 d:\documents\ece\ing2\informatique\projet 2\graphe\grman\grman.h
+	<allegro.h>
+	<string>
+	"grman_couleurs.h"
+	"coords.h"
+	"widget.h"
+
+1509222372 d:\documents\ece\ing2\informatique\projet 2\graphe\grman\grman_couleurs.h
+
+1522636616 d:\documents\ece\ing2\informatique\projet 2\graphe\grman\widget.h
+	"grman.h"
+	<iostream>
+	<string>
+	<vector>
+	<algorithm>
+	<allegro.h>
+
+1522636919 source:d:\documents\ece\ing2\informatique\projet 2\graphe\grman\widget.cpp
+	"widget.h"
+
+1522768558 source:d:\documents\ece\ing2\informatique\projet 2\graphe\main.cpp
+	"grman/grman.h"
+	<iostream>
+	"fenetre.h"
+
+1522597763 d:\documents\ece\ing2\informatique\projet 2\graphe\test.h
+	"grman/grman.h"
+	<iostream>
+	<stack>
+
+1522627465 source:d:\documents\ece\ing2\informatique\projet 2\graphe\test.cpp
+	"test.h"
+
+1522766268 source:d:\documents\ece\ing2\informatique\projet 2\graphe\graph.cpp
+	"graph.h"
+
+1522765747 d:\documents\ece\ing2\informatique\projet 2\graphe\graph.h
+	<vector>
+	<map>
+	<string>
+	<memory>
+	"grman/grman.h"
+
+1522768300 source:d:\documents\ece\ing2\informatique\projet 2\graphe\fenetre.cpp
+
+1522768991 d:\documents\ece\ing2\informatique\projet 2\graphe\fenetre.h
+	"graph.h"
+
