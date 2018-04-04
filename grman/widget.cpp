@@ -206,7 +206,10 @@ void WidgetTextEdit::interact_focus()
 {
     if (mouse_click)
     {
-        m_edition = !m_edition;
+        if(m_edition)
+            leave_edition();
+        else
+            enter_edition();
     }
 }
 
@@ -221,7 +224,7 @@ void WidgetTextEdit::update_interact()
         case 0:
             break;
         case 13:
-            m_edition = !m_edition;
+            leave_edition();
             break;
         case 8:
             if(m_tmp.size() > 0)
@@ -234,8 +237,26 @@ void WidgetTextEdit::update_interact()
 
         set_message(m_tmp);
     }
+
+    if(mouse_click && m_edition && !is_gui_focus())
+        leave_edition();
 }
 
+void WidgetTextEdit::enter_edition()
+{
+    m_edition = true;
+    if(m_norm_color == -2)
+        m_norm_color = m_bg_color;
+    if(m_edit_color == -2)
+        m_edit_color = m_norm_color;
+    m_bg_color = m_edit_color;
+}
+
+void WidgetTextEdit::leave_edition()
+{
+    m_edition = false;
+    m_bg_color = m_norm_color;
+}
 
 
 /***************************************************

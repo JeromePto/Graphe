@@ -27,6 +27,12 @@ class FenetreInterface
         grman::WidgetButtonSwitch m_move_button;
         grman::WidgetText m_move_button_label;
 
+        grman::WidgetBox m_mode_box;
+        grman::WidgetButtonSwitch m_button_structurel;
+        grman::WidgetText m_button_structurel_label;
+        grman::WidgetButtonSwitch m_button_fonctionnel;
+        grman::WidgetText m_button_fonctionnel_label;
+
         grman::WidgetButton m_delete_button;
         grman::WidgetText m_delete_button_label;
 
@@ -45,6 +51,8 @@ class Fenetre
         /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
         std::shared_ptr<FenetreInterface> m_interface = nullptr;
         Graph m_graphe;
+        // 1 = structurel, 2 = fonctionnel
+        int mode = 1;
 
     public:
 

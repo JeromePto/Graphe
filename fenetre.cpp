@@ -16,7 +16,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_top_box.add_child(m_load_button);
     m_save_button.set_pos(m_load_button.get_posx(), m_load_button.get_posy() + 25);
     m_save_button.set_dim(80, 20);
-    m_save_button.set_bg_color(GRISSOMBRE);
+    m_save_button.set_bg_color(GRISCLAIR);
 
     m_save_button.add_child(m_save_button_label);
     m_save_button_label.set_message("SAVE");
@@ -31,8 +31,9 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
 
     m_top_box.add_child(m_load_file);
     m_load_file.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy()+ 10);
-    m_load_file.set_dim(100, 20);
-    m_load_file.set_bg_color(BLANCJAUNE);
+    m_load_file.set_dim(150, 20);
+    m_load_file.set_bg_color(SABLECLAIR);
+    m_load_file.set_edit_color(JAUNECLAIR);
 
     m_top_box.add_child(m_move_button);
     m_move_button.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy()+40);
@@ -41,6 +42,29 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
 
     m_move_button.add_child(m_move_button_label);
     m_move_button_label.set_message("MOVE");
+
+
+    m_top_box.add_child(m_mode_box);
+    m_mode_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
+    m_mode_box.set_dim(260, 20);
+    m_mode_box.set_border(0);
+
+    m_mode_box.add_child(m_button_structurel);
+    m_button_structurel.set_gravity_x(grman::GravityX::Left);
+    m_button_structurel.set_dim(128, 20);
+    m_button_structurel.set_bg_color(ROSECLAIR);
+    m_button_structurel.set_switch(true);
+
+    m_button_structurel.add_child(m_button_structurel_label);
+    m_button_structurel_label.set_message("Structurels");
+
+    m_mode_box.add_child(m_button_fonctionnel);
+    m_button_fonctionnel.set_gravity_x(grman::GravityX::Right);
+    m_button_fonctionnel.set_dim(128, 20);
+    m_button_fonctionnel.set_bg_color(GRISCLAIR);
+
+    m_button_fonctionnel.add_child(m_button_fonctionnel_label);
+    m_button_fonctionnel_label.set_message("Fonctionnels");
 
 
     m_top_box.add_child(m_delete_button);
@@ -64,20 +88,55 @@ void Fenetre::update()
     if(m_interface->m_load_button.clicked())
     {
         m_graphe.ChargerGraphe(m_interface->m_load_file.get_message(), 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
-        m_interface->m_load_file.set_edition(false);
+        m_interface->m_load_file.leave_edition();
         m_interface->m_load_file.clear_message();
     }
 
     if(m_interface->m_save_button.clicked())
     {
         m_graphe.SauverGraphe(m_interface->m_load_file.get_message());
-        m_interface->m_load_file.set_edition(false);
+        m_interface->m_load_file.leave_edition();
         m_interface->m_load_file.clear_message();
     }
 
     if(m_interface->m_close_button.clicked())
     {
+        m_graphe.m_select.unselect();
         m_graphe.close_graphe();
+        m_interface->m_button_structurel.set_switch(true);
+        m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
+        m_interface->m_button_fonctionnel.set_switch(false);
+        m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
+        mode = 1;
+    }
+
+    if(m_interface->m_button_structurel.switching())
+    {
+        if(m_interface->m_button_structurel.get_switch())
+        {
+            m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
+            m_interface->m_button_fonctionnel.set_switch(false);
+            m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
+            mode = 1;
+        }
+        else
+        {
+            m_interface->m_button_structurel.set_switch(true);
+        }
+    }
+    else if(m_interface->m_button_fonctionnel.switching())
+    {
+        if(m_interface->m_button_fonctionnel.get_switch())
+        {
+            m_interface->m_button_fonctionnel.set_bg_color(ROSECLAIR);
+            m_interface->m_button_structurel.set_switch(false);
+            m_interface->m_button_structurel.set_bg_color(GRISCLAIR);
+            mode = 2;
+        }
+        else
+        {
+            m_interface->m_button_fonctionnel.set_switch(true);
+        }
     }
 
 

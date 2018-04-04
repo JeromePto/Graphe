@@ -240,6 +240,8 @@ class WidgetTextEdit : public Widget
         int m_color = NOIR;
         FONT *m_font = font;
         bool m_edition = false;
+        int m_edit_color = -2;
+        int m_norm_color = -2;
         std::string m_tmp;
 
     public :
@@ -248,8 +250,10 @@ class WidgetTextEdit : public Widget
 
         void set_message(std::string message="");
         std::string get_message() { return m_message; }
-        void set_edition(bool edition) {m_edition = edition;}
         void clear_message() {m_message.clear();m_tmp.clear();}
+        void set_edit_color(int color) {m_edit_color = color;}
+        void enter_edition();
+        void leave_edition();
 
         virtual void interact_focus();
         virtual bool captures_focus() { return true; }
@@ -313,6 +317,7 @@ class WidgetButtonSwitch : public Widget
         bool get_switch() { return m_switch; }
         bool get_value() { return m_value; }
         void set_value(bool value) { m_value = value; }
+        void set_switch(bool a) {m_switch = a;}
 };
 
 
