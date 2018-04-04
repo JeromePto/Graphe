@@ -90,6 +90,7 @@ class VertexInterface
     friend class Vertex;
     friend class EdgeInterface;
     friend class Graph;
+    friend class Fenetre;
 
     private :
 
@@ -127,6 +128,7 @@ class Vertex
     friend class VertexInterface;
     friend class Edge;
     friend class EdgeInterface;
+    friend class Fenetre;
 
     private :
         /// liste des indices des arcs arrivant au sommet : accès aux prédécesseurs
@@ -219,7 +221,10 @@ class Edge
         /// Les constructeurs sont à compléter selon vos besoin...
         /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
         Edge (double weight=0, EdgeInterface *interface=nullptr) :
-            m_weight(weight), m_interface(interface)  {  }
+            m_from(0), m_to(0), m_weight(weight), m_interface(interface)  {  }
+
+        Edge (int from, int to, double weight=0, EdgeInterface *interface=nullptr) :
+            m_from(from), m_to(to), m_weight(weight), m_interface(interface)  {  }
 
         /// Edge étant géré par Graph ce sera la méthode update de graph qui appellera
         /// le pre_update et post_update de Edge (pas directement la boucle de jeu)
@@ -265,6 +270,8 @@ class GraphInterface
 
 class Graph
 {
+    friend class Fenetre;
+
     private :
 
         /// La "liste" des arêtes
@@ -292,6 +299,7 @@ class Graph
         /// Cette méthode est à enlever et remplacer par un système
         /// de chargement de fichiers par exemple.
         void make_example();
+        void delete_vertex(int idx);
 
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

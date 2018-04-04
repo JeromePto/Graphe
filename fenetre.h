@@ -17,14 +17,15 @@ class FenetreInterface
         /// La boite qui contient toute l'interface d'un graphe
         grman::WidgetBox m_top_box;
 
-        grman::WidgetBox m_graphe_box;
-
         grman::WidgetButton m_save_button;
         grman::WidgetText m_save_button_label;
         grman::WidgetButton m_load_button;
         grman::WidgetText m_load_button_label;
-        grman::WidgetButton m_move_button;
+        grman::WidgetButtonSwitch m_move_button;
         grman::WidgetText m_move_button_label;
+
+        grman::WidgetButton m_delete_button;
+        grman::WidgetText m_delete_button_label;
 
     public :
 

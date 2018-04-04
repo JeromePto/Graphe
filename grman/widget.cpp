@@ -218,7 +218,14 @@ void WidgetButton::interact_focus()
         m_value = true;
 }
 
-
+void WidgetButtonSwitch::interact_focus()
+{
+    if ( mouse_click )
+    {
+        m_value = true;
+        m_switch = !m_switch;
+    }
+}
 
 /***************************************************
                     VSLIDER

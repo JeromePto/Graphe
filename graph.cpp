@@ -10,7 +10,6 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     // La boite englobante
     m_top_box.set_pos(x, y);
     m_top_box.set_dim(100, 120);
-    m_top_box.set_moveable();
 
     // Une illustration...
     if (pic_name!="")
@@ -112,11 +111,10 @@ void Edge::post_update()
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
     m_top_box.set_dim(w, h);
-    m_top_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
+    m_top_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Down);
 
     m_top_box.add_child(m_main_box);
-    m_main_box.set_dim(w,h-TAILLE_BAR);
-    m_main_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Down);
+    m_main_box.set_dim(w, h);
     m_main_box.set_bg_color(BLANCJAUNE);
 }
 
@@ -128,7 +126,7 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
 /// "à la main" dans le code comme ça.
 void Graph::make_example()
 {
-    m_interface = std::make_shared<GraphInterface>(0, 0, LARGEUR_FENETRE, HAUTEUR_FENETRE);
+    m_interface = std::make_shared<GraphInterface>(0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
     // La ligne précédente est en gros équivalente à :
     // m_interface = new GraphInterface(50, 0, 750, 600);
 
@@ -155,6 +153,24 @@ void Graph::make_example()
     add_interfaced_edge(7, 2, 0, 100.0);
     add_interfaced_edge(8, 5, 2, 20.0);
     add_interfaced_edge(9, 3, 7, 80.0);
+}
+
+void Graph::delete_vertex(int idx)
+{
+    std::vector<int> aDel;
+    for(auto it = m_edges.end() ; it != m_edges.begin() ; --it)
+    {
+        std::cout << it->second.m_from << std::endl;
+        if(it->second.m_from == idx || it->second.m_to == idx)
+        {
+            aDel.push_back(it->first);
+        }
+    }
+    for(auto it : aDel)
+    {
+        m_edges.erase(it);
+    }
+    //m_vertices.erase(idx);
 }
 
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
@@ -212,6 +228,6 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
 
     EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]);
     m_interface->m_main_box.add_child(ei->m_top_edge);
-    m_edges[idx] = Edge(weight, ei);
+    m_edges[idx] = Edge(id_vert1, id_vert2, weight, ei);
 }
 

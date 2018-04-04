@@ -270,6 +270,22 @@ class WidgetButton : public Widget
 };
 
 
+class WidgetButtonSwitch : public Widget
+{
+    protected :
+        bool m_value = false;
+        bool m_switch = false;
+    public :
+
+        virtual void interact_focus();
+        virtual bool captures_focus() { return true; }
+
+        bool switching() { bool clk = m_value; m_value=false; return clk; }
+        bool get_switch() { return m_switch; }
+        bool get_value() { return m_value; }
+        void set_value(bool value) { m_value = value; }
+};
+
 
 /***************************************************
                     VSLIDER
