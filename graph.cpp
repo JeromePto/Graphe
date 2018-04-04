@@ -342,6 +342,31 @@ void Graph::delete_edge(int eidx)
     //std::cout << m_edges.size() << std::endl;
 }
 
+void Graph::close_graphe()
+{
+//    std::vector<int> aDel;
+//    for(auto it = m_edges.begin() ; it != m_edges.end() ; ++it)
+//    {
+//        aDel.push_back(it->first);
+//    }
+//    for(auto it : aDel)
+//    {
+//        delete_edge(it);
+//    }
+    for(auto it = m_edges.begin() ; it != m_edges.end() ; ++it)
+    {
+        delete_edge(it->first);
+
+    }
+    for(auto it = m_vertices.begin() ; it != m_vertices.end() ; ++it)
+    {
+        m_interface->m_main_box.remove_child(m_vertices[it->first].m_interface->m_top_box);
+        m_vertices.erase(it);
+    }
+    m_interface.reset();
+
+}
+
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
 void Graph::update()
 {

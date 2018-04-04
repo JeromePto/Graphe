@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 #include <allegro.h>
 
@@ -173,6 +174,7 @@ class Widget
         void update_interact();
         void update_pre_draw();
         void update_draw();
+        virtual void update_every() {}
 
         virtual void draw() {}
         virtual void draw_border();
@@ -229,6 +231,29 @@ class WidgetText : public Widget
         void set_message(std::string message="");
         std::string get_message() { return m_message; }
         void set_vertical(bool vertical=true) { m_vertical=vertical; set_message(m_message); } /// BRICOLAGE ...
+};
+
+class WidgetTextEdit : public Widget
+{
+    protected :
+        std::string m_message;
+        int m_color = NOIR;
+        FONT *m_font = font;
+        bool m_edition = false;
+        std::string m_tmp;
+
+    public :
+        WidgetTextEdit(std::string message="") { m_border=m_padding=0; set_message(message); }
+        virtual void draw();
+
+        void set_message(std::string message="");
+        std::string get_message() { return m_message; }
+        void set_edition(bool edition) {m_edition = edition;}
+        void clear_message() {m_message.clear();m_tmp.clear();}
+
+        virtual void interact_focus();
+        virtual bool captures_focus() { return true; }
+        virtual void update_interact();
 };
 
 

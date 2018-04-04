@@ -21,6 +21,9 @@ class FenetreInterface
         grman::WidgetText m_save_button_label;
         grman::WidgetButton m_load_button;
         grman::WidgetText m_load_button_label;
+        grman::WidgetTextEdit m_load_file;
+        grman::WidgetButton m_close_button;
+        grman::WidgetText m_close_button_label;
         grman::WidgetButtonSwitch m_move_button;
         grman::WidgetText m_move_button_label;
 

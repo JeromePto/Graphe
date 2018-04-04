@@ -334,6 +334,7 @@ class Graph
 
         void delete_vertex(int idx);
         void delete_edge(int idx);
+        void close_graphe();
 
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

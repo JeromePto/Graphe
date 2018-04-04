@@ -21,6 +21,7 @@ void Widget::update()
     update_interact();
     update_pre_draw();
     update_draw();
+    update_every();
 }
 
 /// Gestion des événements
@@ -31,7 +32,16 @@ void Widget::update_interact()
     /// Propagation de l'update aux elements enfants
     /// On interagit en 1er avec les éléments ajoutés en dernier
     for (auto it=m_children.rbegin(); it!=m_children.rend(); ++it)
-        (*it)->update_interact();
+    {
+        if(dynamic_cast<WidgetTextEdit*>(*it))
+        {
+            dynamic_cast<WidgetTextEdit*>(*it)->update_interact();
+        }
+        else
+        {
+            (*it)->update_interact();
+        }
+    }
 
     if (!gui_focus && !gui_over && is_mouse_over() && captures_focus())
         gui_over = this;
@@ -176,6 +186,54 @@ void WidgetText::set_message(std::string message)
     else
         set_dim( text_length(m_font, "M"), text_height(m_font)*m_message.length() );
     reframe();
+}
+
+
+
+void WidgetTextEdit::draw()
+{
+    textprintf_ex(m_view, font, 0, 5, m_color, m_bg_color, m_message.c_str());
+}
+
+void WidgetTextEdit::set_message(std::string message)
+{
+    m_message = message;
+    //set_dim( text_length(m_font, m_message.c_str()), text_height(m_font) );
+    reframe();
+}
+
+void WidgetTextEdit::interact_focus()
+{
+    if (mouse_click)
+    {
+        m_edition = !m_edition;
+    }
+}
+
+void WidgetTextEdit::update_interact()
+{
+    Widget::update_interact();
+    if(m_edition)
+    {
+        //std::cout << "!" << key_last << "!" << (int)key_last <<std::endl;
+        switch(key_last)
+        {
+        case 0:
+            break;
+        case 13:
+            m_edition = !m_edition;
+            break;
+        case 8:
+            if(m_tmp.size() > 0)
+                m_tmp.pop_back();
+            break;
+        default:
+            m_tmp += key_last;
+            break;
+        }
+
+        set_message(m_tmp);
+    }
 }
 
 

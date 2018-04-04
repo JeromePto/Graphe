@@ -14,15 +14,28 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_load_button_label.set_message("LOAD");
 
     m_top_box.add_child(m_load_button);
-    m_save_button.set_pos(m_load_button.get_posx(), m_load_button.get_posy() + 20);
+    m_save_button.set_pos(m_load_button.get_posx(), m_load_button.get_posy() + 25);
     m_save_button.set_dim(80, 20);
     m_save_button.set_bg_color(GRISSOMBRE);
 
     m_save_button.add_child(m_save_button_label);
     m_save_button_label.set_message("SAVE");
 
+    m_top_box.add_child(m_close_button);
+    m_close_button.set_pos(m_load_button.get_posx(), m_load_button.get_posy() + 50);
+    m_close_button.set_dim(80, 20);
+    m_close_button.set_bg_color(GRISCLAIR);
+
+    m_close_button.add_child(m_close_button_label);
+    m_close_button_label.set_message("CLOSE");
+
+    m_top_box.add_child(m_load_file);
+    m_load_file.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy()+ 10);
+    m_load_file.set_dim(100, 20);
+    m_load_file.set_bg_color(BLANCJAUNE);
+
     m_top_box.add_child(m_move_button);
-    m_move_button.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy());
+    m_move_button.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy()+40);
     m_move_button.set_dim(80, 20);
     m_move_button.set_bg_color(GRISCLAIR);
 
@@ -50,13 +63,23 @@ void Fenetre::update()
 
     if(m_interface->m_load_button.clicked())
     {
-        m_graphe.ChargerGraphe("fichier.txt", 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
+        m_graphe.ChargerGraphe(m_interface->m_load_file.get_message(), 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
+        m_interface->m_load_file.set_edition(false);
+        m_interface->m_load_file.clear_message();
     }
 
     if(m_interface->m_save_button.clicked())
     {
-        m_graphe.SauverGraphe("fichier.txt");
+        m_graphe.SauverGraphe(m_interface->m_load_file.get_message());
+        m_interface->m_load_file.set_edition(false);
+        m_interface->m_load_file.clear_message();
     }
+
+    if(m_interface->m_close_button.clicked())
+    {
+        m_graphe.close_graphe();
+    }
+
 
     if(m_interface->m_move_button.switching())
     {
