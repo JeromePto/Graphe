@@ -158,9 +158,9 @@ void Graph::make_example()
 void Graph::delete_vertex(int idx)
 {
     std::vector<int> aDel;
-    for(auto it = m_edges.end() ; it != m_edges.begin() ; --it)
+    for(auto it = m_edges.begin() ; it != m_edges.end() ; ++it)
     {
-        std::cout << it->second.m_from << std::endl;
+        //std::cout << it->second.m_from << " " << it->second.m_to << std::endl;
         if(it->second.m_from == idx || it->second.m_to == idx)
         {
             aDel.push_back(it->first);
@@ -168,9 +168,12 @@ void Graph::delete_vertex(int idx)
     }
     for(auto it : aDel)
     {
+        m_interface->m_main_box.remove_child(m_edges[it].m_interface->m_top_edge);
         m_edges.erase(it);
     }
-    //m_vertices.erase(idx);
+
+    m_interface->m_main_box.remove_child(m_vertices[idx].m_interface->m_top_box);
+    m_vertices.erase(idx);
 }
 
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

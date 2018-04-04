@@ -4,6 +4,23 @@
 #include "graph.h"
 #include "const.h"
 
+class Select
+{
+    int m_selected;
+    int m_vertex;
+    int m_edge;
+
+ public:
+
+    Select() : m_selected(0), m_vertex(0), m_edge(0) {}
+
+    int is_selected() {return m_selected;}
+    int vertex_selected() {return m_vertex;}
+    int edge_selected() {return m_edge;}
+
+
+};
+
 class FenetreInterface
 {
     friend class Fenetre;
@@ -42,10 +59,11 @@ class Fenetre
         /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
         std::shared_ptr<FenetreInterface> m_interface = nullptr;
         Graph m_graphe;
+        Select m_select;
 
     public:
 
-        Fenetre (FenetreInterface *interface=nullptr) : m_interface(interface), m_graphe(Graph())  {m_interface = std::make_shared<FenetreInterface>(0, 0, 1024, 768);}
+        Fenetre (FenetreInterface *interface=nullptr) : m_interface(interface), m_graphe(Graph()), m_select(Select())  {m_interface = std::make_shared<FenetreInterface>(0, 0, 1024, 768);}
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
