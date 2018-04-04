@@ -10,6 +10,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     // La boite englobante
     m_top_box.set_pos(x, y);
     m_top_box.set_dim(100, 120);
+    m_top_box.set_lock_focus(true);
 
     // Une illustration...
     if (pic_name!="")
@@ -75,10 +76,15 @@ EdgeInterface::EdgeInterface(Vertex& from, Vertex& to)
     m_top_edge.attach_to(to.m_interface->m_top_box);
     m_top_edge.reset_arrow_with_bullet();
 
+    m_top_edge.add_child(m_box_weight);
+    m_box_weight.set_dim(24, 12);
+
     // Label de visualisation de valeur
-    m_top_edge.add_child(m_label_weight);
+    m_box_weight.add_child(m_label_weight);
     m_label_weight.set_dim(24, 12);
     m_label_weight.set_bg_color(BLANC);
+
+    m_top_edge.set_lock_focus(true);
 
 }
 
@@ -103,8 +109,61 @@ void Edge::post_update()
 
 
 /***************************************************
-                    GRAPH
+                    GRAPH & Co
 ****************************************************/
+
+void Select::add_vertex(int id, Vertex & vertex)
+{
+    m_file.push_back(std::pair<int, int>(1, id));
+}
+
+void Select::add_edge(int id, Edge & edge)
+{
+    m_file.push_back(std::pair<int, int>(2, id));
+}
+
+void Select::work(std::map<int, Vertex> mapVertex, std::map<int, Edge> mapEdge)
+{
+    if(m_file.size() > 1)
+    {
+        std::pair<int,int> tmp = m_file.front();
+        m_file.pop_front();
+
+        while(m_file.size() > 1)
+        {
+            if(tmp.first == 1 && mapVertex[tmp.second].m_interface->m_top_box.is_selected())
+            {
+                mapVertex[tmp.second].m_interface->m_top_box.set_selected(false);
+            }
+            else if(tmp.first == 2 && mapEdge[tmp.second].m_interface->m_top_edge.is_selected())
+            {
+                mapEdge[tmp.second].m_interface->m_top_edge.set_selected(false);
+            }
+            if(m_file.front() == tmp)
+            {
+                m_file.pop_front();
+            }
+            else
+            {
+                while(m_file.size() > 1)
+                {
+                    if(m_file.back() != tmp && m_file.back() != m_file.front())
+                    {
+                        if(m_file.back().first == 1 && mapVertex[m_file.back().second].m_interface->m_top_box.is_selected())
+                        {
+                            mapVertex[m_file.back().second].m_interface->m_top_box.set_selected(false);
+                        }
+                        else if(m_file.back().first == 2 && mapEdge[m_file.back().second].m_interface->m_top_edge.is_selected())
+                        {
+                            mapEdge[m_file.back().second].m_interface->m_top_edge.set_selected(false);
+                        }
+                    }
+                    m_file.pop_back();
+                }
+            }
+        }
+    }
+}
 
 /// Ici le constructeur se contente de préparer un cadre d'accueil des
 /// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
@@ -117,7 +176,6 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_main_box.set_dim(w, h);
     m_main_box.set_bg_color(BLANCJAUNE);
 }
-
 
 /// Méthode spéciale qui construit un graphe arbitraire (démo)
 /// Cette méthode est à enlever et remplacer par un système
@@ -176,6 +234,12 @@ void Graph::delete_vertex(int idx)
     m_vertices.erase(idx);
 }
 
+void Graph::delete_edge(int idx)
+{
+    m_interface->m_main_box.remove_child(m_edges[idx].m_interface->m_top_edge);
+    m_edges.erase(idx);
+}
+
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
 void Graph::update()
 {
@@ -191,11 +255,24 @@ void Graph::update()
     m_interface->m_top_box.update();
 
     for (auto &elt : m_vertices)
+    {
         elt.second.post_update();
+        if(elt.second.m_interface->m_top_box.is_selected())
+        {
+            m_select.add_vertex(elt.first, elt.second);
+        }
+    }
 
     for (auto &elt : m_edges)
+    {
         elt.second.post_update();
+        if(elt.second.m_interface->m_top_edge.is_selected())
+        {
+            m_select.add_edge(elt.first, elt.second);
+        }
+    }
 
+    m_select.work(m_vertices, m_edges);
 }
 
 /// Aide à l'ajout de sommets interfacés

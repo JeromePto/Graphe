@@ -76,6 +76,6 @@ void Fenetre::update()
     if(m_interface->m_delete_button.clicked())
     {
         std::cout << "del\n";
-        m_graphe.delete_vertex(2);
+        m_graphe.delete_edge(2);
     }
 }

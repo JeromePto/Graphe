@@ -371,6 +371,9 @@ class WidgetBox : public Widget
         // La WidgetBox reste dans le cadre de son parent (préférable)
         bool m_contained = true;
 
+        bool m_lock_focus = false;
+        bool m_selected = false;
+
         // Position au moment du click quand on commence à bouger la WidgetBox
         Coords m_pos_start_move;
 
@@ -380,6 +383,9 @@ class WidgetBox : public Widget
         virtual void interact_focus();
         virtual bool captures_focus() { return true; }
         void set_moveable(bool moveable=true) { m_moveable = moveable; }
+        void set_lock_focus(bool lock = true) {m_lock_focus = lock;}
+        void set_selected(bool selected);
+        bool is_selected() {return m_selected;}
 };
 
 
@@ -458,6 +464,10 @@ class WidgetEdge : public Widget
 
         void set_children_position(double rel_pos) { m_children_position = rel_pos; }
         void set_children_lateral(double abs_lat) { m_children_lateral = abs_lat; }
+
+        void set_lock_focus(bool lock = true);
+        void set_selected(bool selected);
+        bool is_selected();
 };
 
 

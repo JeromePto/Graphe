@@ -116,6 +116,8 @@ namespace grman
 #define COULEURALEATOIRESOMBRE makecol(rand()&0x7F, rand()&0x7F, rand()&0x7F)
 #define COULEURALEATOIRECLAIR makecol((rand()&0x7F)+0x80, (rand()&0x7F)+0x80, (rand()&0x7F)+0x80)
 
+#define COULEURSELEC ROUGE
+
 }
 
 #endif // COULEURS_H_INCLUDED

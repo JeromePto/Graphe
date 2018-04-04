@@ -314,6 +314,11 @@ void WidgetBox::interact_focus()
     if (mouse_click)
     {
         m_pos_start_move = m_frame.pos;
+        if (m_lock_focus)
+        {
+            m_selected = !m_selected;
+            set_selected(m_selected);
+        }
     }
 
     if (m_moveable)
@@ -341,6 +346,23 @@ void WidgetBox::interact_focus()
         }
     }
 
+}
+
+void WidgetBox::set_selected(bool selected)
+{
+    m_selected = selected;
+    if(m_selected)
+    {
+        m_border_color = COULEURSELEC;
+        m_border_color_focus = COULEURSELEC;
+        m_border_color_over = COULEURSELEC;
+    }
+    else
+    {
+        m_border_color = GRISSOMBRE;
+        m_border_color_over = VIOLETSOMBRE;
+        m_border_color_focus = ORANGESOMBRE;
+    }
 }
 
 
@@ -411,6 +433,30 @@ void WidgetEdge::draw()
 
 }
 
+void WidgetEdge::set_lock_focus(bool lock)
+{
+    if(dynamic_cast<WidgetBox*>(get_child(0)))
+    {
+        dynamic_cast<WidgetBox*>(get_child(0))->set_lock_focus(lock);
+    }
+}
+
+void WidgetEdge::set_selected(bool selected)
+{
+    if(dynamic_cast<WidgetBox*>(get_child(0)))
+    {
+        dynamic_cast<WidgetBox*>(get_child(0))->set_selected(selected);
+    }
+}
+
+bool WidgetEdge::is_selected()
+{
+    if(dynamic_cast<WidgetBox*>(get_child(0)))
+    {
+        return dynamic_cast<WidgetBox*>(get_child(0))->is_selected();
+    }
+    return false;
+}
 
 
 }
