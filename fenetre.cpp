@@ -34,6 +34,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_delete_button.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
     m_delete_button.set_dim(80, 20);
     m_delete_button.set_bg_color(GRISCLAIR);
+    m_delete_button.set_tmp_pos();
 
     m_delete_button.add_child(m_delete_button_label);
     m_delete_button_label.set_message("DELETE");
@@ -49,12 +50,16 @@ void Fenetre::update()
 
     if(m_interface->m_load_button.clicked())
     {
-        std::cout << "clic" << std::endl;
+        m_graphe.ChargerGraphe("fichier.txt", 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
+    }
+
+    if(m_interface->m_save_button.clicked())
+    {
+        m_graphe.SauverGraphe("fichier.txt");
     }
 
     if(m_interface->m_move_button.switching())
     {
-        std::cout << "ll" << std::endl;
         if(m_interface->m_move_button.get_switch())
         {
             m_interface->m_move_button.set_bg_color(BLEU);
@@ -73,9 +78,27 @@ void Fenetre::update()
         }
     }
 
-    if(m_interface->m_delete_button.clicked())
+    if(m_graphe.m_select.st_selected())
     {
-        std::cout << "del\n";
-        m_graphe.delete_edge(2);
+        m_interface->m_delete_button.back_tmp_pos();
+
+        if(m_graphe.m_select.is_vertex_selected())
+        {
+            if(m_interface->m_delete_button.clicked())
+            {
+                m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
+            }
+        }
+        else if(m_graphe.m_select.is_edge_selected())
+        {
+            if(m_interface->m_delete_button.clicked())
+            {
+                m_graphe.delete_edge(m_graphe.m_select.edge_selected());
+            }
+        }
+    }
+    else
+    {
+        m_interface->m_delete_button.set_pos(2000, 2000);
     }
 }

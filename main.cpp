@@ -2,11 +2,14 @@
 #include <iostream>
 
 #include "fenetre.h"
+
 volatile int close_button_pressed = 0;
 void close_button_handler()
 {
     close_button_pressed = 1;
 }
+END_OF_FUNCTION(close_button_handler)
+LOCK_FUNCTION(close_button_handler);
 
 int main()
 {
@@ -18,11 +21,8 @@ int main()
 
     /// Un exemple de graphe
     Fenetre g;
-    g.make_example();
+    //g.make_example();
 
-    END_OF_FUNCTION(close_button_handler)
-
-    LOCK_FUNCTION(close_button_handler);
     set_close_button_callback(close_button_handler);
 
     /// Vous gardez la main sur la "boucle de jeu"

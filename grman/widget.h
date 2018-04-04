@@ -49,6 +49,7 @@ class Widget
 
         Frame m_frame;
         Frame m_abs_frame;
+        Coords m_tmp_pos;
 
         // Viewport du contenu (intérieur Padding)
         BITMAP *m_view = nullptr;
@@ -137,6 +138,9 @@ class Widget
         int get_posx() { return m_frame.pos.x-get_parent_bp(); }
         int get_posy() { return m_frame.pos.y-get_parent_bp(); }
         Coords get_pos() { return Coords(get_posx(), get_posy()); }
+
+        void set_tmp_pos() {m_tmp_pos = get_pos();}
+        void back_tmp_pos() {set_pos(m_tmp_pos);}
 
 
         void set_gravity_xy(GravityX gx, GravityY gy)
@@ -354,6 +358,9 @@ class WidgetImage : public Widget
         void set_animate_tempo(int tempo) { m_animate_tempo = tempo; }
 
         void set_pic_idx(int pic_idx) { m_pic_idx=pic_idx; }
+
+        std::string get_pic_name() {return m_pic_name;}
+        int get_pic_idx () {return m_pic_idx;}
 };
 
 

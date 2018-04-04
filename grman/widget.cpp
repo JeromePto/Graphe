@@ -351,17 +351,22 @@ void WidgetBox::interact_focus()
 void WidgetBox::set_selected(bool selected)
 {
     m_selected = selected;
-    if(m_selected)
+    if(m_lock_focus)
     {
-        m_border_color = COULEURSELEC;
-        m_border_color_focus = COULEURSELEC;
-        m_border_color_over = COULEURSELEC;
-    }
-    else
-    {
-        m_border_color = GRISSOMBRE;
-        m_border_color_over = VIOLETSOMBRE;
-        m_border_color_focus = ORANGESOMBRE;
+        if(m_selected)
+        {
+            m_border_color = COULEURSELEC;
+            m_border_color_focus = COULEURSELEC;
+            m_border_color_over = COULEURSELEC;
+            m_border = 1;
+        }
+        else
+        {
+            m_border_color = GRISSOMBRE;
+            m_border_color_over = VIOLETSOMBRE;
+            m_border_color_focus = ORANGESOMBRE;
+            m_border = 1;
+        }
     }
 }
 

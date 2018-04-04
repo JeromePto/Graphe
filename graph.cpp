@@ -122,7 +122,7 @@ void Select::add_edge(int id, Edge & edge)
     m_file.push_back(std::pair<int, int>(2, id));
 }
 
-void Select::work(std::map<int, Vertex> mapVertex, std::map<int, Edge> mapEdge)
+void Select::work()
 {
     if(m_file.size() > 1)
     {
@@ -131,13 +131,13 @@ void Select::work(std::map<int, Vertex> mapVertex, std::map<int, Edge> mapEdge)
 
         while(m_file.size() > 1)
         {
-            if(tmp.first == 1 && mapVertex[tmp.second].m_interface->m_top_box.is_selected())
+            if(tmp.first == 1 && m_mapVertex[tmp.second].m_interface->m_top_box.is_selected())
             {
-                mapVertex[tmp.second].m_interface->m_top_box.set_selected(false);
+                m_mapVertex[tmp.second].m_interface->m_top_box.set_selected(false);
             }
-            else if(tmp.first == 2 && mapEdge[tmp.second].m_interface->m_top_edge.is_selected())
+            else if(tmp.first == 2 && m_mapEdge[tmp.second].m_interface->m_top_edge.is_selected())
             {
-                mapEdge[tmp.second].m_interface->m_top_edge.set_selected(false);
+                m_mapEdge[tmp.second].m_interface->m_top_edge.set_selected(false);
             }
             if(m_file.front() == tmp)
             {
@@ -149,13 +149,13 @@ void Select::work(std::map<int, Vertex> mapVertex, std::map<int, Edge> mapEdge)
                 {
                     if(m_file.back() != tmp && m_file.back() != m_file.front())
                     {
-                        if(m_file.back().first == 1 && mapVertex[m_file.back().second].m_interface->m_top_box.is_selected())
+                        if(m_file.back().first == 1 && m_mapVertex[m_file.back().second].m_interface->m_top_box.is_selected())
                         {
-                            mapVertex[m_file.back().second].m_interface->m_top_box.set_selected(false);
+                            m_mapVertex[m_file.back().second].m_interface->m_top_box.set_selected(false);
                         }
-                        else if(m_file.back().first == 2 && mapEdge[m_file.back().second].m_interface->m_top_edge.is_selected())
+                        else if(m_file.back().first == 2 && m_mapEdge[m_file.back().second].m_interface->m_top_edge.is_selected())
                         {
-                            mapEdge[m_file.back().second].m_interface->m_top_edge.set_selected(false);
+                            m_mapEdge[m_file.back().second].m_interface->m_top_edge.set_selected(false);
                         }
                     }
                     m_file.pop_back();
@@ -165,16 +165,30 @@ void Select::work(std::map<int, Vertex> mapVertex, std::map<int, Edge> mapEdge)
     }
 }
 
+void Select::unselect()
+{
+    while(!m_file.empty())
+    {
+        if(m_file.back().first == 1 && m_mapVertex.count(m_file.back().second) > 0 && m_mapVertex[m_file.back().second].m_interface->m_top_box.is_selected())
+        {
+            m_mapVertex[m_file.back().second].m_interface->m_top_box.set_selected(false);
+        }
+        else if(m_file.back().first == 2 && m_mapEdge.count(m_file.back().second) > 0 && m_mapEdge[m_file.back().second].m_interface->m_top_edge.is_selected())
+        {
+            m_mapEdge[m_file.back().second].m_interface->m_top_edge.set_selected(false);
+        }
+        m_file.pop_back();
+    }
+}
+
 /// Ici le constructeur se contente de préparer un cadre d'accueil des
 /// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
-    m_top_box.set_dim(w, h);
-    m_top_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Down);
-
-    m_top_box.add_child(m_main_box);
     m_main_box.set_dim(w, h);
+    m_main_box.set_gravity_y(grman::GravityY::Down);
     m_main_box.set_bg_color(BLANCJAUNE);
+    m_main_box.set_lock_focus(true);
 }
 
 /// Méthode spéciale qui construit un graphe arbitraire (démo)
@@ -213,6 +227,58 @@ void Graph::make_example()
     add_interfaced_edge(9, 3, 7, 80.0);
 }
 
+void Graph::ChargerGraphe(std::string fic, int x, int y, int w, int h)
+{
+    m_interface = std::make_shared<GraphInterface>(x, y, w, h);
+    // La ligne précédente est en gros équivalente à :
+    // m_interface = new GraphInterface(50, 0, 750, 600);
+
+    std::ifstream fichier(fic.c_str());
+    int nombreS, nombreA;
+    double value;
+    int a, b, idvalue;
+    std::string image;
+    int sommet1, sommet2;
+    double poids;
+
+    if(fichier)
+    {
+        fichier >> nombreS;
+        for (int i=0; i < nombreS; i++)
+        {
+            fichier >> value >> a >> b >> image>> idvalue;
+            add_interfaced_vertex(i, value, a, b, image, idvalue);
+
+        }
+
+        fichier >> nombreA;
+        for (int j=0; j<nombreA; j++)
+        {
+            fichier >> sommet1 >> sommet2 >> poids;
+            add_interfaced_edge(j,sommet1,sommet2,poids);
+        }
+    }
+}
+
+void Graph::SauverGraphe(std::string fic1)
+{
+    std::ofstream fichier(fic1.c_str());
+    if (fichier)
+    {
+        fichier << m_vertices.size() << std::endl;
+        for (auto &e : m_vertices)
+        {
+            fichier << e.second.m_value << " " << e.second.m_interface->m_top_box.get_posx() << " " << e.second.m_interface ->m_top_box.get_posy() << " "
+                    << e.second.m_interface->m_img.get_pic_name() << " " << e.second.m_interface->m_img.get_pic_idx() << std::endl;
+        }
+        fichier << m_edges.size() << std::endl;
+        for (auto &e : m_edges)
+        {
+            fichier << e.second.m_from << " " << e.second.m_to << " " << e.second.m_weight << std::endl;
+        }
+    }
+}
+
 void Graph::delete_vertex(int idx)
 {
     std::vector<int> aDel;
@@ -226,18 +292,54 @@ void Graph::delete_vertex(int idx)
     }
     for(auto it : aDel)
     {
-        m_interface->m_main_box.remove_child(m_edges[it].m_interface->m_top_edge);
-        m_edges.erase(it);
+        delete_edge(it);
     }
 
     m_interface->m_main_box.remove_child(m_vertices[idx].m_interface->m_top_box);
     m_vertices.erase(idx);
 }
 
-void Graph::delete_edge(int idx)
+void Graph::delete_edge(int eidx)
 {
-    m_interface->m_main_box.remove_child(m_edges[idx].m_interface->m_top_edge);
-    m_edges.erase(idx);
+    /// référence vers le Edge à enlever
+    Edge &remed=m_edges.at(eidx);
+
+    //std::cout << "Removing edge " << eidx << " " << remed.m_from << "->" << remed.m_to << " " << remed.m_weight << std::endl;
+
+    /// Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
+    //std::cout << m_vertices[remed.m_from].m_in.size() << " " << m_vertices[remed.m_from].m_out.size() << std::endl;
+    //std::cout << m_vertices[remed.m_to].m_in.size() << " " << m_vertices[remed.m_to].m_out.size() << std::endl;
+    //std::cout << m_edges.size() << std::endl;
+
+    /// test : on a bien des éléments interfacés
+    if (m_interface && remed.m_interface)
+    {
+    /// Ne pas oublier qu'on a fait ça à l'ajout de l'arc :
+    /* EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]); */
+    /* m_interface->m_main_box.add_child(ei->m_top_edge); */
+    /* m_edges[idx] = Edge(weight, ei); */
+    /// Le new EdgeInterface ne nécessite pas de delete car on a un shared_ptr
+    /// Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
+    /// mais il faut bien enlever le conteneur d'interface m_top_edge de l'arc de la main_box du graphe
+    m_interface->m_main_box.remove_child( remed.m_interface->m_top_edge );
+    }
+
+    /// Il reste encore à virer l'arc supprimé de la liste des entrants et sortants des 2 sommets to et from !
+    /// References sur les listes de edges des sommets from et to
+    std::vector<int> &vefrom = m_vertices[remed.m_from].m_out;
+    std::vector<int> &veto = m_vertices[remed.m_to].m_in;
+    vefrom.erase( std::remove( vefrom.begin(), vefrom.end(), eidx ), vefrom.end() );
+    veto.erase( std::remove( veto.begin(), veto.end(), eidx ), veto.end() );
+
+    /// Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
+    /// Il suffit donc de supprimer l'entrée de la map pour supprimer à la fois l'Edge et le EdgeInterface
+    /// mais malheureusement ceci n'enlevait pas automatiquement l'interface top_edge en tant que child de main_box !
+    m_edges.erase( eidx );
+
+    /// Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
+    //std::cout << m_vertices[remed.m_from].m_in.size() << " " << m_vertices[remed.m_from].m_out.size() << std::endl;
+    //std::cout << m_vertices[remed.m_to].m_in.size() << " " << m_vertices[remed.m_to].m_out.size() << std::endl;
+    //std::cout << m_edges.size() << std::endl;
 }
 
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
@@ -252,7 +354,12 @@ void Graph::update()
     for (auto &elt : m_edges)
         elt.second.pre_update();
 
-    m_interface->m_top_box.update();
+    m_interface->m_main_box.update();
+    if(m_interface->m_main_box.is_selected())
+    {
+        m_interface->m_main_box.set_selected(false);
+        m_select.unselect();
+    }
 
     for (auto &elt : m_vertices)
     {
@@ -272,7 +379,7 @@ void Graph::update()
         }
     }
 
-    m_select.work(m_vertices, m_edges);
+    m_select.work();
 }
 
 /// Aide à l'ajout de sommets interfacés
@@ -308,6 +415,10 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
 
     EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]);
     m_interface->m_main_box.add_child(ei->m_top_edge);
-    m_edges[idx] = Edge(id_vert1, id_vert2, weight, ei);
+    m_edges[idx] = Edge(weight, ei);
+    m_edges[idx].m_from = id_vert1;
+    m_edges[idx].m_to = id_vert2;
+    m_vertices[id_vert1].m_out.push_back(idx);
+    m_vertices[id_vert2].m_out.push_back(idx);
 }
 

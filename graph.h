@@ -76,6 +76,7 @@
 #include <string>
 #include <memory>
 #include <deque>
+#include <fstream>
 
 #include "grman/grman.h"
 #include "const.h"
@@ -228,10 +229,7 @@ class Edge
         /// Les constructeurs sont à compléter selon vos besoin...
         /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
         Edge (double weight=0, EdgeInterface *interface=nullptr) :
-            m_from(0), m_to(0), m_weight(weight), m_interface(interface)  {  }
-
-        Edge (int from, int to, double weight=0, EdgeInterface *interface=nullptr) :
-            m_from(from), m_to(to), m_weight(weight), m_interface(interface)  {  }
+            m_weight(weight), m_interface(interface)  {  }
 
         /// Edge étant géré par Graph ce sera la méthode update de graph qui appellera
         /// le pre_update et post_update de Edge (pas directement la boucle de jeu)
@@ -251,17 +249,24 @@ class Select
 {
     // Vertex = 1, Edge = 2
     std::deque<std::pair<int, int>> m_file;
+    std::map<int, Vertex> & m_mapVertex;
+    std::map<int, Edge> & m_mapEdge;
 
  public:
 
-    Select() : m_file() {}
+    Select(std::map<int, Vertex> & mapVertex, std::map<int, Edge> & mapEdge) : m_file(), m_mapVertex(mapVertex), m_mapEdge(mapEdge) {}
 
-    bool is_selected() {return m_file.size() >= 1;}
+    bool st_selected() {return m_file.size() >= 1;}
+    bool is_vertex_selected() {return st_selected() && m_file.front().first == 1;}
+    bool is_edge_selected() {return st_selected() && m_file.front().first == 2;}
+    int vertex_selected() {return is_vertex_selected() ? m_file.front().second : -1;}
+    int edge_selected() {return is_edge_selected() ? m_file.front().second : -1;}
 
     void add_vertex(int id, Vertex & vertex);
     void add_edge(int id, Edge & edge);
 
-    void work(std::map<int, Vertex> mapVertex, std::map<int, Edge> mapEdge);
+    void work();
+    void unselect();
 
 };
 
@@ -276,8 +281,6 @@ class GraphInterface
         /// le paramétrer ( voir l'implémentation du constructeur dans le .cpp )
 
         /// La boite qui contient toute l'interface d'un graphe
-        grman::WidgetBox m_top_box;
-
         /// Dans cette boite seront ajoutés les (interfaces des) sommets et des arcs...
         grman::WidgetBox m_main_box;
 
@@ -316,7 +319,7 @@ class Graph
         /// Les constructeurs sont à compléter selon vos besoin...
         /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
         Graph (GraphInterface *interface=nullptr) :
-            m_interface(interface), m_select()  {  }
+            m_interface(interface), m_select(m_vertices, m_edges)  {  }
 
         void add_interfaced_vertex(int idx, double value, int x, int y, std::string pic_name="", int pic_idx=0 );
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
@@ -326,6 +329,9 @@ class Graph
         /// Cette méthode est à enlever et remplacer par un système
         /// de chargement de fichiers par exemple.
         void make_example();
+        void ChargerGraphe(std::string fic, int x, int y, int w, int h);
+        void SauverGraphe(std::string fic1);
+
         void delete_vertex(int idx);
         void delete_edge(int idx);
 
