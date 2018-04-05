@@ -43,6 +43,14 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_move_button.add_child(m_move_button_label);
     m_move_button_label.set_message("MOVE");
 
+    m_top_box.add_child(m_edit_button);
+    m_edit_button.set_pos(m_move_button.get_posx()+90, m_move_button.get_posy());
+    m_edit_button.set_dim(80, 20);
+    m_edit_button.set_bg_color(GRISCLAIR);
+
+    m_edit_button.add_child(m_edit_button_label);
+    m_edit_button_label.set_message("EDIT");
+
 
     m_top_box.add_child(m_mode_box);
     m_mode_box.set_gravity_y(grman::GravityY::Up);
@@ -180,26 +188,7 @@ void Fenetre::update()
         }
     }
 
-
-    if(m_interface->m_move_button.switching())
-    {
-        if(m_interface->m_move_button.get_switch())
-        {
-            m_interface->m_move_button.set_bg_color(BLEU);
-            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
-            {
-                it->second.m_interface->m_top_box.set_moveable(true);
-            }
-        }
-        else
-        {
-            m_interface->m_move_button.set_bg_color(GRISCLAIR);
-            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
-            {
-                it->second.m_interface->m_top_box.set_moveable(false);
-            }
-        }
-    }
+    update_edit_button();
 
     if(m_graphe.m_select.st_selected())
     {
@@ -237,5 +226,46 @@ void Fenetre::update_struct()
     else
     {
         m_interface->m_struct_box.set_pos(2000, 2000);
+    }
+}
+
+void Fenetre::update_edit_button()
+{
+    if(m_interface->m_move_button.switching())
+    {
+        if(m_interface->m_move_button.get_switch())
+        {
+            m_interface->m_move_button.set_bg_color(BLEUCLAIR);
+            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
+            {
+                it->second.m_interface->m_top_box.set_moveable(true);
+            }
+        }
+        else
+        {
+            m_interface->m_move_button.set_bg_color(GRISCLAIR);
+            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
+            {
+                it->second.m_interface->m_top_box.set_moveable(false);
+            }
+        }
+    }
+
+    if(m_interface->m_edit_button.switching())
+    {
+        if(m_interface->m_edit_button.get_switch())
+        {
+            m_interface->m_edit_button.set_bg_color(BLEUCLAIR);
+            m_interface->m_move_button.set_switch(false);
+        }
+        else
+        {
+            m_interface->m_edit_button.set_bg_color(GRISCLAIR);
+        }
+    }
+
+    if(m_interface->m_move_button.switching() || m_interface->m_edit_button.switching())
+    {
+
     }
 }

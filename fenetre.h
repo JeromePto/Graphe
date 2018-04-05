@@ -26,6 +26,8 @@ class FenetreInterface
         grman::WidgetText m_close_button_label;
         grman::WidgetButtonSwitch m_move_button;
         grman::WidgetText m_move_button_label;
+        grman::WidgetButtonSwitch m_edit_button;
+        grman::WidgetText m_edit_button_label;
 
         grman::WidgetBox m_mode_box;
         grman::WidgetButtonSwitch m_button_structurel;
@@ -69,6 +71,7 @@ class Fenetre
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
         void update_struct();
+        void update_edit_button();
 
         void make_example() {m_graphe.make_example();}
 };
