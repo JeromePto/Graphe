@@ -1,0 +1,1 @@
+pour charger un fichier taper son nom dans la bar jaune et appuyer sur LOAD, pareil pour sauvegarder avec le bouton SAVE

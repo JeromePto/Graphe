@@ -336,6 +336,9 @@ class Graph
         void make_example();
         void ChargerGraphe(std::string fic, int x, int y, int w, int h);
         void SauverGraphe(std::string fic1);
+        std::vector<std::vector<bool>> matrice_adj();
+        std::vector<int> once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s);
+        std::vector<std::vector<int>> Sconnexe();
 
         void delete_vertex(int idx);
         void delete_edge(int idx);

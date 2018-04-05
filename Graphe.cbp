@@ -38,6 +38,7 @@
 			<Add library="jpgalleg" />
 			<Add library="alleg44.dll" />
 		</Linker>
+		<Unit filename="basics.h" />
 		<Unit filename="const.h" />
 		<Unit filename="fenetre.cpp" />
 		<Unit filename="fenetre.h" />

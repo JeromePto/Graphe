@@ -9,8 +9,9 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 {
     // La boite englobante
     m_top_box.set_pos(x, y);
-    m_top_box.set_dim(100, 120);
+    m_top_box.set_dim(TAILLE_IMAGE, TAILLE_IMAGE + HAUTEUR_BAR_IMAGE);
     m_top_box.set_lock_focus(true);
+    m_top_box.set_padding(0);
 
     // Une illustration...
     if (pic_name!="")
@@ -19,22 +20,27 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
         m_img.set_pic_name(pic_name);
         m_img.set_pic_idx(pic_idx);
         m_img.set_gravity_y(grman::GravityY::Up);
+        m_img.set_padding(0);
+        m_img.set_margin(0);
     }
 
     m_top_box.add_child(m_down_box);
-    m_down_box.set_dim(100, 20);
+    m_down_box.set_dim(m_top_box.get_dimx()-6, HAUTEUR_BAR_IMAGE);
     m_down_box.set_gravity_y(grman::GravityY::Down);
     m_down_box.set_bg_color(BLANC);
+    m_down_box.set_padding(0);
+    m_down_box.set_margin(0);
+    m_down_box.set_border(0);
 
     // Label de visualisation de valeur
     m_top_box.add_child( m_label_value );
     m_label_value.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Down);
-    m_label_value.set_margin(4);
+    m_label_value.set_margin(3);
 
 
     m_top_box.add_child( m_label_idx );
     m_label_idx.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Down);
-    m_label_idx.set_margin(4);
+    m_label_idx.set_margin(3);
     m_label_idx.set_message( std::to_string(idx) );
 }
 
@@ -271,6 +277,149 @@ void Graph::SauverGraphe(std::string fic1)
             fichier << e.second.m_from << " " << e.second.m_to << " " << e.second.m_weight << std::endl;
         }
     }
+}
+
+std::vector<std::vector<bool>> Graph::matrice_adj()
+{
+    std::vector<std::vector<bool>> out;
+
+    for(unsigned i = 0 ; i < m_vertices.size() ; ++i)
+    {
+        out.push_back(std::vector<bool>());
+        for(unsigned j = 0 ; j < m_vertices.size() ; ++j)
+        {
+            out[i].push_back(false);
+        }
+    }
+
+    for(auto it : m_edges)
+    {
+        out[it.second.m_from][it.second.m_to] = true;
+    }
+
+    return out;
+}
+
+std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s)
+{
+    std::vector<int> c1, c2, c, marques;
+    int x, y;
+    int ajoute = 1;
+
+    for(int i = 0 ; i < ordre ; ++i)
+    {
+        c1.push_back(0);
+        c2.push_back(0);
+        c.push_back(0);
+        marques.push_back(0);
+    }
+
+    c1[s] = 1;
+    c2[s] = 1;
+
+    while(ajoute)
+    {
+        ajoute = 0;
+        for(x = 0 ; x < ordre ; x++)
+        {
+            if(!marques[x] && c1[x])
+            {
+                marques[x] = 1;
+                for(y = 0 ; y < ordre ; y++)
+                {
+                    if(adjacence[x][y] && !marques[y])
+                    {
+                        c1[y] = 1;
+                        ajoute = 1;
+                    }
+                }
+            }
+        }
+    }
+
+
+    for(int i = 0 ; i < ordre ; ++i)
+    {
+        std::cout << c1[i] << " ";
+        marques[i] = 0;
+    }
+    ajoute = 1;
+    std::cout << std::endl;
+    while(ajoute)
+    {
+        ajoute = 0;
+        for(x = 0 ; x < ordre ; x++)
+        {
+            if(!marques[x] && c2[x])
+            {
+                marques[x] = 1;
+                for(y = 0 ; y < ordre ; y++)
+                {
+                    if(adjacence[y][x] && !marques[y])
+                    {
+                        c2[y] = 1;
+                        ajoute = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    for(int i = 0 ; i < ordre ; ++i)
+    {
+        std::cout << c2[i] << " ";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    for(x= 0 ; x < ordre ; x++)
+    {
+        c[x] = c1[x] & c2[x];
+    }
+
+    return c;
+}
+
+std::vector<std::vector<int>> Graph::Sconnexe()
+{
+    std::vector<std::vector<bool>> adjacence = matrice_adj();
+    int ordre = m_vertices.size();
+    std::vector<std::vector<int>> tabc;
+    std::vector<int> marques;
+    int x, y;
+
+    for(unsigned i = 0 ; i < m_vertices.size() ; ++i)
+    {
+        tabc.push_back(std::vector<int>());
+        for(unsigned j = 0 ; j < m_vertices.size() ; ++j)
+        {
+            tabc[i].push_back(0);
+        }
+        marques.push_back(0);
+    }
+
+    for(x = 0 ; x < ordre ; x++)
+    {
+        if(!marques[x])
+        {
+            tabc[x] = once_Sconnexe(adjacence, ordre, x);
+            marques[x] = 1;
+            for(y = 0 ; y<ordre; y++)
+            {
+                if(tabc[x][y] && !marques[y])
+                    marques[y] = 1;
+            }
+        }
+    }
+    for(auto it = tabc.begin() ; it < tabc.end() ; it++)
+    {
+        if(*it == std::vector<int>(ordre, 0))
+        {
+            tabc.erase(it);
+            it--;
+        }
+    }
+    return tabc;
 }
 
 void Graph::delete_vertex(int idx)
