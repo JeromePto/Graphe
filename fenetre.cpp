@@ -45,7 +45,8 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
 
 
     m_top_box.add_child(m_mode_box);
-    m_mode_box.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
+    m_mode_box.set_gravity_y(grman::GravityY::Up);
+    m_mode_box.set_posx(300);
     m_mode_box.set_dim(260, 20);
     m_mode_box.set_border(0);
 
@@ -75,6 +76,46 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
 
     m_delete_button.add_child(m_delete_button_label);
     m_delete_button_label.set_message("DELETE");
+
+    m_top_box.add_child(m_struct_box);
+    m_struct_box.set_pos(600, 0);
+    m_struct_box.set_dim(300, 70);
+    //m_struct_box.set_border(0);
+    m_struct_box.set_padding(0);
+    m_struct_box.set_tmp_pos();
+
+    m_struct_box.add_child(m_connexe_button);
+    m_connexe_button.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
+    m_connexe_button.set_dim(130, 20);
+    m_connexe_button.set_bg_color(GRISCLAIR);
+    m_connexe_button.set_text("FORTE CONNEXITE");
+
+    m_struct_box.add_child(m_connexe_label);
+    m_connexe_label.set_pos(m_connexe_button.get_posx()+150, m_connexe_button.get_posy()+7);
+    m_connexe_label.set_message("12");
+
+    m_struct_box.add_child(m_connexe_display);
+    m_connexe_display.set_pos(m_connexe_button.get_posx()+190, m_connexe_button.get_posy());
+    m_connexe_display.set_dim(100, 20);
+    m_connexe_display.set_bg_color(GRISCLAIR);
+    m_connexe_display.set_text("DISPLAY");
+
+    m_struct_box.add_child(m_kconnexe_button);
+    m_kconnexe_button.set_pos(m_connexe_button.get_posx(), m_connexe_button.get_posy()+25);
+    m_kconnexe_button.set_dim(130, 20);
+    m_kconnexe_button.set_bg_color(GRISCLAIR);
+    m_kconnexe_button.set_text("K-CONNEXITE");
+
+    m_struct_box.add_child(m_kconnexe_label);
+    m_kconnexe_label.set_pos(m_kconnexe_button.get_posx()+150, m_kconnexe_button.get_posy()+7);
+    m_kconnexe_label.set_message("12");
+
+    m_struct_box.add_child(m_kconnexe_display);
+    m_kconnexe_display.set_pos(m_kconnexe_button.get_posx()+190, m_kconnexe_button.get_posy());
+    m_kconnexe_display.set_dim(100, 20);
+    m_kconnexe_display.set_bg_color(GRISCLAIR);
+    m_kconnexe_display.set_text("DISPLAY");
+
 }
 
 void Fenetre::update()
@@ -107,7 +148,7 @@ void Fenetre::update()
         m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
         m_interface->m_button_fonctionnel.set_switch(false);
         m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
-        mode = 1;
+        m_mode = 1;
     }
 
     if(m_interface->m_button_structurel.switching())
@@ -117,7 +158,7 @@ void Fenetre::update()
             m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
             m_interface->m_button_fonctionnel.set_switch(false);
             m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
-            mode = 1;
+            m_mode = 1;
         }
         else
         {
@@ -131,7 +172,7 @@ void Fenetre::update()
             m_interface->m_button_fonctionnel.set_bg_color(ROSECLAIR);
             m_interface->m_button_structurel.set_switch(false);
             m_interface->m_button_structurel.set_bg_color(GRISCLAIR);
-            mode = 2;
+            m_mode = 2;
         }
         else
         {
@@ -182,5 +223,19 @@ void Fenetre::update()
     else
     {
         m_interface->m_delete_button.set_pos(2000, 2000);
+    }
+
+    update_struct();
+}
+
+void Fenetre::update_struct()
+{
+    if(m_mode == 1)
+    {
+        m_interface->m_struct_box.back_tmp_pos();
+    }
+    else
+    {
+        m_interface->m_struct_box.set_pos(2000, 2000);
     }
 }

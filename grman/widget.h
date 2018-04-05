@@ -302,6 +302,23 @@ class WidgetButton : public Widget
         void set_value(bool value) { m_value = value; }
 };
 
+class WidgetButtonText : public Widget
+{
+    protected :
+        bool m_value = false;
+        WidgetText m_label;
+
+    public :
+
+        virtual void interact_focus();
+        virtual bool captures_focus() { return true; }
+
+        bool clicked() { bool clk = m_value; m_value=false; return clk; }
+        bool get_value() { return m_value; }
+        void set_value(bool value) { m_value = value; }
+        void set_text(std::string texte);
+};
+
 
 class WidgetButtonSwitch : public Widget
 {

@@ -297,6 +297,30 @@ void WidgetButton::interact_focus()
         m_value = true;
 }
 
+void WidgetButtonText::interact_focus()
+{
+    if ( mouse_click )
+        m_value = true;
+}
+
+void WidgetButtonText::set_text(std::string texte)
+{
+    if ( m_children.size() == 1 && dynamic_cast<WidgetText*>(get_child(0)) )
+    {
+        dynamic_cast<WidgetText*>(get_child(0))->set_message(texte);
+    }
+    else if (m_children.empty())
+    {
+        add_child(m_label);
+        m_label.set_message(texte);
+    }
+    else
+    {
+        std::cerr << "Error editing ButtonText" << std::endl;
+        throw "Error editing ButtonText";
+    }
+}
+
 void WidgetButtonSwitch::interact_focus()
 {
     if ( mouse_click )

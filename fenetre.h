@@ -36,6 +36,14 @@ class FenetreInterface
         grman::WidgetButton m_delete_button;
         grman::WidgetText m_delete_button_label;
 
+        grman::WidgetBox m_struct_box;
+        grman::WidgetButtonText m_connexe_button;
+        grman::WidgetText m_connexe_label;
+        grman::WidgetButtonText m_connexe_display;
+        grman::WidgetButtonText m_kconnexe_button;
+        grman::WidgetText m_kconnexe_label;
+        grman::WidgetButtonText m_kconnexe_display;
+
     public :
 
         // Le constructeur met en place les éléments de l'interface
@@ -52,7 +60,7 @@ class Fenetre
         std::shared_ptr<FenetreInterface> m_interface = nullptr;
         Graph m_graphe;
         // 1 = structurel, 2 = fonctionnel
-        int mode = 1;
+        int m_mode = 1;
 
     public:
 
@@ -60,6 +68,8 @@ class Fenetre
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
+        void update_struct();
+
         void make_example() {m_graphe.make_example();}
 };
 
