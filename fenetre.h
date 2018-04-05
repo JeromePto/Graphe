@@ -1,8 +1,11 @@
 #ifndef FENETRE_H_INCLUDED
 #define FENETRE_H_INCLUDED
 
+#include <cstdlib>
+
 #include "graph.h"
 #include "const.h"
+#include "basics.h"
 
 class FenetreInterface
 {
@@ -63,6 +66,9 @@ class Fenetre
         Graph m_graphe;
         // 1 = structurel, 2 = fonctionnel
         int m_mode = 1;
+        bool m_edition = false;
+        bool m_last_edition = false;
+        std::string m_string_edit;
 
     public:
 
@@ -72,6 +78,8 @@ class Fenetre
         void update();
         void update_struct();
         void update_edit_button();
+        void update_selected();
+        void update_fixe_button();
 
         void make_example() {m_graphe.make_example();}
 };

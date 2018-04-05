@@ -32,8 +32,8 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_top_box.add_child(m_load_file);
     m_load_file.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy()+ 10);
     m_load_file.set_dim(150, 20);
-    m_load_file.set_bg_color(SABLECLAIR);
-    m_load_file.set_edit_color(JAUNECLAIR);
+    m_load_file.set_bg_color(JAUNECLAIR);
+    m_load_file.set_edit_color(SABLECLAIR);
 
     m_top_box.add_child(m_move_button);
     m_move_button.set_pos(m_load_button.get_posx()+90, m_load_button.get_posy()+40);
@@ -134,6 +134,16 @@ void Fenetre::update()
     m_graphe.update();
     m_interface->m_top_box.update();
 
+    m_last_edition = m_edition;
+
+    update_fixe_button();
+    update_edit_button();
+    update_selected();
+    update_struct();
+}
+
+void Fenetre::update_fixe_button()
+{
     if(m_interface->m_load_button.clicked())
     {
         m_graphe.ChargerGraphe(m_interface->m_load_file.get_message(), 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
@@ -157,6 +167,12 @@ void Fenetre::update()
         m_interface->m_button_fonctionnel.set_switch(false);
         m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
         m_mode = 1;
+        m_interface->m_edit_button.set_switch(false);
+        m_interface->m_edit_button.set_bg_color(GRISCLAIR);
+        m_edition = false;
+        m_string_edit.clear();
+        m_interface->m_move_button.set_switch(false);
+        m_interface->m_move_button.set_bg_color(GRISCLAIR);
     }
 
     if(m_interface->m_button_structurel.switching())
@@ -187,34 +203,6 @@ void Fenetre::update()
             m_interface->m_button_fonctionnel.set_switch(true);
         }
     }
-
-    update_edit_button();
-
-    if(m_graphe.m_select.st_selected())
-    {
-        m_interface->m_delete_button.back_tmp_pos();
-
-        if(m_graphe.m_select.is_vertex_selected())
-        {
-            if(m_interface->m_delete_button.clicked())
-            {
-                m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
-            }
-        }
-        else if(m_graphe.m_select.is_edge_selected())
-        {
-            if(m_interface->m_delete_button.clicked())
-            {
-                m_graphe.delete_edge(m_graphe.m_select.edge_selected());
-            }
-        }
-    }
-    else
-    {
-        m_interface->m_delete_button.set_pos(2000, 2000);
-    }
-
-    update_struct();
 }
 
 void Fenetre::update_struct()
@@ -231,7 +219,23 @@ void Fenetre::update_struct()
 
 void Fenetre::update_edit_button()
 {
+    bool change(false);
+
     if(m_interface->m_move_button.switching())
+    {
+        change = true;
+        if(m_interface->m_move_button.get_switch())
+            m_interface->m_edit_button.set_switch(false);
+    }
+
+    if(m_interface->m_edit_button.switching())
+    {
+        change = true;
+        if(m_interface->m_edit_button.get_switch())
+            m_interface->m_move_button.set_switch(false);
+    }
+
+    if(change)
     {
         if(m_interface->m_move_button.get_switch())
         {
@@ -249,23 +253,107 @@ void Fenetre::update_edit_button()
                 it->second.m_interface->m_top_box.set_moveable(false);
             }
         }
-    }
 
-    if(m_interface->m_edit_button.switching())
-    {
         if(m_interface->m_edit_button.get_switch())
         {
             m_interface->m_edit_button.set_bg_color(BLEUCLAIR);
-            m_interface->m_move_button.set_switch(false);
+            m_edition = true;
         }
         else
         {
             m_interface->m_edit_button.set_bg_color(GRISCLAIR);
+            m_edition = false;
+            m_string_edit.clear();
         }
     }
+}
 
-    if(m_interface->m_move_button.switching() || m_interface->m_edit_button.switching())
+void Fenetre::update_selected()
+{
+//    if(m_graphe.m_select.st_selected() && !m_edition)
+//    {
+//        m_interface->m_delete_button.back_tmp_pos();
+//
+//        if(m_graphe.m_select.is_vertex_selected())
+//        {
+//            if(m_interface->m_delete_button.clicked())
+//            {
+//                m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
+//            }
+//        }
+//        else if(m_graphe.m_select.is_edge_selected())
+//        {
+//            if(m_interface->m_delete_button.clicked())
+//            {
+//                m_graphe.delete_edge(m_graphe.m_select.edge_selected());
+//            }
+//        }
+//    }
+//    else
+//    {
+//        m_interface->m_delete_button.set_pos(2000, 2000);
+//    }
+
+    /// ///////////////////////////////////////
+    //std::cout << m_graphe.m_select.st_selected() << std::endl;
+    if(m_graphe.m_select.st_selected())
     {
+        if(m_edition)
+        {
+            std::cout << (char)grman::key_last << " " << (int)grman::key_last << " " << m_string_edit << std::endl;
+            switch(grman::key_last)
+            {
+            case 8:
+                if(m_string_edit.size() > 0)
+                    m_string_edit.pop_back();
+                break;
+            case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case 46:
+                m_string_edit += grman::key_last;
+                break;
+            default:
+                break;
+            }
 
+            if(m_graphe.m_select.is_vertex_selected())
+            {
+                if(m_graphe.m_select.is_different() || (m_edition && !m_last_edition))
+                {
+                    m_string_edit.clear();
+                    m_string_edit = toString(m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value);
+                }
+                m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value = toDouble(m_string_edit);
+            }
+            else if(m_graphe.m_select.is_edge_selected() || (m_edition && !m_last_edition))
+            {
+                if(m_graphe.m_select.is_different())
+                {
+                    m_string_edit.clear();
+                    m_string_edit = toString(m_graphe.m_edges.at(m_graphe.m_select.edge_selected()).m_weight);
+                }
+                m_graphe.m_edges.at(m_graphe.m_select.edge_selected()).m_weight = toDouble(m_string_edit);
+            }
+        }
+        else
+        {
+            m_interface->m_delete_button.back_tmp_pos();
+            if(m_graphe.m_select.is_vertex_selected())
+            {
+                if(m_interface->m_delete_button.clicked())
+                {
+                    m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
+                }
+            }
+            else if(m_graphe.m_select.is_edge_selected())
+            {
+                if(m_interface->m_delete_button.clicked())
+                {
+                    m_graphe.delete_edge(m_graphe.m_select.edge_selected());
+                }
+            }
+        }
+    }
+    else
+    {
+        m_interface->m_delete_button.set_pos(2000, 2000);
     }
 }

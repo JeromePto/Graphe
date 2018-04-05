@@ -46,7 +46,7 @@ void Vertex::pre_update()
         return;
 
     /// Copier la valeur locale de la donnée m_value vers le label sous le slider
-    m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
+    m_interface->m_label_value.set_message( toString(m_value) );
 }
 
 
@@ -96,7 +96,7 @@ void Edge::pre_update()
         return;
 
     /// Copier la valeur locale de la donnée m_weight vers le label sous le slider
-    m_interface->m_label_weight.set_message( std::to_string( (int)m_weight ) );
+    m_interface->m_label_weight.set_message( toString( m_weight ) );
 }
 
 /// Gestion du Edge après l'appel à l'interface
@@ -112,34 +112,37 @@ void Edge::post_update()
                     GRAPH & Co
 ****************************************************/
 
-void Select::add_vertex(int id, Vertex & vertex)
+void Select::add_vertex(int id)
 {
     m_file.push_back(std::pair<int, int>(1, id));
 }
 
-void Select::add_edge(int id, Edge & edge)
+void Select::add_edge(int id)
 {
     m_file.push_back(std::pair<int, int>(2, id));
 }
 
 void Select::work()
 {
+//    std::cout << m_file.size() << " ! " << m_last.first << " " << m_last.second << " : ";
+//    for(auto it : m_file) std::cout << it.first << " " << it.second << " . ";
+    m_last = m_file.front();
     if(m_file.size() > 1)
     {
-        std::pair<int,int> tmp = m_file.front();
+
         m_file.pop_front();
 
         while(m_file.size() > 1)
         {
-            if(tmp.first == 1 && m_mapVertex[tmp.second].m_interface->m_top_box.is_selected())
+            if(m_last.first == 1 && m_mapVertex[m_last.second].m_interface->m_top_box.is_selected())
             {
-                m_mapVertex[tmp.second].m_interface->m_top_box.set_selected(false);
+                m_mapVertex[m_last.second].m_interface->m_top_box.set_selected(false);
             }
-            else if(tmp.first == 2 && m_mapEdge[tmp.second].m_interface->m_top_edge.is_selected())
+            else if(m_last.first == 2 && m_mapEdge[m_last.second].m_interface->m_top_edge.is_selected())
             {
-                m_mapEdge[tmp.second].m_interface->m_top_edge.set_selected(false);
+                m_mapEdge[m_last.second].m_interface->m_top_edge.set_selected(false);
             }
-            if(m_file.front() == tmp)
+            if(m_file.front() == m_last)
             {
                 m_file.pop_front();
             }
@@ -147,7 +150,7 @@ void Select::work()
             {
                 while(m_file.size() > 1)
                 {
-                    if(m_file.back() != tmp && m_file.back() != m_file.front())
+                    if(m_file.back() != m_last && m_file.back() != m_file.front())
                     {
                         if(m_file.back().first == 1 && m_mapVertex[m_file.back().second].m_interface->m_top_box.is_selected())
                         {
@@ -167,18 +170,9 @@ void Select::work()
 
 void Select::unselect()
 {
-    while(!m_file.empty())
-    {
-        if(m_file.back().first == 1 && m_mapVertex.count(m_file.back().second) > 0 && m_mapVertex[m_file.back().second].m_interface->m_top_box.is_selected())
-        {
-            m_mapVertex[m_file.back().second].m_interface->m_top_box.set_selected(false);
-        }
-        else if(m_file.back().first == 2 && m_mapEdge.count(m_file.back().second) > 0 && m_mapEdge[m_file.back().second].m_interface->m_top_edge.is_selected())
-        {
-            m_mapEdge[m_file.back().second].m_interface->m_top_edge.set_selected(false);
-        }
-        m_file.pop_back();
-    }
+    m_file.push_back(m_file.front());
+    m_file.push_back(std::pair<int, int>(-1, -1));
+
 }
 
 /// Ici le constructeur se contente de préparer un cadre d'accueil des
@@ -295,7 +289,7 @@ void Graph::delete_vertex(int idx)
         delete_edge(it);
     }
 
-    m_interface->m_main_box.remove_child(m_vertices[idx].m_interface->m_top_box);
+    m_interface->m_main_box.remove_child(m_vertices.at(idx).m_interface->m_top_box);
     m_vertices.erase(idx);
 }
 
@@ -344,23 +338,24 @@ void Graph::delete_edge(int eidx)
 
 void Graph::close_graphe()
 {
-//    std::vector<int> aDel;
-//    for(auto it = m_edges.begin() ; it != m_edges.end() ; ++it)
-//    {
-//        aDel.push_back(it->first);
-//    }
-//    for(auto it : aDel)
-//    {
-//        delete_edge(it);
-//    }
+    std::vector<int> aDel;
     for(auto it = m_edges.begin() ; it != m_edges.end() ; ++it)
     {
-        delete_edge(it->first);
+        aDel.push_back(it->first);
+    }
+    for(auto it : aDel)
+    {
+        delete_edge(it);
 
     }
+    aDel.clear();
     for(auto it = m_vertices.begin() ; it != m_vertices.end() ; ++it)
     {
-        m_interface->m_main_box.remove_child(m_vertices[it->first].m_interface->m_top_box);
+        m_interface->m_main_box.remove_child(m_vertices.at(it->first).m_interface->m_top_box);
+        aDel.push_back(it->first);
+    }
+    for(auto it : aDel)
+    {
         m_vertices.erase(it);
     }
     m_interface.reset();
@@ -391,7 +386,7 @@ void Graph::update()
         elt.second.post_update();
         if(elt.second.m_interface->m_top_box.is_selected())
         {
-            m_select.add_vertex(elt.first, elt.second);
+            m_select.add_vertex(elt.first);
         }
     }
 
@@ -400,7 +395,7 @@ void Graph::update()
         elt.second.post_update();
         if(elt.second.m_interface->m_top_edge.is_selected())
         {
-            m_select.add_edge(elt.first, elt.second);
+            m_select.add_edge(elt.first);
         }
     }
 

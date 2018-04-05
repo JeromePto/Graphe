@@ -76,10 +76,12 @@
 #include <string>
 #include <memory>
 #include <deque>
+#include <utility>
 #include <fstream>
 
 #include "grman/grman.h"
 #include "const.h"
+#include "basics.h"
 
 /***************************************************
                     VERTEX
@@ -209,6 +211,7 @@ class Edge
     friend class Graph;
     friend class EdgeInterface;
     friend class Select;
+    friend class Fenetre;
 
     private :
         /// indice du sommet de départ de l'arc
@@ -249,21 +252,23 @@ class Select
 {
     // Vertex = 1, Edge = 2
     std::deque<std::pair<int, int>> m_file;
+    std::pair<int, int> m_last;
     std::map<int, Vertex> & m_mapVertex;
     std::map<int, Edge> & m_mapEdge;
 
  public:
 
-    Select(std::map<int, Vertex> & mapVertex, std::map<int, Edge> & mapEdge) : m_file(), m_mapVertex(mapVertex), m_mapEdge(mapEdge) {}
+    Select(std::map<int, Vertex> & mapVertex, std::map<int, Edge> & mapEdge) : m_file(), m_mapVertex(mapVertex), m_mapEdge(mapEdge) {m_file.push_back(std::pair<int, int>(-1, -1));}
 
-    bool st_selected() {return m_file.size() >= 1;}
+    bool st_selected() {return m_file.front() != std::pair<int, int>(-1, -1) && !m_mapVertex.empty();}
     bool is_vertex_selected() {return st_selected() && m_file.front().first == 1;}
     bool is_edge_selected() {return st_selected() && m_file.front().first == 2;}
     int vertex_selected() {return is_vertex_selected() ? m_file.front().second : -1;}
     int edge_selected() {return is_edge_selected() ? m_file.front().second : -1;}
+    bool is_different() {return m_last != m_file.front();}
 
-    void add_vertex(int id, Vertex & vertex);
-    void add_edge(int id, Edge & edge);
+    void add_vertex(int id);
+    void add_edge(int id);
 
     void work();
     void unselect();
