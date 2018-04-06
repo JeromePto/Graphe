@@ -1,0 +1,30 @@
+11
+0 1 439 4 pikachu.png 0
+1 22 696 56 leviator.png 0
+2 15 903 233 dracofeu.png 0
+3 45 827 423 galeking.png 0
+4 25 672 515 rondoudou.png 0
+5 50 438 572 roucarnage.jpg 0
+6 2 219 485 alakazam.png 0
+7 17 12 328 lipoutou.jpg 0
+8 75 105 174 boustiflor.jpg 0
+9 45 249 55 racaillou.png 0
+10 1 463 299 cynthia.jpg 0
+17
+0 0 1 30
+1 1 2 10
+2 2 3 15
+3 3 4 23
+4 4 5 5
+5 5 6 2.5
+6 6 7 15
+7 7 8 23
+8 8 9 35
+9 9 0 1
+10 2 8 15
+11 10 1 15
+12 10 3 10
+13 10 5 85
+14 10 9 45
+15 10 7 55
+16 2 5 65
