@@ -446,8 +446,6 @@ bool Graph::connexe()
     for(auto it : m_vertices)
     {
         copie.push_back(it.second);
-        for(auto it2 : it.second.m_out)
-            std::cout << it2 << " ";
     }
 
     for(auto it : copie)
@@ -462,19 +460,14 @@ bool Graph::connexe()
 
         for(auto it2 : it.m_out)
         {
-//            if(!adjacent.empty())
-//            {
-//                for(auto it3 : adjacent.back())
-//                {
-//                    bool k = m_edges.at(it3).m_from == m_edges.at(it2).m_from;
-//                    if( (m_edges.at(it3).m_from == m_edges.at(it2).m_from && m_edges.at(it3).m_to == m_edges.at(it2).m_to) ||
-//                       (m_edges.at(it3).m_from == m_edges.at(it2).m_to && m_edges.at(it3).m_to == m_edges.at(it2).m_from) )
-//                    {
-//                        tmp = true;
-//                    }
-//                }
-//            }
-//            if(!tmp)
+            for(auto it3 : adjacent.back())
+            {
+                if(it3 == m_edges.at(it2).m_to)
+                {
+                    tmp = true;
+                }
+            }
+            if(!tmp)
                 adjacent.back().push_back(m_edges.at(it2).m_to);
         }
     }
@@ -620,6 +613,27 @@ void Graph::close_graphe()
 
 }
 
+void Graph::update_time()
+{
+    double k, a;
+    double r = 0.000005;
+    double co = 5000;
+    for(auto &it : m_vertices)
+    {
+        k = 0;
+        for(auto it2 : it.second.m_in)
+        {
+            k += (m_edges.at(it2).m_weight/co) * m_vertices.at(m_edges.at(it2).m_from).m_value;
+        }
+        a = it.second.m_value + r * it.second.m_value * (1 - (it.second.m_value / k));
+        for(auto it2 : it.second.m_in)
+        {
+            a -= (m_edges.at(it2).m_weight/co) * m_vertices.at(m_edges.at(it2).m_from).m_value;
+        }
+        a > 0 ? it.second.m_value = a : it.second.m_value = 0;
+    }
+}
+
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
 void Graph::update()
 {
@@ -697,6 +711,7 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
     m_edges[idx].m_from = id_vert1;
     m_edges[idx].m_to = id_vert2;
     m_vertices[id_vert1].m_out.push_back(idx);
-    m_vertices[id_vert2].m_out.push_back(idx);
+    m_vertices[id_vert2].m_in.push_back(idx);
+
 }
 

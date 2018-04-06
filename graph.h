@@ -343,9 +343,11 @@ class Graph
         std::vector<std::vector<int>> Sconnexe();
         bool connexe();
 
+
         void delete_vertex(int idx);
         void delete_edge(int idx);
         void close_graphe();
+        void update_time();
 
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

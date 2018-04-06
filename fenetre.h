@@ -79,6 +79,7 @@ class Fenetre
         void update_struct();
         void update_edit_button();
         void update_selected();
+        void update_fonc();
         void update_fixe_button();
 
         void close();

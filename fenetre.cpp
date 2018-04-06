@@ -156,6 +156,7 @@ void Fenetre::update()
     update_edit_button();
     update_selected();
     update_struct();
+    update_fonc();
 }
 
 void Fenetre::update_fixe_button()
@@ -237,6 +238,19 @@ void Fenetre::update_struct()
     else
     {
         m_interface->m_struct_box.set_pos(2000, 2000);
+    }
+}
+
+void Fenetre::update_fonc()
+{
+    if(m_mode == 2)
+    {
+       m_graphe.update_time();
+       std::cout << m_graphe.m_vertices[0].m_value << std::endl;
+    }
+    else
+    {
+
     }
 }
 
