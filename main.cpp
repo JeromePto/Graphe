@@ -42,4 +42,7 @@ int main()
 }
 END_OF_MAIN();
 
-
+bug load multiple
+bug couleur bar
+valeur renvoie connexe
+cout inutile

@@ -78,6 +78,7 @@
 #include <deque>
 #include <utility>
 #include <fstream>
+#include <stack>
 
 #include "grman/grman.h"
 #include "const.h"
@@ -339,6 +340,7 @@ class Graph
         std::vector<std::vector<bool>> matrice_adj();
         std::vector<int> once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s);
         std::vector<std::vector<int>> Sconnexe();
+        bool connexe();
 
         void delete_vertex(int idx);
         void delete_edge(int idx);

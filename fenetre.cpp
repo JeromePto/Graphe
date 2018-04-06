@@ -222,6 +222,11 @@ void Fenetre::update_struct()
                 std::cout << std::endl;
             }
         }
+
+        if(m_interface->m_kconnexe_button.clicked())
+        {
+            m_graphe.connexe();
+        }
     }
     else
     {

@@ -422,6 +422,99 @@ std::vector<std::vector<int>> Graph::Sconnexe()
     return tabc;
 }
 
+bool Graph::connexe()
+{
+    std::vector<Vertex> copie;
+    std::stack<int> pile;
+    int s = 0;
+    unsigned i = 0;
+    std::vector<bool> marques;
+    std::vector<std::vector<int>> adjacent;
+    bool tmp(false);
+
+    for(auto it : m_vertices)
+    {
+        copie.push_back(it.second);
+    }
+
+    for(auto it : copie)
+    {
+        marques.push_back(false);
+        adjacent.push_back(std::vector<int>());
+        tmp = false;
+        for(auto it2 : it.m_in)
+        {
+            adjacent.back().push_back(it2);
+        }
+        for(auto it2 : it.m_out)
+        {
+            for(auto it3 : adjacent.back())
+            {
+                if( (m_edges.at(it3).m_from == m_edges.at(it2).m_from && m_edges.at(it3).m_to == m_edges.at(it2).m_to) ||
+                   (m_edges.at(it3).m_from == m_edges.at(it2).m_to && m_edges.at(it3).m_to == m_edges.at(it2).m_from))
+                {
+                    tmp = true;
+                }
+            }
+            if(!tmp)
+                adjacent.back().push_back(it2);
+        }
+    }
+
+    for(auto it : adjacent)
+    {
+        for(auto it2 : it)
+        {
+            std::cout << it2 << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    marques[s] = true;
+    pile.push(s);
+
+    while(i < copie.size())
+    {
+        std::cout << "Composantes connexes :" << std::endl;
+        while(!pile.empty())
+        {
+            s=pile.top();
+            pile.pop();
+
+            for (unsigned a=0; a<adjacent[s].size(); ++a)
+            {
+                std::cout << a;
+                if (!marques.at(adjacent[s][a]))
+                {
+                    marques[adjacent[s][a]] = true;
+                    //copie[adjacent[s][a]].set_pred(s);
+                    pile.push(adjacent[s][a]);
+                }
+            }
+            std::cout << s << std::endl;
+        }
+        std::cout << std::endl;
+
+        i = 0;
+        while(i < copie.size() && marques[i])
+        {
+            i++;
+        }
+
+        if(marques[i])
+        {
+            break;
+        }
+        else
+        {
+            marques[i] = true;
+            pile.push(i);
+        }
+    }
+
+    return false;
+}
+
 void Graph::delete_vertex(int idx)
 {
     std::vector<int> aDel;
