@@ -42,7 +42,9 @@ int main()
 }
 END_OF_MAIN();
 
-//bug load multiple
-//bug couleur bar
-//valeur renvoie connexe
-//cout inutile
+//* bug load multiple
+//* numero sommet dans fichier
+//* bug delete 2 fois
+// bug forte connexite
+// valeur renvoie connexe
+// cout inutile

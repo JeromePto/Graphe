@@ -255,6 +255,10 @@ void WidgetTextEdit::enter_edition()
 void WidgetTextEdit::leave_edition()
 {
     m_edition = false;
+    if(m_norm_color == -2)
+        m_norm_color = m_bg_color;
+    if(m_edit_color == -2)
+        m_edit_color = m_norm_color;
     m_bg_color = m_norm_color;
 }
 

@@ -133,7 +133,7 @@ void Select::work()
 //    std::cout << m_file.size() << " ! " << m_last.first << " " << m_last.second << " : ";
 //    for(auto it : m_file) std::cout << it.first << " " << it.second << " . ";
     m_last = m_file.front();
-    if(m_file.size() > 1)
+    if(m_file.size() > 1 && !m_mapVertex.empty())
     {
 
         m_file.pop_front();
@@ -179,6 +179,12 @@ void Select::unselect()
     m_file.push_back(m_file.front());
     m_file.push_back(std::pair<int, int>(-1, -1));
 
+}
+
+void Select::clear()
+{
+    m_file.clear();
+    m_file.push_back(std::pair<int, int>(-1, -1));
 }
 
 /// Ici le constructeur se contente de préparer un cadre d'accueil des
@@ -240,22 +246,23 @@ void Graph::ChargerGraphe(std::string fic, int x, int y, int w, int h)
     std::string image;
     int sommet1, sommet2;
     double poids;
+    int id;
 
     if(fichier)
     {
         fichier >> nombreS;
         for (int i=0; i < nombreS; i++)
         {
-            fichier >> value >> a >> b >> image>> idvalue;
-            add_interfaced_vertex(i, value, a, b, image, idvalue);
+            fichier >> id >> value >> a >> b >> image>> idvalue;
+            add_interfaced_vertex(id, value, a, b, image, idvalue);
 
         }
 
         fichier >> nombreA;
         for (int j=0; j<nombreA; j++)
         {
-            fichier >> sommet1 >> sommet2 >> poids;
-            add_interfaced_edge(j,sommet1,sommet2,poids);
+            fichier >> id >> sommet1 >> sommet2 >> poids;
+            add_interfaced_edge(id,sommet1,sommet2,poids);
         }
     }
 }
@@ -268,13 +275,13 @@ void Graph::SauverGraphe(std::string fic1)
         fichier << m_vertices.size() << std::endl;
         for (auto &e : m_vertices)
         {
-            fichier << e.second.m_value << " " << e.second.m_interface->m_top_box.get_posx() << " " << e.second.m_interface ->m_top_box.get_posy() << " "
+            fichier << e.first << " " << e.second.m_value << " " << e.second.m_interface->m_top_box.get_posx() << " " << e.second.m_interface ->m_top_box.get_posy() << " "
                     << e.second.m_interface->m_img.get_pic_name() << " " << e.second.m_interface->m_img.get_pic_idx() << std::endl;
         }
         fichier << m_edges.size() << std::endl;
         for (auto &e : m_edges)
         {
-            fichier << e.second.m_from << " " << e.second.m_to << " " << e.second.m_weight << std::endl;
+            fichier << e.first << " " << e.second.m_from << " " << e.second.m_to << " " << e.second.m_weight << std::endl;
         }
     }
 }
@@ -382,6 +389,8 @@ std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, 
 
 std::vector<std::vector<int>> Graph::Sconnexe()
 {
+    if(m_vertices.empty()) return std::vector<std::vector<int>>();
+
     std::vector<std::vector<bool>> adjacence = matrice_adj();
     int ordre = m_vertices.size();
     std::vector<std::vector<int>> tabc;
@@ -424,6 +433,8 @@ std::vector<std::vector<int>> Graph::Sconnexe()
 
 bool Graph::connexe()
 {
+    if(m_vertices.empty()) return false;
+
     std::vector<Vertex> copie;
     std::stack<int> pile;
     int s = 0;
@@ -435,6 +446,8 @@ bool Graph::connexe()
     for(auto it : m_vertices)
     {
         copie.push_back(it.second);
+        for(auto it2 : it.second.m_out)
+            std::cout << it2 << " ";
     }
 
     for(auto it : copie)
@@ -444,20 +457,25 @@ bool Graph::connexe()
         tmp = false;
         for(auto it2 : it.m_in)
         {
-            adjacent.back().push_back(it2);
+            adjacent.back().push_back(m_edges.at(it2).m_from);
         }
+
         for(auto it2 : it.m_out)
         {
-            for(auto it3 : adjacent.back())
-            {
-                if( (m_edges.at(it3).m_from == m_edges.at(it2).m_from && m_edges.at(it3).m_to == m_edges.at(it2).m_to) ||
-                   (m_edges.at(it3).m_from == m_edges.at(it2).m_to && m_edges.at(it3).m_to == m_edges.at(it2).m_from))
-                {
-                    tmp = true;
-                }
-            }
-            if(!tmp)
-                adjacent.back().push_back(it2);
+//            if(!adjacent.empty())
+//            {
+//                for(auto it3 : adjacent.back())
+//                {
+//                    bool k = m_edges.at(it3).m_from == m_edges.at(it2).m_from;
+//                    if( (m_edges.at(it3).m_from == m_edges.at(it2).m_from && m_edges.at(it3).m_to == m_edges.at(it2).m_to) ||
+//                       (m_edges.at(it3).m_from == m_edges.at(it2).m_to && m_edges.at(it3).m_to == m_edges.at(it2).m_from) )
+//                    {
+//                        tmp = true;
+//                    }
+//                }
+//            }
+//            if(!tmp)
+                adjacent.back().push_back(m_edges.at(it2).m_to);
         }
     }
 
@@ -483,11 +501,9 @@ bool Graph::connexe()
 
             for (unsigned a=0; a<adjacent[s].size(); ++a)
             {
-                std::cout << a;
                 if (!marques.at(adjacent[s][a]))
                 {
                     marques[adjacent[s][a]] = true;
-                    //copie[adjacent[s][a]].set_pred(s);
                     pile.push(adjacent[s][a]);
                 }
             }

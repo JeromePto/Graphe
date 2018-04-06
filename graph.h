@@ -273,6 +273,7 @@ class Select
 
     void work();
     void unselect();
+    void clear();
 
 };
 

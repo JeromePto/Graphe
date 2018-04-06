@@ -81,6 +81,8 @@ class Fenetre
         void update_selected();
         void update_fixe_button();
 
+        void close();
+
         void make_example() {m_graphe.make_example();}
 };
 

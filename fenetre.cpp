@@ -125,6 +125,23 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
 
 }
 
+void Fenetre::close()
+{
+    m_graphe.m_select.clear();
+    m_graphe.close_graphe();
+    m_interface->m_button_structurel.set_switch(true);
+    m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
+    m_interface->m_button_fonctionnel.set_switch(false);
+    m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
+    m_mode = 1;
+    m_interface->m_edit_button.set_switch(false);
+    m_interface->m_edit_button.set_bg_color(GRISCLAIR);
+    m_edition = false;
+    m_string_edit.clear();
+    m_interface->m_move_button.set_switch(false);
+    m_interface->m_move_button.set_bg_color(GRISCLAIR);
+}
+
 void Fenetre::update()
 {
     if (!m_interface)
@@ -145,6 +162,7 @@ void Fenetre::update_fixe_button()
 {
     if(m_interface->m_load_button.clicked())
     {
+        close();
         m_graphe.ChargerGraphe(m_interface->m_load_file.get_message(), 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
         m_interface->m_load_file.leave_edition();
         m_interface->m_load_file.clear_message();
@@ -159,19 +177,7 @@ void Fenetre::update_fixe_button()
 
     if(m_interface->m_close_button.clicked())
     {
-        m_graphe.m_select.unselect();
-        m_graphe.close_graphe();
-        m_interface->m_button_structurel.set_switch(true);
-        m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
-        m_interface->m_button_fonctionnel.set_switch(false);
-        m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
-        m_mode = 1;
-        m_interface->m_edit_button.set_switch(false);
-        m_interface->m_edit_button.set_bg_color(GRISCLAIR);
-        m_edition = false;
-        m_string_edit.clear();
-        m_interface->m_move_button.set_switch(false);
-        m_interface->m_move_button.set_bg_color(GRISCLAIR);
+        close();
     }
 
     if(m_interface->m_button_structurel.switching())
@@ -332,6 +338,7 @@ void Fenetre::update_selected()
                 if(m_interface->m_delete_button.clicked())
                 {
                     m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
+                    m_graphe.m_select.clear();
                 }
             }
             else if(m_graphe.m_select.is_edge_selected())
@@ -339,6 +346,7 @@ void Fenetre::update_selected()
                 if(m_interface->m_delete_button.clicked())
                 {
                     m_graphe.delete_edge(m_graphe.m_select.edge_selected());
+                    m_graphe.m_select.clear();
                 }
             }
         }
