@@ -1,7 +1,27 @@
-3
-30 198 98 clown1.jpg 0
-50 284 385 clown2.jpg 0
-35 510 158 clown3.jpg 0
-2
-0 1 32
-1 2 45
+12
+50 23 36 serpent.png 0
+35 446 16 loup.png 0
+35 896 241 oiseau.png 0
+100 23 226 rat.png 0
+35 561 491 libellule.png 0
+75 23 411 sauterelle.png 0
+65 271 411 papillon.png 0
+100 896 406 mouche.png 0
+85 23 566 ble.png 0
+75 201 566 fleurs.png 0
+65 456 566 lavande.png 0
+55 896 566 mangue.png 0
+13
+4 1 45
+2 1 20
+4 2 65
+3 2 35
+7 4 30
+6 3 35
+9 3 35
+9 6 45
+10 7 80
+11 8 50
+12 8 50
+13 9 55
+13 9 55
