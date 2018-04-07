@@ -118,6 +118,8 @@ class VertexInterface
         // Un label indiquant l'index du sommet
         grman::WidgetText m_label_idx;
 
+        grman::WidgetVSlider m_slider;
+
     public :
 
         // Le constructeur met en place les éléments de l'interface

@@ -9,7 +9,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 {
     // La boite englobante
     m_top_box.set_pos(x, y);
-    m_top_box.set_dim(TAILLE_IMAGE, TAILLE_IMAGE + HAUTEUR_BAR_IMAGE);
+    m_top_box.set_dim(TAILLE_IMAGE + 20, TAILLE_IMAGE + HAUTEUR_BAR_IMAGE);
     m_top_box.set_lock_focus(true);
     m_top_box.set_padding(0);
 
@@ -19,14 +19,14 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
         m_top_box.add_child( m_img );
         m_img.set_pic_name(pic_name);
         m_img.set_pic_idx(pic_idx);
-        m_img.set_gravity_y(grman::GravityY::Up);
+        m_img.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
         m_img.set_padding(0);
         m_img.set_margin(0);
     }
 
     m_top_box.add_child(m_down_box);
-    m_down_box.set_dim(m_top_box.get_dimx()-6, HAUTEUR_BAR_IMAGE);
-    m_down_box.set_gravity_y(grman::GravityY::Down);
+    m_down_box.set_dim(m_top_box.get_dimx()-6-20, HAUTEUR_BAR_IMAGE);
+    m_down_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Down);
     m_down_box.set_bg_color(BLANC);
     m_down_box.set_padding(0);
     m_down_box.set_margin(0);
@@ -35,13 +35,22 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     // Label de visualisation de valeur
     m_top_box.add_child( m_label_value );
     m_label_value.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Down);
+    m_label_value.set_posx(m_label_value.get_posx() - 45);
     m_label_value.set_margin(3);
 
 
     m_top_box.add_child( m_label_idx );
     m_label_idx.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Down);
+    m_label_idx.set_posx(m_label_idx.get_posx() + 30);
     m_label_idx.set_margin(3);
     m_label_idx.set_message( std::to_string(idx) );
+
+    m_top_box.add_child(m_slider);
+    m_slider.set_padding(0);
+    m_slider.set_margin(0);
+    m_slider.set_dim(20, m_top_box.get_dimy());
+    m_slider.set_gravity_x(grman::GravityX::Left);
+    m_slider.set_range(0.0 , 100.0);
 }
 
 
@@ -52,6 +61,7 @@ void Vertex::pre_update()
         return;
 
     /// Copier la valeur locale de la donnée m_value vers le label sous le slider
+    m_interface->m_slider.set_value(m_value);
     m_interface->m_label_value.set_message( toString(m_value) );
 }
 
@@ -61,6 +71,8 @@ void Vertex::post_update()
 {
     if (!m_interface)
         return;
+
+    m_value = m_interface->m_slider.get_value();
 }
 
 
@@ -439,18 +451,18 @@ bool Graph::connexe()
     std::stack<int> pile;
     int s = 0;
     unsigned i = 0;
-    std::vector<bool> marques;
+    std::map<int, bool> marques;
     std::vector<std::vector<int>> adjacent;
     bool tmp(false);
 
     for(auto it : m_vertices)
     {
         copie.push_back(it.second);
+        marques[it.first] = false;
     }
 
     for(auto it : copie)
     {
-        marques.push_back(false);
         adjacent.push_back(std::vector<int>());
         tmp = false;
         for(auto it2 : it.m_in)
@@ -481,45 +493,27 @@ bool Graph::connexe()
         std::cout << std::endl;
     }
 
-    marques[s] = true;
+    marques.at(s) = true;
     pile.push(s);
 
-    while(i < copie.size())
+    std::cout << "Composantes connexes :" << std::endl;
+    while(!pile.empty())
     {
-        std::cout << "Composantes connexes :" << std::endl;
-        while(!pile.empty())
-        {
-            s=pile.top();
-            pile.pop();
+        s=pile.top();
+        pile.pop();
 
-            for (unsigned a=0; a<adjacent[s].size(); ++a)
+        for (unsigned a=0; a<adjacent[s].size(); ++a)
+        {
+            std::cout << adjacent[s].size() << " " << s << " " << a << " " << adjacent[s][a] << " :";
+            if (!marques.at(adjacent[s][a]))
             {
-                if (!marques.at(adjacent[s][a]))
-                {
-                    marques[adjacent[s][a]] = true;
-                    pile.push(adjacent[s][a]);
-                }
+                marques[adjacent[s][a]] = true;
+                pile.push(adjacent[s][a]);
             }
-            std::cout << s << std::endl;
         }
-        std::cout << std::endl;
-
-        i = 0;
-        while(i < copie.size() && marques[i])
-        {
-            i++;
-        }
-
-        if(marques[i])
-        {
-            break;
-        }
-        else
-        {
-            marques[i] = true;
-            pile.push(i);
-        }
+        std::cout << s << std::endl;
     }
+    std::cout << std::endl;
 
     return false;
 }
@@ -616,22 +610,27 @@ void Graph::close_graphe()
 void Graph::update_time()
 {
     double k, a;
-    double r = 0.000005;
+    double r = 0.0005;
     double co = 5000;
     for(auto &it : m_vertices)
     {
-        k = 0;
+        std::cout << it.first << ":";
+        k = 1;
         for(auto it2 : it.second.m_in)
         {
-            k += (m_edges.at(it2).m_weight/co) * m_vertices.at(m_edges.at(it2).m_from).m_value;
+            k += (m_edges.at(it2).m_weight) * m_vertices.at(m_edges.at(it2).m_from).m_value;
         }
+        std::cout << "\tk : " << k;
         a = it.second.m_value + r * it.second.m_value * (1 - (it.second.m_value / k));
-        for(auto it2 : it.second.m_in)
+        std::cout << "\ta pos : " << a;
+        for(auto it2 : it.second.m_out)
         {
-            a -= (m_edges.at(it2).m_weight/co) * m_vertices.at(m_edges.at(it2).m_from).m_value;
+            a = a - (m_edges.at(it2).m_weight) / co * m_vertices.at(m_edges.at(it2).m_to).m_value;
         }
+        std::cout << "\ta : " << a << std::endl;
         a > 0 ? it.second.m_value = a : it.second.m_value = 0;
     }
+    std::cout << std::endl;
 }
 
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

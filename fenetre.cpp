@@ -115,7 +115,6 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
 
     m_struct_box.add_child(m_kconnexe_label);
     m_kconnexe_label.set_pos(m_kconnexe_button.get_posx()+150, m_kconnexe_button.get_posy()+7);
-    m_kconnexe_label.set_message("12");
 
     m_struct_box.add_child(m_kconnexe_display);
     m_kconnexe_display.set_pos(m_kconnexe_button.get_posx()+190, m_kconnexe_button.get_posy());
@@ -246,7 +245,6 @@ void Fenetre::update_fonc()
     if(m_mode == 2)
     {
        m_graphe.update_time();
-       std::cout << m_graphe.m_vertices[0].m_value << std::endl;
     }
     else
     {
