@@ -121,6 +121,8 @@ class VertexInterface
 
         grman::WidgetVSlider m_slider;
 
+        grman::WidgetBox m_marque[8];
+
     public :
 
         // Le constructeur met en place les éléments de l'interface
@@ -152,6 +154,8 @@ class Vertex
 
         /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
         std::shared_ptr<VertexInterface> m_interface = nullptr;
+
+
 
         // Docu shared_ptr : https://msdn.microsoft.com/fr-fr/library/hh279669.aspx
         // La ligne précédente est en gros équivalent à la ligne suivante :
@@ -351,7 +355,7 @@ class Graph
         std::vector<int> once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s);
         std::vector<std::vector<int>> Sconnexe();
         bool connexe();
-        std::vector<int> kconnexe();
+        std::vector<std::vector<int>> kconnexe();
 
 
         void delete_vertex(int idx);

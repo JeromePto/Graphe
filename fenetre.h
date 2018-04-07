@@ -93,7 +93,8 @@ class Fenetre
         double m_coefpred = 5000;
         double m_coefproi = 1;
         double m_speed = 1;
-        std::vector<int> m_kconnexe_vertex;
+        std::vector<std::vector<int>> m_Sconnexe_vertex;
+        std::vector<std::vector<int>> m_kconnexe_vertex;
 
     public:
 

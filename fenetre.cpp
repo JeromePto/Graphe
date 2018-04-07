@@ -233,6 +233,7 @@ void Fenetre::close()
     m_interface->m_play_button.set_switch(false);
     m_interface->m_play_button.set_bg_color(GRISCLAIR);
     m_kconnexe_vertex.clear();
+    m_Sconnexe_vertex.clear();
 }
 
 void Fenetre::update()
@@ -360,19 +361,13 @@ void Fenetre::update_struct()
 {
     if(m_mode == 1)
     {
+        bool change(false);
+
         m_interface->m_struct_box.back_tmp_pos();
         if(m_interface->m_connexe_button.clicked())
         {
-            std::vector<std::vector<int>> tmp = m_graphe.Sconnexe();
-            m_interface->m_connexe_label.set_message(std::to_string(tmp.size()));
-            for(unsigned i = 0 ; i < tmp.size() ; i++)
-            {
-                for(unsigned j = 0 ; j < tmp[i].size() ; j++)
-                {
-                    std::cout << tmp[i][j] << " ";
-                }
-                std::cout << std::endl;
-            }
+            m_Sconnexe_vertex = m_graphe.Sconnexe();
+            m_interface->m_connexe_label.set_message(std::to_string(m_Sconnexe_vertex.size()));
         }
 
         if(m_interface->m_kconnexe_button.clicked())
@@ -383,33 +378,90 @@ void Fenetre::update_struct()
             grman::mettre_a_jour();
             m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()+10);
             m_kconnexe_vertex = m_graphe.kconnexe();
-            m_interface->m_kconnexe_label.set_message(std::to_string(m_kconnexe_vertex.size()));
+            m_interface->m_kconnexe_label.set_message(std::to_string(m_kconnexe_vertex.front().size()));
             update();
+        }
+
+        if(m_interface->m_connexe_display.switching())
+        {
+            change = true;
+            if(m_interface->m_kconnexe_display.get_switch())
+                m_interface->m_kconnexe_display.set_switch(false);
         }
 
         if(m_interface->m_kconnexe_display.switching())
         {
+            change = true;
+            if(m_interface->m_connexe_display.get_switch())
+                m_interface->m_connexe_display.set_switch(false);
+        }
+
+        if(change)
+        {
+            if(m_interface->m_connexe_display.get_switch())
+            {
+                m_interface->m_connexe_display.set_bg_color(CYANCLAIR);
+
+                if(!m_Sconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
+                    {
+                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
+                        }
+                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
+                    }
+                }
+            }
+            else
+            {
+                m_interface->m_connexe_display.set_bg_color(GRISCLAIR);
+                if(!m_Sconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
+                    {
+                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+                        }
+                        if(i == 8) {break;}
+                    }
+                }
+            }
+
             if(m_interface->m_kconnexe_display.get_switch())
             {
                 m_interface->m_kconnexe_display.set_bg_color(CYANCLAIR);
+
                 if(!m_kconnexe_vertex.empty())
                 {
-                    for(auto it : m_kconnexe_vertex)
+                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
                     {
-                        m_graphe.m_vertices.at(it).m_interface->m_down_box.set_bg_color(ROUGE);
+                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
+                        }
+                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
                     }
                 }
             }
             else
             {
                 m_interface->m_kconnexe_display.set_bg_color(GRISCLAIR);
-                for(auto it : m_kconnexe_vertex)
+                if(!m_kconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
                     {
-                        m_graphe.m_vertices.at(it).m_interface->m_down_box.set_bg_color(BLANC);
+                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+                        }
+                        if(i == 8) {break;}
                     }
+                }
             }
         }
-
     }
     else
     {

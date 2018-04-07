@@ -52,6 +52,17 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     m_slider.set_gravity_x(grman::GravityX::Left);
     m_slider.set_range(0.0 , 100.0);
     m_slider.set_lim_max(false);
+
+    for(int i = 0 ; i < 8 ; ++i)
+    {
+        m_top_box.add_child(m_marque[i]);
+        m_marque[i].set_border(0);
+        m_marque[i].set_margin(0);
+        m_marque[i].set_padding(0);
+        m_marque[i].set_pos(102, 10*i);
+        m_marque[i].set_dim(10, 10);
+        m_marque[i].set_bg_color(-1);
+    }
 }
 
 
@@ -373,11 +384,9 @@ std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, 
 
     for(int i = 0 ; i < ordre ; ++i)
     {
-        std::cout << c1[i] << " ";
         marques[i] = 0;
     }
     ajoute = 1;
-    std::cout << std::endl;
     while(ajoute)
     {
         ajoute = 0;
@@ -398,13 +407,6 @@ std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, 
         }
     }
 
-    for(int i = 0 ; i < ordre ; ++i)
-    {
-        std::cout << c2[i] << " ";
-    }
-    std::cout << std::endl;
-    std::cout << std::endl;
-
     for(x= 0 ; x < ordre ; x++)
     {
         c[x] = c1[x] & c2[x];
@@ -422,6 +424,7 @@ std::vector<std::vector<int>> Graph::Sconnexe()
     std::vector<std::vector<int>> tabc;
     std::vector<int> marques;
     int x, y;
+    unsigned tmp = 0;
 
     for(unsigned i = 0 ; i < m_vertices.size() ; ++i)
     {
@@ -446,14 +449,37 @@ std::vector<std::vector<int>> Graph::Sconnexe()
             }
         }
     }
-    for(auto it = tabc.begin() ; it < tabc.end() ; it++)
+
+    for(auto it = tabc.begin() ; it != tabc.end() ; ++it)
     {
-        if(*it == std::vector<int>(ordre, 0))
+        tmp = 0;
+        for(auto it2 : *it)
+            if(it2 == 1) tmp++;
+
+        if(tmp <= 1)
         {
             tabc.erase(it);
             it--;
         }
+        else
+        {
+            unsigned i = 0;
+            for(auto it2 = it->begin() ; it2 != it->end() ; ++it2)
+            {
+                if(*it2 == 1)
+                {
+                    *it2 = i;
+                }
+                else if(*it2 == 0)
+                {
+                    it->erase(it2);
+                    it2--;
+                }
+                i++;
+            }
+        }
     }
+
     return tabc;
 }
 
@@ -528,13 +554,13 @@ bool Graph::connexe()
     return out.size() == m_vertices.size();
 }
 
-std::vector<int> Graph::kconnexe()
+std::vector<std::vector<int>> Graph::kconnexe()
 {
     std::bitset<64> binaire(0);
     unsigned int kmin = 10000;
     int pos;
     unsigned int nb_tour = puis(2, m_vertices.size());
-    std::vector<int> out;
+    std::vector<std::vector<int>> out;
 
     for(unsigned int i = 0 ; i < nb_tour ; ++i)
     {
@@ -553,11 +579,23 @@ std::vector<int> Graph::kconnexe()
         {
             kmin = (m_vertices.size() - etude.m_vertices.size());
             out.clear();
+            out.push_back(std::vector<int>());
             for(auto it : m_vertices)
             {
                 if(!etude.m_vertices.count(it.first))
                 {
-                    out.push_back(it.first);
+                    out.back().push_back(it.first);
+                }
+            }
+        }
+        else if(!etude.connexe() && (m_vertices.size() - etude.m_vertices.size()) == kmin)
+        {
+            out.push_back(std::vector<int>());
+            for(auto it : m_vertices)
+            {
+                if(!etude.m_vertices.count(it.first))
+                {
+                    out.back().push_back(it.first);
                 }
             }
         }
