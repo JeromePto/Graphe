@@ -21,4 +21,13 @@ inline double toDouble(std::string in)
     return out;
 }
 
+inline unsigned long puis(unsigned long a, unsigned long b)
+{
+    unsigned long out(1);
+    for(unsigned int i = 0 ; i < b ; i++) {
+        out = out * a;
+    }
+    return out;
+}
+
 #endif // BASICS_H_INCLUDED

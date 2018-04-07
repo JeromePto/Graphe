@@ -231,7 +231,7 @@ void Fenetre::update_struct()
 
         if(m_interface->m_kconnexe_button.clicked())
         {
-            m_graphe.connexe();
+            m_interface->m_kconnexe_label.set_message(std::to_string(m_graphe.kconnexe()));
         }
     }
     else

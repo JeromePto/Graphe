@@ -79,6 +79,7 @@
 #include <utility>
 #include <fstream>
 #include <stack>
+#include <bitset>
 
 #include "grman/grman.h"
 #include "const.h"
@@ -167,6 +168,8 @@ class Vertex
         /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
         /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
         /// Voir l'implémentation Graph::update dans le .cpp
+        Vertex for_study() {Vertex out(m_value); out.m_in = m_in; out.m_out = m_out; return out;}
+
         void pre_update();
         void post_update();
 };
@@ -240,6 +243,8 @@ class Edge
         /// Edge étant géré par Graph ce sera la méthode update de graph qui appellera
         /// le pre_update et post_update de Edge (pas directement la boucle de jeu)
         /// Voir l'implémentation Graph::update dans le .cpp
+        Edge for_study() {Edge out(m_weight); out.m_from = m_from; out.m_to = m_to; return out;}
+
         void pre_update();
         void post_update();
 };
@@ -330,6 +335,8 @@ class Graph
         Graph (GraphInterface *interface=nullptr) :
             m_interface(interface), m_select(m_vertices, m_edges)  {  }
 
+        Graph (Graph const & other);
+
         void add_interfaced_vertex(int idx, double value, int x, int y, std::string pic_name="", int pic_idx=0 );
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
 
@@ -344,6 +351,7 @@ class Graph
         std::vector<int> once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s);
         std::vector<std::vector<int>> Sconnexe();
         bool connexe();
+        int kconnexe();
 
 
         void delete_vertex(int idx);

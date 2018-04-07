@@ -209,6 +209,19 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_main_box.set_lock_focus(true);
 }
 
+Graph::Graph (Graph const & other)
+    :m_edges(), m_vertices(), m_select(m_vertices, m_edges)
+{
+    for(auto it : other.m_vertices)
+    {
+        m_vertices[it.first] = it.second.for_study();
+    }
+    for(auto it : other.m_edges)
+    {
+        m_edges[it.first] = it.second.for_study();
+    }
+}
+
 /// Méthode spéciale qui construit un graphe arbitraire (démo)
 /// Cette méthode est à enlever et remplacer par un système
 /// de chargement de fichiers par exemple.
@@ -447,32 +460,27 @@ bool Graph::connexe()
 {
     if(m_vertices.empty()) return false;
 
-    std::vector<Vertex> copie;
     std::stack<int> pile;
-    int s = 0;
-    unsigned i = 0;
+    int s;
     std::map<int, bool> marques;
-    std::vector<std::vector<int>> adjacent;
+    std::map<int, std::vector<int>> adjacent;
     bool tmp(false);
+    std::vector<int> out;
 
     for(auto it : m_vertices)
     {
-        copie.push_back(it.second);
+        s = it.first;
         marques[it.first] = false;
-    }
-
-    for(auto it : copie)
-    {
-        adjacent.push_back(std::vector<int>());
+        adjacent[it.first] = std::vector<int>();
         tmp = false;
-        for(auto it2 : it.m_in)
+        for(auto it2 : it.second.m_in)
         {
-            adjacent.back().push_back(m_edges.at(it2).m_from);
+            adjacent.at(it.first).push_back(m_edges.at(it2).m_from);
         }
 
-        for(auto it2 : it.m_out)
+        for(auto it2 : it.second.m_out)
         {
-            for(auto it3 : adjacent.back())
+            for(auto it3 : adjacent.at(it.first))
             {
                 if(it3 == m_edges.at(it2).m_to)
                 {
@@ -480,23 +488,23 @@ bool Graph::connexe()
                 }
             }
             if(!tmp)
-                adjacent.back().push_back(m_edges.at(it2).m_to);
+                adjacent.at(it.first).push_back(m_edges.at(it2).m_to);
         }
     }
 
-    for(auto it : adjacent)
-    {
-        for(auto it2 : it)
-        {
-            std::cout << it2 << " ";
-        }
-        std::cout << std::endl;
-    }
+//    for(auto it : adjacent)
+//    {
+//        for(auto it2 : it.second)
+//        {
+//            std::cout << it2 << " ";
+//        }
+//        std::cout << std::endl;
+//    }
 
     marques.at(s) = true;
     pile.push(s);
 
-    std::cout << "Composantes connexes :" << std::endl;
+    //std::cout << "Composantes connexes :" << std::endl;
     while(!pile.empty())
     {
         s=pile.top();
@@ -504,18 +512,63 @@ bool Graph::connexe()
 
         for (unsigned a=0; a<adjacent[s].size(); ++a)
         {
-            std::cout << adjacent[s].size() << " " << s << " " << a << " " << adjacent[s][a] << " :";
+            //std::cout << adjacent[s].size() << " " << s << " " << a << " " << adjacent[s][a] << " :";
             if (!marques.at(adjacent[s][a]))
             {
                 marques[adjacent[s][a]] = true;
                 pile.push(adjacent[s][a]);
             }
         }
-        std::cout << s << std::endl;
+        out.push_back(s);
+        //std::cout << s << std::endl;
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
 
-    return false;
+    return out.size() == m_vertices.size();
+}
+
+int Graph::kconnexe()
+{
+    std::bitset<64> binaire(0);
+    unsigned int kmin = 10000;
+    int pos;
+    unsigned int nb_tour = puis(2, m_vertices.size());
+
+    for(unsigned int i = 0 ; i < nb_tour ; ++i)
+    {
+        Graph etude(*this);
+        pos = 0;
+        binaire = binaire.to_ulong() + 1;
+        for(auto it2 : etude.m_vertices)
+        {
+            if(binaire[pos])
+            {
+                etude.delete_vertex(it2.first);
+            }
+            pos++;
+        }
+        if(!etude.connexe() && (m_vertices.size() - etude.m_vertices.size()) < kmin)
+        {
+            kmin = (m_vertices.size() - etude.m_vertices.size());
+
+        }
+    }
+    return kmin;
+
+//    for(auto it : del_turn)
+//    {
+//        Graph etude(*this);
+//        i = 0;
+//        for(auto it2 : etude.m_vertices)
+//        {
+//            if(it[i])
+//            {
+//                etude.delete_vertex(it2.first);
+//            }
+//        }
+//    }
+
+
 }
 
 void Graph::delete_vertex(int idx)
@@ -534,7 +587,9 @@ void Graph::delete_vertex(int idx)
         delete_edge(it);
     }
 
-    m_interface->m_main_box.remove_child(m_vertices.at(idx).m_interface->m_top_box);
+    if(m_interface)
+        m_interface->m_main_box.remove_child(m_vertices.at(idx).m_interface->m_top_box);
+
     m_vertices.erase(idx);
 }
 
