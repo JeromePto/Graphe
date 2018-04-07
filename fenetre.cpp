@@ -76,18 +76,33 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_button_fonctionnel_label.set_message("Fonctionnels");
 
 
+    m_top_box.add_child(m_add_vertex);
+    m_add_vertex.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
+    m_add_vertex.set_dim(100, 20);
+    m_add_vertex.set_bg_color(GRISCLAIR);
+    m_add_vertex.set_text("ADD VERTEX");
+
+    m_top_box.add_child(m_add_edge_button);
+    m_add_edge_button.set_pos(m_add_vertex.get_posx(), m_add_vertex.get_posy() + 25);
+    m_add_edge_button.set_dim(100, 20);
+    m_add_edge_button.set_bg_color(GRISCLAIR);
+
+    m_add_edge_button.add_child(m_add_edge_label);
+    m_add_edge_label.set_message("ADD EDGE");
+
     m_top_box.add_child(m_delete_button);
-    m_delete_button.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
-    m_delete_button.set_dim(80, 20);
+    m_delete_button.set_pos(m_add_vertex.get_posx(), m_add_vertex.get_posy() + 50);
+    m_delete_button.set_dim(100, 20);
     m_delete_button.set_bg_color(GRISCLAIR);
     m_delete_button.set_tmp_pos();
 
     m_delete_button.add_child(m_delete_button_label);
     m_delete_button_label.set_message("DELETE");
 
+
     m_top_box.add_child(m_struct_box);
     m_struct_box.set_pos(600, 0);
-    m_struct_box.set_dim(300, 70);
+    m_struct_box.set_dim(300, TAILLE_BAR-9);
     //m_struct_box.set_border(0);
     m_struct_box.set_padding(0);
     m_struct_box.set_tmp_pos();
@@ -102,8 +117,8 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_connexe_label.set_pos(m_connexe_button.get_posx()+150, m_connexe_button.get_posy()+7);
 
     m_struct_box.add_child(m_connexe_display);
-    m_connexe_display.set_pos(m_connexe_button.get_posx()+190, m_connexe_button.get_posy());
-    m_connexe_display.set_dim(100, 20);
+    m_connexe_display.set_pos(m_connexe_button.get_posx()+200, m_connexe_button.get_posy());
+    m_connexe_display.set_dim(90, 20);
     m_connexe_display.set_bg_color(GRISCLAIR);
     m_connexe_display.set_text("DISPLAY");
 
@@ -117,11 +132,83 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_kconnexe_label.set_pos(m_kconnexe_button.get_posx()+150, m_kconnexe_button.get_posy()+7);
 
     m_struct_box.add_child(m_kconnexe_display);
-    m_kconnexe_display.set_pos(m_kconnexe_button.get_posx()+190, m_kconnexe_button.get_posy());
-    m_kconnexe_display.set_dim(100, 20);
+    m_kconnexe_display.set_pos(m_kconnexe_button.get_posx()+200, m_kconnexe_button.get_posy());
+    m_kconnexe_display.set_dim(90, 20);
     m_kconnexe_display.set_bg_color(GRISCLAIR);
     m_kconnexe_display.set_text("DISPLAY");
 
+    m_top_box.add_child(m_fonc_box);
+    m_fonc_box.set_pos(600, 0);
+    m_fonc_box.set_dim(300, TAILLE_BAR-9);
+    //m_fonc_box.set_border(0);
+    m_fonc_box.set_padding(0);
+    m_fonc_box.set_tmp_pos();
+
+    m_fonc_box.add_child(m_play_button);
+    m_play_button.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
+    m_play_button.set_dim(80, 20);
+    m_play_button.set_padding(0);
+    m_play_button.set_margin(0);
+    m_play_button.set_bg_color(GRISCLAIR);
+
+    m_play_button.add_child(m_play_button_label);
+    m_play_button_label.set_message("RUN");
+
+    m_fonc_box.add_child(m_label_coefr);
+    m_label_coefr.set_pos(5, 30);
+    m_label_coefr.set_message("r");
+
+    m_fonc_box.add_child(m_slider_coefr);
+    m_slider_coefr.set_padding(0);
+    m_slider_coefr.set_margin(0);
+    //m_slider_coefr.set_border(0);
+    m_slider_coefr.set_dim(20, m_fonc_box.get_dimy());
+    m_slider_coefr.set_gravity_y(grman::GravityY::Center);
+    m_slider_coefr.set_posx(90);
+    m_slider_coefr.set_range(0.0 , 20.0);
+    m_slider_coefr.set_value(log(2000));
+
+    m_fonc_box.add_child(m_label_coefpred);
+    m_label_coefpred.set_pos(5, 40);
+    m_label_coefpred.set_message("pred");
+
+    m_fonc_box.add_child(m_slider_coefpred);
+    m_slider_coefpred.set_padding(0);
+    m_slider_coefpred.set_margin(0);
+    //m_slider_coefpred.set_border(0);
+    m_slider_coefpred.set_dim(20, m_fonc_box.get_dimy());
+    m_slider_coefpred.set_gravity_y(grman::GravityY::Center);
+    m_slider_coefpred.set_posx(112);
+    m_slider_coefpred.set_range(0.0 , 10.0);
+    m_slider_coefpred.set_value(log(5000));
+
+    m_fonc_box.add_child(m_label_coefproi);
+    m_label_coefproi.set_pos(5, 50);
+    m_label_coefproi.set_message("proi");
+
+    m_fonc_box.add_child(m_slider_coefproi);
+    m_slider_coefproi.set_padding(0);
+    m_slider_coefproi.set_margin(0);
+    //m_slider_coefproi.set_border(0);
+    m_slider_coefproi.set_dim(20, m_fonc_box.get_dimy());
+    m_slider_coefproi.set_gravity_y(grman::GravityY::Center);
+    m_slider_coefproi.set_posx(134);
+    m_slider_coefproi.set_range(1.0 , 100.0);
+    m_slider_coefproi.set_value(1);
+
+    m_fonc_box.add_child(m_label_speed);
+    m_label_speed.set_pos(5, 60);
+    m_label_speed.set_message("speed");
+
+    m_fonc_box.add_child(m_slider_speed);
+    m_slider_speed.set_padding(0);
+    m_slider_speed.set_margin(0);
+    //m_slider_speed.set_border(0);
+    m_slider_speed.set_dim(20, m_fonc_box.get_dimy());
+    m_slider_speed.set_gravity_y(grman::GravityY::Center);
+    m_slider_speed.set_posx(156);
+    m_slider_speed.set_range(0.0 , 2.0);
+    m_slider_speed.set_value(1);
 }
 
 void Fenetre::close()
@@ -139,6 +226,8 @@ void Fenetre::close()
     m_string_edit.clear();
     m_interface->m_move_button.set_switch(false);
     m_interface->m_move_button.set_bg_color(GRISCLAIR);
+    m_interface->m_play_button.set_switch(false);
+    m_interface->m_play_button.set_bg_color(GRISCLAIR);
 }
 
 void Fenetre::update()
@@ -146,16 +235,20 @@ void Fenetre::update()
     if (!m_interface)
             return;
 
+    pre_update();
+
     m_graphe.update();
     m_interface->m_top_box.update();
 
     m_last_edition = m_edition;
 
     update_fixe_button();
-    update_edit_button();
+    update_moveedit_button();
     update_selected();
     update_struct();
     update_fonc();
+
+    post_update();
 }
 
 void Fenetre::update_fixe_button()
@@ -188,6 +281,8 @@ void Fenetre::update_fixe_button()
             m_interface->m_button_fonctionnel.set_switch(false);
             m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
             m_mode = 1;
+            m_interface->m_play_button.set_switch(false);
+            m_interface->m_play_button.set_bg_color(GRISCLAIR);
         }
         else
         {
@@ -206,6 +301,52 @@ void Fenetre::update_fixe_button()
         else
         {
             m_interface->m_button_fonctionnel.set_switch(true);
+        }
+    }
+
+    if(m_interface->m_add_vertex.clicked())
+    {
+        int i = 0;
+        while(m_graphe.m_vertices.count(i) != 0)
+        {
+            i++;
+        }
+        m_graphe.add_interfaced_vertex(i, 10, 500, 500, "tchoupi.jpg", 0);
+    }
+
+    if(m_interface->m_add_edge_button.switching())
+    {
+        if(m_interface->m_add_edge_button.get_switch())
+        {
+            m_selected_buffer.clear();
+            m_interface->m_add_edge_button.set_bg_color(BLEUCLAIR);
+        }
+        else
+        {
+            m_interface->m_add_edge_button.set_bg_color(GRISCLAIR);
+        }
+    }
+
+    if(m_interface->m_add_edge_button.get_switch())
+    {
+        if(m_graphe.m_select.st_selected() && m_graphe.m_select.is_different() && m_graphe.m_select.is_vertex_selected())
+        {
+            if(m_selected_buffer.empty())
+                m_selected_buffer.push_back(m_graphe.m_select.vertex_selected());
+            else if(m_selected_buffer.front() != m_graphe.m_select.vertex_selected())
+                m_selected_buffer.push_back(m_graphe.m_select.vertex_selected());
+        }
+
+        if(m_selected_buffer.size() == 2)
+        {
+            int i = 0;
+            while(m_graphe.m_edges.count(i) != 0)
+            {
+                i++;
+            }
+            m_graphe.add_interfaced_edge(i, m_selected_buffer.at(0), m_selected_buffer.at(1), 10);
+            m_interface->m_add_edge_button.set_switch(false);
+            m_interface->m_add_edge_button.set_bg_color(GRISCLAIR);
         }
     }
 }
@@ -231,7 +372,13 @@ void Fenetre::update_struct()
 
         if(m_interface->m_kconnexe_button.clicked())
         {
-            m_interface->m_kconnexe_label.set_message(std::to_string(m_graphe.kconnexe()));
+            m_interface->m_kconnexe_label.set_message("working");
+            m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()-10);
+            m_interface->m_kconnexe_label.update();
+            grman::mettre_a_jour();
+            m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()+10);
+            m_interface->m_kconnexe_label.set_message(std::to_string(m_graphe.kconnexe().size()));
+            update();
         }
     }
     else
@@ -244,15 +391,32 @@ void Fenetre::update_fonc()
 {
     if(m_mode == 2)
     {
-       m_graphe.update_time();
+        m_interface->m_fonc_box.back_tmp_pos();
+        if(m_interface->m_play_button.get_switch())
+        {
+            m_graphe.update_time(m_coefr, m_coefpred, m_coefproi, m_speed);
+        }
+
+        if(m_interface->m_play_button.switching())
+        {
+            if(m_interface->m_play_button.get_switch())
+            {
+                m_interface->m_play_button.set_bg_color(CYANCLAIR);
+
+            }
+            else
+            {
+                m_interface->m_play_button.set_bg_color(GRISCLAIR);
+            }
+        }
     }
     else
     {
-
+        m_interface->m_fonc_box.set_pos(2000, 2000);
     }
 }
 
-void Fenetre::update_edit_button()
+void Fenetre::update_moveedit_button()
 {
     bool change(false);
 
@@ -325,7 +489,7 @@ void Fenetre::update_selected()
 
             if(m_graphe.m_select.is_vertex_selected())
             {
-                if(m_graphe.m_select.is_different() || (m_edition && !m_last_edition))
+                if(m_graphe.m_select.is_different() || (m_edition && !m_last_edition) )
                 {
                     m_string_edit.clear();
                     m_string_edit = toString(m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value);
@@ -367,4 +531,28 @@ void Fenetre::update_selected()
     {
         m_interface->m_delete_button.set_pos(2000, 2000);
     }
+}
+
+void Fenetre::pre_update()
+{
+    //m_interface->m_slider_coefr.set_value(m_coefr);
+    m_interface->m_label_coefr.set_message("r=" + std::to_string((int)m_coefr));
+
+    //m_interface->m_slider_coefpred.set_value(m_coefpred);
+    m_interface->m_label_coefpred.set_message("pred=" + std::to_string((int)m_coefpred));
+
+    //m_interface->m_slider_coefproi.set_value(m_coefproi);
+    m_interface->m_label_coefproi.set_message("proi=" + std::to_string((int)m_coefproi));
+
+    //m_interface->m_slider_speed.set_value(m_coefproi);
+    m_interface->m_label_speed.set_message("speed=" + toString(m_speed));
+}
+
+
+void Fenetre::post_update()
+{
+    m_coefr = exp(m_interface->m_slider_coefr.get_value());
+    m_coefpred = exp(m_interface->m_slider_coefpred.get_value());
+    m_coefproi = m_interface->m_slider_coefproi.get_value();
+    m_speed = pow(m_interface->m_slider_speed.get_value(), 2);
 }

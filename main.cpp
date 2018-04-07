@@ -21,7 +21,6 @@ int main()
 
     /// Un exemple de graphe
     Fenetre g;
-    //g.make_example();
 
     set_close_button_callback(close_button_handler);
 

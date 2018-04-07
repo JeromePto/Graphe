@@ -27,7 +27,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     m_top_box.add_child(m_down_box);
     m_down_box.set_dim(m_top_box.get_dimx()-6-20, HAUTEUR_BAR_IMAGE);
     m_down_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Down);
-    m_down_box.set_bg_color(BLANC);
+    m_down_box.set_bg_color(ROUGE);
     m_down_box.set_padding(0);
     m_down_box.set_margin(0);
     m_down_box.set_border(0);
@@ -51,6 +51,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     m_slider.set_dim(20, m_top_box.get_dimy());
     m_slider.set_gravity_x(grman::GravityX::Left);
     m_slider.set_range(0.0 , 100.0);
+    m_slider.set_lim_max(false);
 }
 
 
@@ -527,12 +528,13 @@ bool Graph::connexe()
     return out.size() == m_vertices.size();
 }
 
-int Graph::kconnexe()
+std::vector<int> Graph::kconnexe()
 {
     std::bitset<64> binaire(0);
     unsigned int kmin = 10000;
     int pos;
     unsigned int nb_tour = puis(2, m_vertices.size());
+    std::vector<int> out;
 
     for(unsigned int i = 0 ; i < nb_tour ; ++i)
     {
@@ -550,25 +552,17 @@ int Graph::kconnexe()
         if(!etude.connexe() && (m_vertices.size() - etude.m_vertices.size()) < kmin)
         {
             kmin = (m_vertices.size() - etude.m_vertices.size());
-
+            out.clear();
+            for(auto it : m_vertices)
+            {
+                if(!etude.m_vertices.count(it.first))
+                {
+                    out.push_back(it.first);
+                }
+            }
         }
     }
-    return kmin;
-
-//    for(auto it : del_turn)
-//    {
-//        Graph etude(*this);
-//        i = 0;
-//        for(auto it2 : etude.m_vertices)
-//        {
-//            if(it[i])
-//            {
-//                etude.delete_vertex(it2.first);
-//            }
-//        }
-//    }
-
-
+    return out;
 }
 
 void Graph::delete_vertex(int idx)
@@ -662,30 +656,37 @@ void Graph::close_graphe()
 
 }
 
-void Graph::update_time()
+void Graph::update_time(double r, double pred, double proi, double speed)
 {
     double k, a;
-    double r = 0.0005;
-    double co = 5000;
-    for(auto &it : m_vertices)
+    static double cmp = 1.0;
+
+    cmp += speed;
+    while (cmp > 1.0)
     {
-        std::cout << it.first << ":";
-        k = 1;
-        for(auto it2 : it.second.m_in)
+        cmp -= 1.0;
+        for(auto &it : m_vertices)
         {
-            k += (m_edges.at(it2).m_weight) * m_vertices.at(m_edges.at(it2).m_from).m_value;
+            std::cout << it.first << ":";
+            k = 1;
+            for(auto it2 : it.second.m_in)
+            {
+                k += (m_edges.at(it2).m_weight) / proi * m_vertices.at(m_edges.at(it2).m_from).m_value;
+            }
+            std::cout << " a = " << it.second.m_value;
+            std::cout << "\tk : " << k;
+            std::cout << "\tn/k : " << (it.second.m_value / k);
+            a = it.second.m_value + (1/r) * it.second.m_value * (1.0 - (it.second.m_value / k));
+            std::cout << "\ta pos : " << a;
+            for(auto it2 : it.second.m_out)
+            {
+                a = a - (m_edges.at(it2).m_weight) / pred * m_vertices.at(m_edges.at(it2).m_to).m_value;
+            }
+            std::cout << "\ta : " << a << std::endl;
+            a > 0 ? it.second.m_value = a : it.second.m_value = 0;
         }
-        std::cout << "\tk : " << k;
-        a = it.second.m_value + r * it.second.m_value * (1 - (it.second.m_value / k));
-        std::cout << "\ta pos : " << a;
-        for(auto it2 : it.second.m_out)
-        {
-            a = a - (m_edges.at(it2).m_weight) / co * m_vertices.at(m_edges.at(it2).m_to).m_value;
-        }
-        std::cout << "\ta : " << a << std::endl;
-        a > 0 ? it.second.m_value = a : it.second.m_value = 0;
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
 }
 
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

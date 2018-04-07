@@ -1,7 +1,7 @@
 #ifndef FENETRE_H_INCLUDED
 #define FENETRE_H_INCLUDED
 
-#include <cstdlib>
+#include <cmath>
 
 #include "graph.h"
 #include "const.h"
@@ -38,6 +38,9 @@ class FenetreInterface
         grman::WidgetButtonSwitch m_button_fonctionnel;
         grman::WidgetText m_button_fonctionnel_label;
 
+        grman::WidgetButtonText m_add_vertex;
+        grman::WidgetButtonSwitch m_add_edge_button;
+        grman::WidgetText m_add_edge_label;
         grman::WidgetButton m_delete_button;
         grman::WidgetText m_delete_button_label;
 
@@ -48,6 +51,19 @@ class FenetreInterface
         grman::WidgetButtonText m_kconnexe_button;
         grman::WidgetText m_kconnexe_label;
         grman::WidgetButtonText m_kconnexe_display;
+
+        grman::WidgetBox m_fonc_box;
+        grman::WidgetButtonSwitch m_play_button;
+        grman::WidgetText m_play_button_label;
+        grman::WidgetVSlider m_slider_coefr;
+        grman::WidgetText m_label_coefr;
+        grman::WidgetVSlider m_slider_coefpred;
+        grman::WidgetText m_label_coefpred;
+        grman::WidgetVSlider m_slider_coefproi;
+        grman::WidgetText m_label_coefproi;
+        grman::WidgetVSlider m_slider_speed;
+        grman::WidgetText m_label_speed;
+
 
     public :
 
@@ -69,6 +85,12 @@ class Fenetre
         bool m_edition = false;
         bool m_last_edition = false;
         std::string m_string_edit;
+        std::vector<int> m_selected_buffer;
+
+        double m_coefr = 2000;
+        double m_coefpred = 5000;
+        double m_coefproi = 1;
+        double m_speed = 1;
 
     public:
 
@@ -77,10 +99,12 @@ class Fenetre
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
         void update_struct();
-        void update_edit_button();
+        void update_moveedit_button();
         void update_selected();
         void update_fonc();
         void update_fixe_button();
+        void pre_update();
+        void post_update();
 
         void close();
 

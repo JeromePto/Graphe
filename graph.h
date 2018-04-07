@@ -351,13 +351,13 @@ class Graph
         std::vector<int> once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s);
         std::vector<std::vector<int>> Sconnexe();
         bool connexe();
-        int kconnexe();
+        std::vector<int> kconnexe();
 
 
         void delete_vertex(int idx);
         void delete_edge(int idx);
         void close_graphe();
-        void update_time();
+        void update_time(double r = 2000, double pred = 5000, double proi = 1, double speed = 1);
 
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
