@@ -120,7 +120,9 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_connexe_display.set_pos(m_connexe_button.get_posx()+200, m_connexe_button.get_posy());
     m_connexe_display.set_dim(90, 20);
     m_connexe_display.set_bg_color(GRISCLAIR);
-    m_connexe_display.set_text("DISPLAY");
+
+    m_connexe_display.add_child(m_connexe_display_label);
+    m_connexe_display_label.set_message("DISPLAY");
 
     m_struct_box.add_child(m_kconnexe_button);
     m_kconnexe_button.set_pos(m_connexe_button.get_posx(), m_connexe_button.get_posy()+25);
@@ -135,7 +137,9 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_kconnexe_display.set_pos(m_kconnexe_button.get_posx()+200, m_kconnexe_button.get_posy());
     m_kconnexe_display.set_dim(90, 20);
     m_kconnexe_display.set_bg_color(GRISCLAIR);
-    m_kconnexe_display.set_text("DISPLAY");
+
+    m_kconnexe_display.add_child(m_kconnexe_display_label);
+    m_kconnexe_display_label.set_message("DISPLAY");
 
     m_top_box.add_child(m_fonc_box);
     m_fonc_box.set_pos(600, 0);
@@ -228,6 +232,7 @@ void Fenetre::close()
     m_interface->m_move_button.set_bg_color(GRISCLAIR);
     m_interface->m_play_button.set_switch(false);
     m_interface->m_play_button.set_bg_color(GRISCLAIR);
+    m_kconnexe_vertex.clear();
 }
 
 void Fenetre::update()
@@ -377,9 +382,34 @@ void Fenetre::update_struct()
             m_interface->m_kconnexe_label.update();
             grman::mettre_a_jour();
             m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()+10);
-            m_interface->m_kconnexe_label.set_message(std::to_string(m_graphe.kconnexe().size()));
+            m_kconnexe_vertex = m_graphe.kconnexe();
+            m_interface->m_kconnexe_label.set_message(std::to_string(m_kconnexe_vertex.size()));
             update();
         }
+
+        if(m_interface->m_kconnexe_display.switching())
+        {
+            if(m_interface->m_kconnexe_display.get_switch())
+            {
+                m_interface->m_kconnexe_display.set_bg_color(CYANCLAIR);
+                if(!m_kconnexe_vertex.empty())
+                {
+                    for(auto it : m_kconnexe_vertex)
+                    {
+                        m_graphe.m_vertices.at(it).m_interface->m_down_box.set_bg_color(ROUGE);
+                    }
+                }
+            }
+            else
+            {
+                m_interface->m_kconnexe_display.set_bg_color(GRISCLAIR);
+                for(auto it : m_kconnexe_vertex)
+                    {
+                        m_graphe.m_vertices.at(it).m_interface->m_down_box.set_bg_color(BLANC);
+                    }
+            }
+        }
+
     }
     else
     {
@@ -515,6 +545,7 @@ void Fenetre::update_selected()
                 {
                     m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
                     m_graphe.m_select.clear();
+                    m_kconnexe_vertex.clear();
                 }
             }
             else if(m_graphe.m_select.is_edge_selected())
@@ -523,6 +554,7 @@ void Fenetre::update_selected()
                 {
                     m_graphe.delete_edge(m_graphe.m_select.edge_selected());
                     m_graphe.m_select.clear();
+                    m_kconnexe_vertex.clear();
                 }
             }
         }

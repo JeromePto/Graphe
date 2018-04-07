@@ -27,7 +27,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
     m_top_box.add_child(m_down_box);
     m_down_box.set_dim(m_top_box.get_dimx()-6-20, HAUTEUR_BAR_IMAGE);
     m_down_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Down);
-    m_down_box.set_bg_color(ROUGE);
+    m_down_box.set_bg_color(BLANC);
     m_down_box.set_padding(0);
     m_down_box.set_margin(0);
     m_down_box.set_border(0);

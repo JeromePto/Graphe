@@ -47,10 +47,12 @@ class FenetreInterface
         grman::WidgetBox m_struct_box;
         grman::WidgetButtonText m_connexe_button;
         grman::WidgetText m_connexe_label;
-        grman::WidgetButtonText m_connexe_display;
+        grman::WidgetButtonSwitch m_connexe_display;
+        grman::WidgetText m_connexe_display_label;
         grman::WidgetButtonText m_kconnexe_button;
         grman::WidgetText m_kconnexe_label;
-        grman::WidgetButtonText m_kconnexe_display;
+        grman::WidgetButtonSwitch m_kconnexe_display;
+        grman::WidgetText m_kconnexe_display_label;
 
         grman::WidgetBox m_fonc_box;
         grman::WidgetButtonSwitch m_play_button;
@@ -91,6 +93,7 @@ class Fenetre
         double m_coefpred = 5000;
         double m_coefproi = 1;
         double m_speed = 1;
+        std::vector<int> m_kconnexe_vertex;
 
     public:
 
