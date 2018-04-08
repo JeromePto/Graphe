@@ -1,0 +1,5 @@
+Code fournit par M. Fercoq dans le cadre du projet
+
+cplusplus.com
+
+Le support de cours pour les algorithmes
