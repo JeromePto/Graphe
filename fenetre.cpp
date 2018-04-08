@@ -362,6 +362,7 @@ void Fenetre::update_selected()
                 m_Sconnexe_vertex.clear();
                 m_interface->m_kconnexe_label.set_message("");
                 m_interface->m_connexe_label.set_message("");
+                m_graphe.m_select.clear();
             }
         }
         else if(m_graphe.m_select.is_edge_selected())
@@ -452,6 +453,7 @@ void Fenetre::pre_update_button()
         {
             m_selected_buffer.clear();
         }
+        m_graphe.m_select.unselect();
         m_interface->m_rgraphe_button.set_switch(false);
         m_change = true;
     }
@@ -675,9 +677,9 @@ void Fenetre::post_update_button()
                     {
                         for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
                         {
-                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[2].set_bg_color(-1);
                         }
-                        if(i == 8) {break;}
+                        if(i == 7) {break;}
                     }
                 }
             }
@@ -693,7 +695,7 @@ void Fenetre::post_update_button()
                         {
                             m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
                         }
-                        if(i == 8) {break;}
+                        if(i == 7) {break;}
                     }
                 }
             }
@@ -710,7 +712,7 @@ void Fenetre::post_update_button()
                         {
                             m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
                         }
-                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
+                        if(i == 7) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
                     }
                 }
             }
@@ -727,7 +729,7 @@ void Fenetre::post_update_button()
                         {
                             m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
                         }
-                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
+                        if(i == 7) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
                     }
                 }
             }

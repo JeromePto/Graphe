@@ -417,7 +417,7 @@ std::map<int, int> Graph::once_Sconnexe(std::map<int, std::map<int, bool>> adjac
 
 std::vector<std::vector<int>> Graph::Sconnexe()
 {
-    if(m_vertices.empty()) return std::vector<std::vector<int>>();
+    if(m_vertices.empty() || !connexe()) return std::vector<std::vector<int>>();
 
     std::map<int, std::map<int, bool>> adjacence = matrice_adj();
     std::map<int, std::map<int, int>> tabc;
@@ -561,20 +561,27 @@ std::vector<std::vector<int>> Graph::kconnexe()
     int pos;
     unsigned int nb_tour = puis(2, m_vertices.size());
     std::vector<std::vector<int>> out;
+    std::vector<int> aDel;
 
     for(unsigned int i = 0 ; i < nb_tour ; ++i)
     {
         Graph etude(*this);
         pos = 0;
         binaire = binaire.to_ulong() + 1;
+        aDel.clear();
         for(auto it2 : etude.m_vertices)
         {
             if(binaire[pos])
             {
-                etude.delete_vertex(it2.first);
+                aDel.push_back(it2.first);
             }
             pos++;
         }
+        for(auto it2 : aDel)
+        {
+            etude.delete_vertex(it2);
+        }
+
         if(!etude.connexe() && (m_vertices.size() - etude.m_vertices.size()) < kmin)
         {
             kmin = (m_vertices.size() - etude.m_vertices.size());
@@ -600,6 +607,7 @@ std::vector<std::vector<int>> Graph::kconnexe()
             }
         }
     }
+
     return out;
 }
 

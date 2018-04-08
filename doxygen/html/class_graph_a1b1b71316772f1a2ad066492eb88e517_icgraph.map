@@ -1,3 +1,4 @@
 <map id="Graph::connexe" name="Graph::connexe">
-<area shape="rect" id="node2" href="$class_graph.html#ad12793824910448c82c5face1e6d4b83" title="Renvoit les composantes k&#45;connee. " alt="" coords="168,5,289,32"/>
+<area shape="rect" id="node2" href="$class_graph.html#a98362984f503556947055d91955d2ea1" title="La forte connexité du graphe. " alt="" coords="168,5,291,32"/>
+<area shape="rect" id="node3" href="$class_graph.html#ad12793824910448c82c5face1e6d4b83" title="Renvoit les composantes k&#45;connee. " alt="" coords="169,56,290,83"/>
 </map>

@@ -1,4 +1,4 @@
-<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" href="$classgrman_1_1_widget.html" title="grman::Widget" alt="" coords="5,233,112,260"/>
 <area shape="rect" id="node2" href="$classgrman_1_1_widget_box.html" title="grman::WidgetBox" alt="" coords="187,5,317,32"/>
 <area shape="rect" id="node3" href="$classgrman_1_1_widget_button.html" title="grman::WidgetButton" alt="" coords="179,56,325,83"/>
