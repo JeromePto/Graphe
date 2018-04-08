@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "graph.h"
+#include "rgraph.h"
 #include "const.h"
 #include "basics.h"
 
@@ -53,6 +54,8 @@ class FenetreInterface
         grman::WidgetText m_kconnexe_label;
         grman::WidgetButtonSwitch m_kconnexe_display;
         grman::WidgetText m_kconnexe_display_label;
+        grman::WidgetButtonSwitch m_rgraphe_button;
+        grman::WidgetText m_rgraphe_button_label;
 
         grman::WidgetBox m_fonc_box;
         grman::WidgetButtonSwitch m_play_button;
@@ -82,6 +85,7 @@ class Fenetre
         /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
         std::shared_ptr<FenetreInterface> m_interface = nullptr;
         Graph m_graphe;
+        RGraph m_rgraphe;
         // 1 = structurel, 2 = fonctionnel
         int m_mode = 1;
         bool m_edition = false;
@@ -98,7 +102,7 @@ class Fenetre
 
     public:
 
-        Fenetre (FenetreInterface *interface=nullptr) : m_interface(interface), m_graphe(Graph())  {m_interface = std::make_shared<FenetreInterface>(0, 0, 1024, 768);}
+        Fenetre (FenetreInterface *interface=nullptr) : m_interface(interface), m_graphe(Graph()), m_rgraphe(RGraph())  {m_interface = std::make_shared<FenetreInterface>(0, 0, 1024, 768);}
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();

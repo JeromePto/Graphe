@@ -141,6 +141,14 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_kconnexe_display.add_child(m_kconnexe_display_label);
     m_kconnexe_display_label.set_message("DISPLAY");
 
+    m_struct_box.add_child(m_rgraphe_button);
+    m_rgraphe_button.set_pos(m_kconnexe_button.get_posx()+75, m_kconnexe_button.get_posy()+28);
+    m_rgraphe_button.set_dim(200, 20);
+    m_rgraphe_button.set_bg_color(GRISCLAIR);
+
+    m_rgraphe_button.add_child(m_rgraphe_button_label);
+    m_rgraphe_button_label.set_message("DISPALY GRAPHE REDUIT");
+
     m_top_box.add_child(m_fonc_box);
     m_fonc_box.set_pos(600, 0);
     m_fonc_box.set_dim(300, TAILLE_BAR-9);
@@ -245,6 +253,9 @@ void Fenetre::update()
 
     m_graphe.update();
     m_interface->m_top_box.update();
+
+    if(m_interface->m_rgraphe_button.get_switch())
+        m_rgraphe.update();
 
     m_last_edition = m_edition;
 
@@ -387,11 +398,27 @@ void Fenetre::update_struct()
             change = true;
             if(m_interface->m_kconnexe_display.get_switch())
                 m_interface->m_kconnexe_display.set_switch(false);
+
+            if(m_interface->m_rgraphe_button.get_switch())
+                m_interface->m_rgraphe_button.set_switch(false);
         }
 
         if(m_interface->m_kconnexe_display.switching())
         {
             change = true;
+            if(m_interface->m_connexe_display.get_switch())
+                m_interface->m_connexe_display.set_switch(false);
+
+            if(m_interface->m_rgraphe_button.get_switch())
+                m_interface->m_rgraphe_button.set_switch(false);
+        }
+
+        if(m_interface->m_rgraphe_button.switching())
+        {
+            change = true;
+            if(m_interface->m_kconnexe_display.get_switch())
+                m_interface->m_kconnexe_display.set_switch(false);
+
             if(m_interface->m_connexe_display.get_switch())
                 m_interface->m_connexe_display.set_switch(false);
         }
@@ -460,6 +487,22 @@ void Fenetre::update_struct()
                         if(i == 8) {break;}
                     }
                 }
+            }
+
+            if(m_interface->m_rgraphe_button.get_switch())
+            {
+                m_interface->m_rgraphe_button.set_bg_color(CYANCLAIR);
+                if(!m_Sconnexe_vertex.empty())
+                {
+                    if(m_rgraphe.m_interface == nullptr)
+                        m_rgraphe.create(m_graphe, m_Sconnexe_vertex);
+                }
+
+            }
+            else
+            {
+                m_interface->m_rgraphe_button.set_bg_color(GRISCLAIR);
+                m_rgraphe.close_graphe();
             }
         }
     }

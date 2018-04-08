@@ -44,6 +44,6 @@ END_OF_MAIN();
 //* bug load multiple
 //* numero sommet dans fichier
 //* bug delete 2 fois
-// bug forte connexite
-// valeur renvoie connexe
+//* bug forte connexite
+//* valeur renvoie connexe
 // cout inutile

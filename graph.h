@@ -98,6 +98,8 @@ class VertexInterface
     friend class Graph;
     friend class Fenetre;
     friend class Select;
+    friend class RGraph;
+
 
     private :
 
@@ -141,6 +143,7 @@ class Vertex
     friend class EdgeInterface;
     friend class Fenetre;
     friend class Select;
+    friend class RGraph;
 
     private :
         /// liste des indices des arcs arrivant au sommet : accès aux prédécesseurs
@@ -191,6 +194,7 @@ class EdgeInterface
     friend class Edge;
     friend class Graph;
     friend class Select;
+    friend class RGraph;
 
     private :
 
@@ -222,6 +226,7 @@ class Edge
     friend class EdgeInterface;
     friend class Select;
     friend class Fenetre;
+    friend class RGraph;
 
     private :
         /// indice du sommet de départ de l'arc
@@ -317,6 +322,7 @@ class GraphInterface
 class Graph
 {
     friend class Fenetre;
+    friend class RGraph;
 
     private :
 
