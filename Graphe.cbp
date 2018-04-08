@@ -53,6 +53,8 @@
 		<Unit filename="grman/widget.cpp" />
 		<Unit filename="grman/widget.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="rgraph.cpp" />
+		<Unit filename="rgraph.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

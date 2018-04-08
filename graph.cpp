@@ -312,7 +312,7 @@ void Graph::SauverGraphe(std::string fic1)
         fichier << m_vertices.size() << std::endl;
         for (auto &e : m_vertices)
         {
-            fichier << e.first << " " << e.second.m_value << " " << e.second.m_interface->m_top_box.get_posx() << " " << e.second.m_interface ->m_top_box.get_posy() << " "
+            fichier << e.first << " " << e.second.m_value << " " << e.second.m_interface->m_top_box.get_posx() << " " << e.second.m_interface->m_top_box.get_posy() << " "
                     << e.second.m_interface->m_img.get_pic_name() << " " << e.second.m_interface->m_img.get_pic_idx() << std::endl;
         }
         fichier << m_edges.size() << std::endl;
@@ -323,18 +323,18 @@ void Graph::SauverGraphe(std::string fic1)
     }
 }
 
-std::vector<std::vector<bool>> Graph::matrice_adj()
+std::map<int, std::map<int, bool>> Graph::matrice_adj()
 {
-    std::vector<std::vector<bool>> out;
+    std::map<int, std::map<int, bool>> out;
 
-    for(unsigned i = 0 ; i < m_vertices.size() ; ++i)
-    {
-        out.push_back(std::vector<bool>());
-        for(unsigned j = 0 ; j < m_vertices.size() ; ++j)
-        {
-            out[i].push_back(false);
-        }
-    }
+//    for(unsigned i = 0 ; i < m_vertices.size() ; ++i)
+//    {
+//        out.push_back(std::vector<bool>());
+//        for(unsigned j = 0 ; j < m_vertices.size() ; ++j)
+//        {
+//            out[i].push_back(false);
+//        }
+//    }
 
     for(auto it : m_edges)
     {
@@ -344,18 +344,20 @@ std::vector<std::vector<bool>> Graph::matrice_adj()
     return out;
 }
 
-std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, int ordre, int s)
+std::map<int, int> Graph::once_Sconnexe(std::map<int, std::map<int, bool>> adjacence, int s)
 {
-    std::vector<int> c1, c2, c, marques;
-    int x, y;
+    std::map<int, int> c1, c2, c, marques;
+    std::vector<int> x;
+    std::vector<int> y;
     int ajoute = 1;
 
-    for(int i = 0 ; i < ordre ; ++i)
+    for(auto it : m_vertices)
     {
-        c1.push_back(0);
-        c2.push_back(0);
-        c.push_back(0);
-        marques.push_back(0);
+        x.push_back(it.first);
+        y.push_back(it.first);
+        c1[it.first] = 0;
+        c2[it.first] = 0;
+        c[it.first] = 0;
     }
 
     c1[s] = 1;
@@ -364,16 +366,16 @@ std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, 
     while(ajoute)
     {
         ajoute = 0;
-        for(x = 0 ; x < ordre ; x++)
+        for(auto itx : x)
         {
-            if(!marques[x] && c1[x])
+            if(!marques.count(itx) && c1.at(itx))
             {
-                marques[x] = 1;
-                for(y = 0 ; y < ordre ; y++)
+                marques[itx] = 1;
+                for(auto ity : y)
                 {
-                    if(adjacence[x][y] && !marques[y])
+                    if(adjacence[itx][ity] && !marques.count(ity))
                     {
-                        c1[y] = 1;
+                        c1[ity] = 1;
                         ajoute = 1;
                     }
                 }
@@ -382,24 +384,22 @@ std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, 
     }
 
 
-    for(int i = 0 ; i < ordre ; ++i)
-    {
-        marques[i] = 0;
-    }
+    marques.clear();
+
     ajoute = 1;
     while(ajoute)
     {
         ajoute = 0;
-        for(x = 0 ; x < ordre ; x++)
+        for(auto itx : x)
         {
-            if(!marques[x] && c2[x])
+            if(!marques.count(itx) && c2.at(itx))
             {
-                marques[x] = 1;
-                for(y = 0 ; y < ordre ; y++)
+                marques[itx] = 1;
+                for(auto ity : y)
                 {
-                    if(adjacence[y][x] && !marques[y])
+                    if(adjacence[ity][itx] && !marques.count(ity))
                     {
-                        c2[y] = 1;
+                        c2[ity] = 1;
                         ajoute = 1;
                     }
                 }
@@ -407,9 +407,9 @@ std::vector<int> Graph::once_Sconnexe(std::vector<std::vector<bool>> adjacence, 
         }
     }
 
-    for(x= 0 ; x < ordre ; x++)
+    for(auto it : m_vertices)
     {
-        c[x] = c1[x] & c2[x];
+        c[it.first] = c1[it.first] & c2[it.first];
     }
 
     return c;
@@ -419,33 +419,31 @@ std::vector<std::vector<int>> Graph::Sconnexe()
 {
     if(m_vertices.empty()) return std::vector<std::vector<int>>();
 
-    std::vector<std::vector<bool>> adjacence = matrice_adj();
-    int ordre = m_vertices.size();
-    std::vector<std::vector<int>> tabc;
-    std::vector<int> marques;
-    int x, y;
+    std::map<int, std::map<int, bool>> adjacence = matrice_adj();
+    std::map<int, std::map<int, int>> tabc;
+    std::map<int, bool> marques;
+    std::vector<int> x;
+    std::vector<int> y;
     unsigned tmp = 0;
+    std::vector<std::vector<int>> out;
+    std::vector<std::pair<int, int>> aDel;
 
-    for(unsigned i = 0 ; i < m_vertices.size() ; ++i)
+    for(auto it : m_vertices)
     {
-        tabc.push_back(std::vector<int>());
-        for(unsigned j = 0 ; j < m_vertices.size() ; ++j)
-        {
-            tabc[i].push_back(0);
-        }
-        marques.push_back(0);
+        x.push_back(it.first);
+        y.push_back(it.first);
     }
 
-    for(x = 0 ; x < ordre ; x++)
+    for(auto itx : x)
     {
-        if(!marques[x])
+        if(!marques.count(itx))
         {
-            tabc[x] = once_Sconnexe(adjacence, ordre, x);
-            marques[x] = 1;
-            for(y = 0 ; y<ordre; y++)
+            tabc[itx] = once_Sconnexe(adjacence, itx);
+            marques[itx] = 1;
+            for(auto ity : y)
             {
-                if(tabc[x][y] && !marques[y])
-                    marques[y] = 1;
+                if(tabc[itx][ity] && !marques.count(ity))
+                    marques[ity] = 1;
             }
         }
     }
@@ -453,34 +451,49 @@ std::vector<std::vector<int>> Graph::Sconnexe()
     for(auto it = tabc.begin() ; it != tabc.end() ; ++it)
     {
         tmp = 0;
-        for(auto it2 : *it)
-            if(it2 == 1) tmp++;
+        for(auto it2 : it->second)
+            if(it2.second == 1) tmp++;
 
         if(tmp <= 1)
         {
-            tabc.erase(it);
-            it--;
+            aDel.push_back({it->first, -1});
         }
         else
         {
             unsigned i = 0;
-            for(auto it2 = it->begin() ; it2 != it->end() ; ++it2)
+            for(auto it2 = it->second.begin() ; it2 != it->second.end() ; ++it2)
             {
-                if(*it2 == 1)
+                if(it2->second == 1)
                 {
-                    *it2 = i;
+                    it2->second = i;
                 }
-                else if(*it2 == 0)
+                else if(it2->second == 0)
                 {
-                    it->erase(it2);
-                    it2--;
+                    aDel.push_back({it->first, it2->first});
                 }
                 i++;
             }
         }
     }
+    for(auto it : aDel)
+    {
+        if(it.second == -1)
+            tabc.erase(it.first);
+        else
+        {
+            tabc.at(it.first).erase(it.second);
+        }
+    }
+    for(auto iti : tabc)
+    {
+        out.push_back(std::vector<int>());
+        for(auto itj : iti.second)
+        {
+            out.back().push_back(itj.second);
+        }
+    }
 
-    return tabc;
+    return out;
 }
 
 bool Graph::connexe()
@@ -519,19 +532,9 @@ bool Graph::connexe()
         }
     }
 
-//    for(auto it : adjacent)
-//    {
-//        for(auto it2 : it.second)
-//        {
-//            std::cout << it2 << " ";
-//        }
-//        std::cout << std::endl;
-//    }
-
     marques.at(s) = true;
     pile.push(s);
 
-    //std::cout << "Composantes connexes :" << std::endl;
     while(!pile.empty())
     {
         s=pile.top();
@@ -539,7 +542,6 @@ bool Graph::connexe()
 
         for (unsigned a=0; a<adjacent[s].size(); ++a)
         {
-            //std::cout << adjacent[s].size() << " " << s << " " << a << " " << adjacent[s][a] << " :";
             if (!marques.at(adjacent[s][a]))
             {
                 marques[adjacent[s][a]] = true;
@@ -547,9 +549,7 @@ bool Graph::connexe()
             }
         }
         out.push_back(s);
-        //std::cout << s << std::endl;
     }
-    //std::cout << std::endl;
 
     return out.size() == m_vertices.size();
 }
@@ -608,7 +608,6 @@ void Graph::delete_vertex(int idx)
     std::vector<int> aDel;
     for(auto it = m_edges.begin() ; it != m_edges.end() ; ++it)
     {
-        //std::cout << it->second.m_from << " " << it->second.m_to << std::endl;
         if(it->second.m_from == idx || it->second.m_to == idx)
         {
             aDel.push_back(it->first);
