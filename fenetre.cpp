@@ -103,7 +103,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_top_box.add_child(m_struct_box);
     m_struct_box.set_pos(600, 0);
     m_struct_box.set_dim(300, TAILLE_BAR-9);
-    //m_struct_box.set_border(0);
+    m_struct_box.set_border(0);
     m_struct_box.set_padding(0);
     m_struct_box.set_tmp_pos();
 
@@ -152,7 +152,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_top_box.add_child(m_fonc_box);
     m_fonc_box.set_pos(600, 0);
     m_fonc_box.set_dim(300, TAILLE_BAR-9);
-    //m_fonc_box.set_border(0);
+    m_fonc_box.set_border(0);
     m_fonc_box.set_padding(0);
     m_fonc_box.set_tmp_pos();
 
@@ -173,7 +173,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_fonc_box.add_child(m_slider_coefr);
     m_slider_coefr.set_padding(0);
     m_slider_coefr.set_margin(0);
-    //m_slider_coefr.set_border(0);
+    m_slider_coefr.set_border(0);
     m_slider_coefr.set_dim(20, m_fonc_box.get_dimy());
     m_slider_coefr.set_gravity_y(grman::GravityY::Center);
     m_slider_coefr.set_posx(90);
@@ -187,7 +187,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_fonc_box.add_child(m_slider_coefpred);
     m_slider_coefpred.set_padding(0);
     m_slider_coefpred.set_margin(0);
-    //m_slider_coefpred.set_border(0);
+    m_slider_coefpred.set_border(0);
     m_slider_coefpred.set_dim(20, m_fonc_box.get_dimy());
     m_slider_coefpred.set_gravity_y(grman::GravityY::Center);
     m_slider_coefpred.set_posx(112);
@@ -201,7 +201,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_fonc_box.add_child(m_slider_coefproi);
     m_slider_coefproi.set_padding(0);
     m_slider_coefproi.set_margin(0);
-    //m_slider_coefproi.set_border(0);
+    m_slider_coefproi.set_border(0);
     m_slider_coefproi.set_dim(20, m_fonc_box.get_dimy());
     m_slider_coefproi.set_gravity_y(grman::GravityY::Center);
     m_slider_coefproi.set_posx(134);
@@ -215,7 +215,7 @@ FenetreInterface::FenetreInterface(int x, int y, int w, int h)
     m_fonc_box.add_child(m_slider_speed);
     m_slider_speed.set_padding(0);
     m_slider_speed.set_margin(0);
-    //m_slider_speed.set_border(0);
+    m_slider_speed.set_border(0);
     m_slider_speed.set_dim(20, m_fonc_box.get_dimy());
     m_slider_speed.set_gravity_y(grman::GravityY::Center);
     m_slider_speed.set_posx(156);
@@ -370,6 +370,11 @@ void Fenetre::update_selected()
             if(m_interface->m_delete_button.clicked())
             {
                 m_graphe.delete_edge(m_graphe.m_select.edge_selected());
+                m_kconnexe_vertex.clear();
+                m_Sconnexe_vertex.clear();
+                m_interface->m_kconnexe_label.set_message("");
+                m_interface->m_connexe_label.set_message("");
+                m_graphe.m_select.clear();
             }
         }
     }
@@ -455,6 +460,8 @@ void Fenetre::pre_update_button()
         }
         m_graphe.m_select.unselect();
         m_interface->m_rgraphe_button.set_switch(false);
+        m_interface->m_connexe_display.set_switch(false);
+        m_interface->m_kconnexe_display.set_switch(false);
         m_change = true;
     }
 
@@ -671,31 +678,50 @@ void Fenetre::post_update_button()
             if(!m_interface->m_connexe_display.get_switch())
             {
                 m_interface->m_connexe_display.set_bg_color(GRISCLAIR);
-                if(!m_Sconnexe_vertex.empty())
-                {
-                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
-                    {
-                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
-                        {
-                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[2].set_bg_color(-1);
-                        }
-                        if(i == 7) {break;}
-                    }
-                }
+//                if(!m_Sconnexe_vertex.empty())
+//                {
+//                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
+//                    {
+//                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
+//                        {
+//                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+//                        }
+//                        if(i == 7) {break;}
+//                    }
+//                }
             }
 
             if(!m_interface->m_kconnexe_display.get_switch())
             {
                 m_interface->m_kconnexe_display.set_bg_color(GRISCLAIR);
-                if(!m_kconnexe_vertex.empty())
+//                if(!m_kconnexe_vertex.empty())
+//                {
+//                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
+//                    {
+//                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
+//                        {
+//                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+//                        }
+//                        if(i == 7) {break;}
+//                    }
+//                }
+            }
+
+            if(!m_interface->m_connexe_display.get_switch() || !m_interface->m_kconnexe_display.get_switch())
+            {
+//                for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
+//                {
+//                    for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
+//                    {
+//                        m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+//                    }
+//                }
+                for(auto it : m_graphe.m_vertices)
                 {
-                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
+                    for(unsigned int i = 0 ; i < 8 ; ++i)
                     {
-                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
-                        {
-                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
-                        }
-                        if(i == 7) {break;}
+                        //m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+                        it.second.m_interface->m_marque[i].set_bg_color(-1);
                     }
                 }
             }

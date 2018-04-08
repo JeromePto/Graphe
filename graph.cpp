@@ -460,18 +460,16 @@ std::vector<std::vector<int>> Graph::Sconnexe()
         }
         else
         {
-            unsigned i = 0;
             for(auto it2 = it->second.begin() ; it2 != it->second.end() ; ++it2)
             {
                 if(it2->second == 1)
                 {
-                    it2->second = i;
+                    it2->second = it2->first;
                 }
                 else if(it2->second == 0)
                 {
                     aDel.push_back({it->first, it2->first});
                 }
-                i++;
             }
         }
     }

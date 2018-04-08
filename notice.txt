@@ -1,1 +1,5 @@
-pour charger un fichier taper son nom dans la bar jaune et appuyer sur LOAD, pareil pour sauvegarder avec le bouton SAVE
+Pour charger un fichier taper son nom dans la barre jaune et appuyer sur LOAD, pareil pour sauvegarder avec le bouton SAVE
+Le bouton MOVE permet de déplacer des sommets, cliquer dessus et déplacé des sommets.
+Le bouton EDIT permet de modifier une valeur, cliquer dessus et sélectionné un élément et ensuite faite les modifications au clavier.
+Pour ajouter une arrête cliquer sur ADD EDGE et sélectionné les deux sommets entre lesquelles vous voulez tracer une arrête.
+Les 3 graphes de base sont graphe1.txt, pokemon.txt, dragonball.txt
