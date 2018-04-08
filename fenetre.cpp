@@ -228,20 +228,21 @@ void Fenetre::close()
     m_graphe.m_select.clear();
     m_graphe.close_graphe();
     m_interface->m_button_structurel.set_switch(true);
-    m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
     m_interface->m_button_fonctionnel.set_switch(false);
-    m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
     m_mode = 1;
-    m_interface->m_edit_button.set_switch(false);
-    m_interface->m_edit_button.set_bg_color(GRISCLAIR);
-    m_edition = false;
     m_string_edit.clear();
+    m_interface->m_edit_button.set_switch(false);
     m_interface->m_move_button.set_switch(false);
-    m_interface->m_move_button.set_bg_color(GRISCLAIR);
     m_interface->m_play_button.set_switch(false);
-    m_interface->m_play_button.set_bg_color(GRISCLAIR);
+    m_interface->m_add_edge_button.set_switch(false);
+    m_interface->m_connexe_display.set_switch(false);
+    m_interface->m_kconnexe_display.set_switch(false);
+    m_interface->m_rgraphe_button.set_switch(false);
     m_kconnexe_vertex.clear();
     m_Sconnexe_vertex.clear();
+    m_interface->m_kconnexe_label.set_message("");
+    m_interface->m_connexe_label.set_message("");
+    m_change = true;
 }
 
 void Fenetre::update()
@@ -251,6 +252,8 @@ void Fenetre::update()
 
     pre_update();
 
+
+
     m_graphe.update();
     m_interface->m_top_box.update();
 
@@ -259,91 +262,16 @@ void Fenetre::update()
 
     m_last_edition = m_edition;
 
+    pre_update_button();
     update_fixe_button();
-    update_moveedit_button();
-    update_selected();
-    update_struct();
     update_fonc();
-
+    post_update_button();
+    update_selected();
     post_update();
 }
 
 void Fenetre::update_fixe_button()
 {
-    if(m_interface->m_load_button.clicked())
-    {
-        close();
-        m_graphe.ChargerGraphe(m_interface->m_load_file.get_message(), 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
-        m_interface->m_load_file.leave_edition();
-        m_interface->m_load_file.clear_message();
-    }
-
-    if(m_interface->m_save_button.clicked())
-    {
-        m_graphe.SauverGraphe(m_interface->m_load_file.get_message());
-        m_interface->m_load_file.leave_edition();
-        m_interface->m_load_file.clear_message();
-    }
-
-    if(m_interface->m_close_button.clicked())
-    {
-        close();
-    }
-
-    if(m_interface->m_button_structurel.switching())
-    {
-        if(m_interface->m_button_structurel.get_switch())
-        {
-            m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
-            m_interface->m_button_fonctionnel.set_switch(false);
-            m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
-            m_mode = 1;
-            m_interface->m_play_button.set_switch(false);
-            m_interface->m_play_button.set_bg_color(GRISCLAIR);
-        }
-        else
-        {
-            m_interface->m_button_structurel.set_switch(true);
-        }
-    }
-    else if(m_interface->m_button_fonctionnel.switching())
-    {
-        if(m_interface->m_button_fonctionnel.get_switch())
-        {
-            m_interface->m_button_fonctionnel.set_bg_color(ROSECLAIR);
-            m_interface->m_button_structurel.set_switch(false);
-            m_interface->m_button_structurel.set_bg_color(GRISCLAIR);
-            m_mode = 2;
-        }
-        else
-        {
-            m_interface->m_button_fonctionnel.set_switch(true);
-        }
-    }
-
-    if(m_interface->m_add_vertex.clicked())
-    {
-        int i = 0;
-        while(m_graphe.m_vertices.count(i) != 0)
-        {
-            i++;
-        }
-        m_graphe.add_interfaced_vertex(i, 10, 500, 500, "tchoupi.jpg", 0);
-    }
-
-    if(m_interface->m_add_edge_button.switching())
-    {
-        if(m_interface->m_add_edge_button.get_switch())
-        {
-            m_selected_buffer.clear();
-            m_interface->m_add_edge_button.set_bg_color(BLEUCLAIR);
-        }
-        else
-        {
-            m_interface->m_add_edge_button.set_bg_color(GRISCLAIR);
-        }
-    }
-
     if(m_interface->m_add_edge_button.get_switch())
     {
         if(m_graphe.m_select.st_selected() && m_graphe.m_select.is_different() && m_graphe.m_select.is_vertex_selected())
@@ -363,152 +291,12 @@ void Fenetre::update_fixe_button()
             }
             m_graphe.add_interfaced_edge(i, m_selected_buffer.at(0), m_selected_buffer.at(1), 10);
             m_interface->m_add_edge_button.set_switch(false);
-            m_interface->m_add_edge_button.set_bg_color(GRISCLAIR);
+            m_kconnexe_vertex.clear();
+            m_Sconnexe_vertex.clear();
+            m_interface->m_kconnexe_label.set_message("");
+            m_interface->m_connexe_label.set_message("");
+            m_change = true;
         }
-    }
-}
-
-void Fenetre::update_struct()
-{
-    if(m_mode == 1)
-    {
-        bool change(false);
-
-        m_interface->m_struct_box.back_tmp_pos();
-        if(m_interface->m_connexe_button.clicked())
-        {
-            m_Sconnexe_vertex = m_graphe.Sconnexe();
-            m_interface->m_connexe_label.set_message(std::to_string(m_Sconnexe_vertex.size()));
-        }
-
-        if(m_interface->m_kconnexe_button.clicked())
-        {
-            m_interface->m_kconnexe_label.set_message("working");
-            m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()-10);
-            m_interface->m_kconnexe_label.update();
-            grman::mettre_a_jour();
-            m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()+10);
-            m_kconnexe_vertex = m_graphe.kconnexe();
-            m_interface->m_kconnexe_label.set_message(std::to_string(m_kconnexe_vertex.front().size()));
-            update();
-        }
-
-        if(m_interface->m_connexe_display.switching())
-        {
-            change = true;
-            if(m_interface->m_kconnexe_display.get_switch())
-                m_interface->m_kconnexe_display.set_switch(false);
-
-            if(m_interface->m_rgraphe_button.get_switch())
-                m_interface->m_rgraphe_button.set_switch(false);
-        }
-
-        if(m_interface->m_kconnexe_display.switching())
-        {
-            change = true;
-            if(m_interface->m_connexe_display.get_switch())
-                m_interface->m_connexe_display.set_switch(false);
-
-            if(m_interface->m_rgraphe_button.get_switch())
-                m_interface->m_rgraphe_button.set_switch(false);
-        }
-
-        if(m_interface->m_rgraphe_button.switching())
-        {
-            change = true;
-            if(m_interface->m_kconnexe_display.get_switch())
-                m_interface->m_kconnexe_display.set_switch(false);
-
-            if(m_interface->m_connexe_display.get_switch())
-                m_interface->m_connexe_display.set_switch(false);
-        }
-
-        if(change)
-        {
-            if(m_interface->m_connexe_display.get_switch())
-            {
-                m_interface->m_connexe_display.set_bg_color(CYANCLAIR);
-
-                if(!m_Sconnexe_vertex.empty())
-                {
-                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
-                    {
-                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
-                        {
-                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
-                        }
-                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
-                    }
-                }
-            }
-            else
-            {
-                m_interface->m_connexe_display.set_bg_color(GRISCLAIR);
-                if(!m_Sconnexe_vertex.empty())
-                {
-                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
-                    {
-                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
-                        {
-                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
-                        }
-                        if(i == 8) {break;}
-                    }
-                }
-            }
-
-            if(m_interface->m_kconnexe_display.get_switch())
-            {
-                m_interface->m_kconnexe_display.set_bg_color(CYANCLAIR);
-
-                if(!m_kconnexe_vertex.empty())
-                {
-                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
-                    {
-                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
-                        {
-                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
-                        }
-                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
-                    }
-                }
-            }
-            else
-            {
-                m_interface->m_kconnexe_display.set_bg_color(GRISCLAIR);
-                if(!m_kconnexe_vertex.empty())
-                {
-                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
-                    {
-                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
-                        {
-                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
-                        }
-                        if(i == 8) {break;}
-                    }
-                }
-            }
-
-            if(m_interface->m_rgraphe_button.get_switch())
-            {
-                m_interface->m_rgraphe_button.set_bg_color(CYANCLAIR);
-                if(!m_Sconnexe_vertex.empty())
-                {
-                    if(m_rgraphe.m_interface == nullptr)
-                        m_rgraphe.create(m_graphe, m_Sconnexe_vertex);
-                }
-
-            }
-            else
-            {
-                m_interface->m_rgraphe_button.set_bg_color(GRISCLAIR);
-                m_rgraphe.close_graphe();
-            }
-        }
-    }
-    else
-    {
-        m_interface->m_struct_box.set_pos(2000, 2000);
     }
 }
 
@@ -516,141 +304,71 @@ void Fenetre::update_fonc()
 {
     if(m_mode == 2)
     {
-        m_interface->m_fonc_box.back_tmp_pos();
         if(m_interface->m_play_button.get_switch())
         {
             m_graphe.update_time(m_coefr, m_coefpred, m_coefproi, m_speed);
-        }
-
-        if(m_interface->m_play_button.switching())
-        {
-            if(m_interface->m_play_button.get_switch())
-            {
-                m_interface->m_play_button.set_bg_color(CYANCLAIR);
-
-            }
-            else
-            {
-                m_interface->m_play_button.set_bg_color(GRISCLAIR);
-            }
-        }
-    }
-    else
-    {
-        m_interface->m_fonc_box.set_pos(2000, 2000);
-    }
-}
-
-void Fenetre::update_moveedit_button()
-{
-    bool change(false);
-
-    if(m_interface->m_move_button.switching())
-    {
-        change = true;
-        if(m_interface->m_move_button.get_switch())
-            m_interface->m_edit_button.set_switch(false);
-    }
-
-    if(m_interface->m_edit_button.switching())
-    {
-        change = true;
-        if(m_interface->m_edit_button.get_switch())
-            m_interface->m_move_button.set_switch(false);
-    }
-
-    if(change)
-    {
-        if(m_interface->m_move_button.get_switch())
-        {
-            m_interface->m_move_button.set_bg_color(BLEUCLAIR);
-            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
-            {
-                it->second.m_interface->m_top_box.set_moveable(true);
-            }
-        }
-        else
-        {
-            m_interface->m_move_button.set_bg_color(GRISCLAIR);
-            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
-            {
-                it->second.m_interface->m_top_box.set_moveable(false);
-            }
-        }
-
-        if(m_interface->m_edit_button.get_switch())
-        {
-            m_interface->m_edit_button.set_bg_color(BLEUCLAIR);
-            m_edition = true;
-        }
-        else
-        {
-            m_interface->m_edit_button.set_bg_color(GRISCLAIR);
-            m_edition = false;
-            m_string_edit.clear();
         }
     }
 }
 
 void Fenetre::update_selected()
 {
-    if(m_graphe.m_select.st_selected())
+    if(m_graphe.m_select.st_selected() && m_edition)
     {
-        if(m_edition)
+        //std::cout << (char)grman::key_last << " " << (int)grman::key_last << " " << m_string_edit << std::endl;
+        switch(grman::key_last)
         {
-            std::cout << (char)grman::key_last << " " << (int)grman::key_last << " " << m_string_edit << std::endl;
-            switch(grman::key_last)
-            {
-            case 8:
-                if(m_string_edit.size() > 0)
-                    m_string_edit.pop_back();
-                break;
-            case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case 46:
-                m_string_edit += grman::key_last;
-                break;
-            default:
-                break;
-            }
+        case 8:
+            if(m_string_edit.size() > 0)
+                m_string_edit.pop_back();
+            break;
+        case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case 46:
+            m_string_edit += grman::key_last;
+            break;
+        default:
+            break;
+        }
 
-            if(m_graphe.m_select.is_vertex_selected())
+        if(m_graphe.m_select.is_vertex_selected())
+        {
+            if(m_graphe.m_select.is_different() || (m_edition && !m_last_edition))
             {
-                if(m_graphe.m_select.is_different() || (m_edition && !m_last_edition) )
-                {
-                    m_string_edit.clear();
-                    m_string_edit = toString(m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value);
-                }
-                m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value = toDouble(m_string_edit);
+                m_string_edit.clear();
+                m_string_edit = toString(m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value);
             }
-            else if(m_graphe.m_select.is_edge_selected() || (m_edition && !m_last_edition))
+            m_graphe.m_vertices.at(m_graphe.m_select.vertex_selected()).m_value = toDouble(m_string_edit);
+        }
+        else if(m_graphe.m_select.is_edge_selected())
+        {
+            if(m_graphe.m_select.is_different() || (m_edition !=m_last_edition) )
             {
-                if(m_graphe.m_select.is_different())
-                {
-                    m_string_edit.clear();
-                    m_string_edit = toString(m_graphe.m_edges.at(m_graphe.m_select.edge_selected()).m_weight);
-                }
-                m_graphe.m_edges.at(m_graphe.m_select.edge_selected()).m_weight = toDouble(m_string_edit);
+                m_string_edit.clear();
+                m_string_edit = toString(m_graphe.m_edges.at(m_graphe.m_select.edge_selected()).m_weight);
+            }
+            m_graphe.m_edges.at(m_graphe.m_select.edge_selected()).m_weight = toDouble(m_string_edit);
+        }
+    }
+
+
+    if(m_graphe.m_select.st_selected() && m_delete)
+    {
+        m_interface->m_delete_button.back_tmp_pos();
+        if(m_graphe.m_select.is_vertex_selected())
+        {
+            if(m_interface->m_delete_button.clicked())
+            {
+                m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
+                m_kconnexe_vertex.clear();
+                m_Sconnexe_vertex.clear();
+                m_interface->m_kconnexe_label.set_message("");
+                m_interface->m_connexe_label.set_message("");
             }
         }
-        else
+        else if(m_graphe.m_select.is_edge_selected())
         {
-            m_interface->m_delete_button.back_tmp_pos();
-            if(m_graphe.m_select.is_vertex_selected())
+            if(m_interface->m_delete_button.clicked())
             {
-                if(m_interface->m_delete_button.clicked())
-                {
-                    m_graphe.delete_vertex(m_graphe.m_select.vertex_selected());
-                    m_graphe.m_select.clear();
-                    m_kconnexe_vertex.clear();
-                }
-            }
-            else if(m_graphe.m_select.is_edge_selected())
-            {
-                if(m_interface->m_delete_button.clicked())
-                {
-                    m_graphe.delete_edge(m_graphe.m_select.edge_selected());
-                    m_graphe.m_select.clear();
-                    m_kconnexe_vertex.clear();
-                }
+                m_graphe.delete_edge(m_graphe.m_select.edge_selected());
             }
         }
     }
@@ -682,4 +400,374 @@ void Fenetre::post_update()
     m_coefpred = exp(m_interface->m_slider_coefpred.get_value());
     m_coefproi = m_interface->m_slider_coefproi.get_value();
     m_speed = pow(m_interface->m_slider_speed.get_value(), 2);
+}
+
+void Fenetre::pre_update_button()
+{
+    /// bouton fixe
+
+
+    if(m_interface->m_load_button.clicked())
+    {
+        close();
+        m_graphe.ChargerGraphe(m_interface->m_load_file.get_message(), 0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
+        m_interface->m_load_file.leave_edition();
+        m_interface->m_load_file.clear_message();
+        m_change = true;
+    }
+
+    if(m_interface->m_save_button.clicked())
+    {
+        m_graphe.SauverGraphe(m_interface->m_load_file.get_message());
+        m_interface->m_load_file.leave_edition();
+        m_interface->m_load_file.clear_message();
+        m_change = true;
+    }
+
+    if(m_interface->m_close_button.clicked())
+    {
+        close();
+        m_change = true;
+    }
+
+    if(m_interface->m_add_vertex.clicked())
+    {
+        m_interface->m_add_edge_button.set_switch(false);
+        m_interface->m_rgraphe_button.set_switch(false);
+        m_kconnexe_vertex.clear();
+        m_Sconnexe_vertex.clear();
+
+        int i = 0;
+        while(m_graphe.m_vertices.count(i) != 0)
+        {
+            i++;
+        }
+        m_graphe.add_interfaced_vertex(i, 10, 500, 500, "tchoupi.jpg", 0);
+        m_change = true;
+    }
+
+    if(m_interface->m_add_edge_button.switching())
+    {
+        if(m_interface->m_add_edge_button.get_switch())
+        {
+            m_selected_buffer.clear();
+        }
+        m_interface->m_rgraphe_button.set_switch(false);
+        m_change = true;
+    }
+
+
+    /// bouton move & edit
+
+
+    if(m_interface->m_move_button.switching())
+    {
+        m_interface->m_edit_button.set_switch(false);
+        if(m_interface->m_move_button.get_switch())
+        {
+            m_interface->m_rgraphe_button.set_switch(false);
+        }
+
+        m_change = true;
+    }
+
+    if(m_interface->m_edit_button.switching())
+    {
+        m_interface->m_move_button.set_switch(false);
+        if(m_interface->m_edit_button.get_switch())
+        {
+            m_interface->m_rgraphe_button.set_switch(false);
+        }
+
+        m_change = true;
+    }
+
+
+    /// Bouton de switch mode
+
+
+    if(m_interface->m_button_structurel.switching())
+    {
+        if(m_interface->m_button_structurel.get_switch())
+        {
+            m_interface->m_button_fonctionnel.set_switch(false);
+            m_interface->m_play_button.set_switch(false);
+            m_mode = 1;
+        }
+        else
+        {
+            m_interface->m_button_structurel.set_switch(true);
+        }
+
+        m_change = true;
+    }
+
+    if(m_interface->m_button_fonctionnel.switching())
+    {
+        if(m_interface->m_button_fonctionnel.get_switch())
+        {
+            m_interface->m_button_structurel.set_switch(false);
+            m_interface->m_connexe_display.set_switch(false);
+            m_interface->m_kconnexe_display.set_switch(false);
+            m_interface->m_rgraphe_button.set_switch(false);
+            m_mode = 2;
+        }
+        else
+        {
+            m_interface->m_button_fonctionnel.set_switch(true);
+        }
+
+        m_change = true;
+    }
+
+
+    /// bouton de struct
+
+
+    if(m_mode == 1)
+    {
+        if(m_interface->m_connexe_button.clicked())
+        {
+            m_Sconnexe_vertex = m_graphe.Sconnexe();
+            m_interface->m_connexe_label.set_message(std::to_string(m_Sconnexe_vertex.size()));
+            m_interface->m_connexe_display.set_switch(false);
+            m_change = true;
+        }
+
+        if(m_interface->m_kconnexe_button.clicked())
+        {
+            m_interface->m_kconnexe_label.set_message("working");
+            m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()-10);
+            m_interface->m_kconnexe_label.update();
+            grman::mettre_a_jour();
+            m_interface->m_kconnexe_label.set_posx(m_interface->m_kconnexe_label.get_posx()+10);
+            m_kconnexe_vertex = m_graphe.kconnexe();
+            m_interface->m_kconnexe_label.set_message(std::to_string(m_kconnexe_vertex.front().size()));
+            update();
+            m_interface->m_kconnexe_display.set_switch(false);
+            m_change = true;
+        }
+
+        if(m_interface->m_connexe_display.switching())
+        {
+            m_interface->m_kconnexe_display.set_switch(false);
+            m_interface->m_rgraphe_button.set_switch(false);
+
+            m_change = true;
+        }
+
+        if(m_interface->m_kconnexe_display.switching())
+        {
+            m_interface->m_connexe_display.set_switch(false);
+            m_interface->m_rgraphe_button.set_switch(false);
+
+            m_change = true;
+        }
+
+        if(m_interface->m_rgraphe_button.switching())
+        {
+            m_interface->m_kconnexe_display.set_switch(false);
+            m_interface->m_connexe_display.set_switch(false);
+            m_interface->m_add_edge_button.set_switch(false);
+            m_interface->m_edit_button.set_switch(false);
+            m_interface->m_move_button.set_switch(false);
+
+            m_change = true;
+        }
+    }
+
+
+    /// bouton de fonc
+
+
+    if(m_mode == 2)
+    {
+        if(m_interface->m_play_button.switching())
+        {
+            m_change = true;
+        }
+    }
+}
+
+void Fenetre::post_update_button()
+{
+    if(m_change)
+    {
+        if(m_interface->m_add_edge_button.get_switch())
+        {
+            m_interface->m_add_edge_button.set_bg_color(BLEUCLAIR);
+        }
+        else
+        {
+            m_interface->m_add_edge_button.set_bg_color(GRISCLAIR);
+        }
+
+
+        /// bouton move & edit
+
+
+        if(m_interface->m_move_button.get_switch())
+        {
+            m_interface->m_move_button.set_bg_color(BLEUCLAIR);
+            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
+            {
+                it->second.m_interface->m_top_box.set_moveable(true);
+            }
+        }
+        else
+        {
+            m_interface->m_move_button.set_bg_color(GRISCLAIR);
+            for(auto it = m_graphe.m_vertices.begin() ; it != m_graphe.m_vertices.end() ; ++it)
+            {
+                it->second.m_interface->m_top_box.set_moveable(false);
+            }
+        }
+
+        if(m_interface->m_edit_button.get_switch())
+        {
+            m_interface->m_edit_button.set_bg_color(BLEUCLAIR);
+            m_edition = true;
+        }
+        else
+        {
+            m_interface->m_edit_button.set_bg_color(GRISCLAIR);
+            m_edition = false;
+            m_string_edit.clear();
+        }
+
+
+        /// Bouton de switch mode
+
+
+        if(m_interface->m_button_structurel.get_switch())
+        {
+            m_interface->m_button_structurel.set_bg_color(ROSECLAIR);
+        }
+        else
+        {
+            m_interface->m_button_structurel.set_bg_color(GRISCLAIR);
+        }
+
+        if(m_interface->m_button_fonctionnel.get_switch())
+        {
+            m_interface->m_button_fonctionnel.set_bg_color(ROSECLAIR);
+        }
+        else
+        {
+            m_interface->m_button_fonctionnel.set_bg_color(GRISCLAIR);
+        }
+
+
+        /// bouton de struct
+
+
+        if(m_mode == 1)
+        {
+            m_interface->m_struct_box.back_tmp_pos();
+            m_interface->m_fonc_box.set_pos(2000, 2000);
+
+            if(!m_interface->m_connexe_display.get_switch())
+            {
+                m_interface->m_connexe_display.set_bg_color(GRISCLAIR);
+                if(!m_Sconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
+                    {
+                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+                        }
+                        if(i == 8) {break;}
+                    }
+                }
+            }
+
+            if(!m_interface->m_kconnexe_display.get_switch())
+            {
+                m_interface->m_kconnexe_display.set_bg_color(GRISCLAIR);
+                if(!m_kconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
+                    {
+                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(-1);
+                        }
+                        if(i == 8) {break;}
+                    }
+                }
+            }
+
+            if(m_interface->m_connexe_display.get_switch())
+            {
+                m_interface->m_connexe_display.set_bg_color(CYANCLAIR);
+
+                if(!m_Sconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_Sconnexe_vertex.size() ; ++i)
+                    {
+                        for(unsigned int j = 0 ; j < m_Sconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_Sconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
+                        }
+                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
+                    }
+                }
+            }
+
+            if(m_interface->m_kconnexe_display.get_switch())
+            {
+                m_interface->m_kconnexe_display.set_bg_color(CYANCLAIR);
+
+                if(!m_kconnexe_vertex.empty())
+                {
+                    for(unsigned int i = 0 ; i < m_kconnexe_vertex.size() ; ++i)
+                    {
+                        for(unsigned int j = 0 ; j < m_kconnexe_vertex.at(i).size() ; ++j)
+                        {
+                            m_graphe.m_vertices.at(m_kconnexe_vertex.at(i).at(j)).m_interface->m_marque[i].set_bg_color(COLOR[i]);
+                        }
+                        if(i == 8) {std::cout << "NO MORE PLACE TO TAG\n"; break;}
+                    }
+                }
+            }
+
+            if(m_interface->m_rgraphe_button.get_switch())
+            {
+                m_interface->m_rgraphe_button.set_bg_color(CYANCLAIR);
+                if(!m_Sconnexe_vertex.empty())
+                {
+                    if(m_rgraphe.m_interface == nullptr)
+                        m_rgraphe.create(m_graphe, m_Sconnexe_vertex);
+                }
+
+            }
+            else
+            {
+                m_interface->m_rgraphe_button.set_bg_color(GRISCLAIR);
+                m_rgraphe.close_graphe();
+            }
+        }
+
+
+        /// bouton de fonc
+
+
+        if(m_mode == 2)
+        {
+            m_interface->m_struct_box.set_pos(2000, 2000);
+            m_interface->m_fonc_box.back_tmp_pos();
+
+            if(m_interface->m_play_button.get_switch())
+            {
+                m_interface->m_play_button.set_bg_color(CYANCLAIR);
+            }
+            else
+            {
+                m_interface->m_play_button.set_bg_color(GRISCLAIR);
+            }
+        }
+
+        m_change = false;
+    }
 }

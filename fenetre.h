@@ -92,6 +92,8 @@ class Fenetre
         bool m_last_edition = false;
         std::string m_string_edit;
         std::vector<int> m_selected_buffer;
+        bool m_change = true;
+        bool m_delete = true;
 
         double m_coefr = 2000;
         double m_coefpred = 5000;
@@ -106,13 +108,13 @@ class Fenetre
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
-        void update_struct();
-        void update_moveedit_button();
         void update_selected();
         void update_fonc();
         void update_fixe_button();
         void pre_update();
         void post_update();
+        void pre_update_button();
+        void post_update_button();
 
         void close();
 
