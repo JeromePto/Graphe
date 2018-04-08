@@ -1,0 +1,9 @@
+<map id="grman::Widget::set_dim" name="grman::Widget::set_dim">
+<area shape="rect" id="node2" href="$class_fenetre_interface.html#a28574bf8caca4d6ea996efe95abb5396" title="FenetreInterface::Fenetre\lInterface" alt="" coords="424,5,591,47"/>
+<area shape="rect" id="node3" href="$class_vertex_interface.html#aa6d2b8f37afe455ff9eb84e38631a119" title="Le constructeur met en place les éléments de l&#39;interface. " alt="" coords="405,83,609,110"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_text.html#a2b908c791e86834e8961b645cf835965" title="grman::WidgetText::\lset_message" alt="" coords="216,101,356,143"/>
+<area shape="rect" id="node5" href="$class_r_vertex_interface.html#a853a2ead57ed6dd4e48b2b5ef2f58014" title="Le constructeur. " alt="" coords="421,147,594,188"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget_image.html#af164b59bc1533a8215f438c84f891c2a" title="grman::WidgetImage\l::reframe" alt="" coords="215,219,357,260"/>
+<area shape="rect" id="node6" href="$class_r_graph.html#ab7851796a0e2753328fe2cf85ca1c960" title="Permet d&#39;ajouter un sommet a afficher. " alt="" coords="657,147,816,188"/>
+<area shape="rect" id="node7" href="$class_graph.html#a6d716090e2ae19abf6b40b5f1a7f7f68" title="Le constructeur par default. " alt="" coords="864,154,964,181"/>
+</map>

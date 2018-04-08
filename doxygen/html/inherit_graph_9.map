@@ -1,0 +1,13 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node1" href="$classgrman_1_1_widget.html" title="grman::Widget" alt="" coords="5,233,112,260"/>
+<area shape="rect" id="node2" href="$classgrman_1_1_widget_box.html" title="grman::WidgetBox" alt="" coords="187,5,317,32"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget_button.html" title="grman::WidgetButton" alt="" coords="179,56,325,83"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_button_switch.html" title="grman::WidgetButtonSwitch" alt="" coords="160,107,344,133"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget_button_text.html" title="grman::WidgetButtonText" alt="" coords="167,157,337,184"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget_check_box.html" title="grman::WidgetCheckBox" alt="" coords="169,208,335,235"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget_edge.html" title="grman::WidgetEdge" alt="" coords="183,259,321,285"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget_image.html" title="grman::WidgetImage" alt="" coords="181,309,323,336"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget_text.html" title="grman::WidgetText" alt="" coords="186,360,318,387"/>
+<area shape="rect" id="node10" href="$classgrman_1_1_widget_text_edit.html" title="grman::WidgetTextEdit" alt="" coords="175,411,329,437"/>
+<area shape="rect" id="node11" href="$classgrman_1_1_widget_v_slider.html" title="grman::WidgetVSlider" alt="" coords="177,461,327,488"/>
+</map>

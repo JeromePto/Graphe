@@ -1,0 +1,10 @@
+<map id="grman::WidgetButtonText::set_text" name="grman::WidgetButtonText::set_text">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#acfd5cb20e83cb0cce4973530b467352b" title="Gestion familiale... navigation et édition de l&#39;arbre des sous&#45;éléments... " alt="" coords="225,5,359,47"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a35220289a92725ff9c7758f5c1f99580" title="grman::Widget::add\l_child" alt="" coords="224,71,360,112"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#ad7d6b2fcf3549549d07e18d19605248a" title="En principe non directement utiles dans les classes dérivées (aspects techniques) ..." alt="" coords="421,41,554,83"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="408,107,567,134"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="620,31,788,58"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="620,82,788,109"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="615,133,793,159"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="615,183,793,210"/>
+</map>

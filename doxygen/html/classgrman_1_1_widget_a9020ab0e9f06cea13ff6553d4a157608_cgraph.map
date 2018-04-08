@@ -1,0 +1,4 @@
+<map id="grman::Widget::draw_border" name="grman::Widget::draw_border">
+<area shape="rect" id="node2" href="$namespacegrman.html#a137af76bdbb7cd3962f82141ebf965f9" title="grman::rect_around" alt="" coords="196,5,331,32"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a53be51006d3635bfbcf6780df1237536" title="grman::Widget::get\l_border_color" alt="" coords="197,57,330,98"/>
+</map>

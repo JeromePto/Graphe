@@ -1,0 +1,7 @@
+<map id="grman::Widget::get_child" name="grman::Widget::get_child">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget_button_text.html#a5b1eeb06c4b5e7b31a4eea19db3b3bf5" title="grman::WidgetButtonText\l::set_text" alt="" coords="187,5,357,47"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_edge.html#a1cb4a1ab5656b1c6ab174c0fcc69e3c7" title="grman::WidgetEdge::\lset_lock_focus" alt="" coords="199,71,345,112"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget_edge.html#ae8620269b94bfef83d6111ff6b5071a5" title="grman::WidgetEdge::\lset_selected" alt="" coords="199,136,345,177"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget_edge.html#a2a0c94e2e5a54219e205990c28906179" title="grman::WidgetEdge::\lis_selected" alt="" coords="199,201,345,243"/>
+<area shape="rect" id="node3" href="$class_fenetre_interface.html#a28574bf8caca4d6ea996efe95abb5396" title="FenetreInterface::Fenetre\lInterface" alt="" coords="405,5,572,47"/>
+</map>

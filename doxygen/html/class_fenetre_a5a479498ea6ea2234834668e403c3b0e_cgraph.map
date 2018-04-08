@@ -1,0 +1,6 @@
+<map id="Fenetre::pre_update_button" name="Fenetre::pre_update_button">
+<area shape="rect" id="node2" href="$namespacegrman.html#ac57085d09f8f682904c05a7c10814a4f" title="A appeler une fois en fin de boucle de jeu. " alt="" coords="192,64,337,91"/>
+<area shape="rect" id="node3" href="$namespacegrman.html#ab03d1a6a11e74604d09a10226bfb1021" title="grman::buf_afficher_page" alt="" coords="385,5,552,32"/>
+<area shape="rect" id="node4" href="$namespacegrman.html#a2c2ccd2231089b13b05d54193c8bb117" title="Entrées clavier/souris. " alt="" coords="389,57,548,98"/>
+<area shape="rect" id="node5" href="$namespacegrman.html#a0bee1e2880b629a96aca7dd3a752820a" title="Buffer et sorties graphiques. " alt="" coords="387,123,550,149"/>
+</map>

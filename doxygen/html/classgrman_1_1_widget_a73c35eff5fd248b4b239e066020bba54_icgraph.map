@@ -1,0 +1,7 @@
+<map id="grman::Widget::destroy_frame_context" name="grman::Widget::destroy_frame_context">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#ab214adec555487fd72702eb735d445cc" title="Gestion des événements. " alt="" coords="229,123,383,164"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#afaee30b61971b479976f96eb8a9f7628" title="grman::Widget::update\l_pre_draw" alt="" coords="229,5,383,47"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a581df4bb0e082d674253f142667a5d81" title="Gestion des affichages. " alt="" coords="212,71,400,98"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a22b2a25ad397e05dfd21fd834d667ec5" title="Gestion affichage et interaction. " alt="" coords="448,71,603,98"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_text_edit.html#a729f336e4be6635a987c49c094b1f075" title="grman::WidgetTextEdit\l::update_interact" alt="" coords="448,123,603,164"/>
+</map>

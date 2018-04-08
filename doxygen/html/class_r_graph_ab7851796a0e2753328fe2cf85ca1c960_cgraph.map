@@ -1,0 +1,15 @@
+<map id="RGraph::add_interfaced_vertex" name="RGraph::add_interfaced_vertex">
+<area shape="rect" id="node2" href="$class_r_vertex_interface.html#a853a2ead57ed6dd4e48b2b5ef2f58014" title="Le constructeur. " alt="" coords="212,141,385,182"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#aa13b6833ffbec61374921c40be6f3188" title="grman::Widget::set_pos" alt="" coords="433,5,595,32"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#aefb181c21510565ba6ebdc1aedb716ad" title="grman::Widget::set_dim" alt="" coords="643,128,804,155"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#ae8f8fc19b6b0981895c38fdf7df4e4bb" title="Les accesseurs de &quot;styles&quot; sont à compléter... " alt="" coords="447,107,581,149"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a5f1d6ebc1e01e380e34f6fda97c8b042" title="grman::Widget::set\l_padding" alt="" coords="447,173,581,214"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#a35220289a92725ff9c7758f5c1f99580" title="grman::Widget::add\l_child" alt="" coords="446,303,582,345"/>
+<area shape="rect" id="node14" href="$classgrman_1_1_widget_text.html#a2b908c791e86834e8961b645cf835965" title="grman::WidgetText::\lset_message" alt="" coords="444,238,584,279"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#ad7d6b2fcf3549549d07e18d19605248a" title="En principe non directement utiles dans les classes dérivées (aspects techniques) ..." alt="" coords="657,303,790,345"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="644,249,803,276"/>
+<area shape="rect" id="node10" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="857,173,1025,200"/>
+<area shape="rect" id="node11" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="857,224,1025,251"/>
+<area shape="rect" id="node12" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="852,275,1031,301"/>
+<area shape="rect" id="node13" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="852,325,1031,352"/>
+</map>

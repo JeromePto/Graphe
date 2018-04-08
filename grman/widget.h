@@ -215,7 +215,7 @@ class Widget
                     TEXT
 ****************************************************/
 
-/// Extrêmement rudimentaire : à compléter !
+// Extrêmement rudimentaire : à compléter !
 class WidgetText : public Widget
 {
     protected :

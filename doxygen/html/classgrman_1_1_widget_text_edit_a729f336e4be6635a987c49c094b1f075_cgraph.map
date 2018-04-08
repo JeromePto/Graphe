@@ -1,0 +1,13 @@
+<map id="grman::WidgetTextEdit::update_interact" name="grman::WidgetTextEdit::update_interact">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#ab214adec555487fd72702eb735d445cc" title="Gestion des événements. " alt="" coords="208,291,363,332"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#a2f37b348a6a7d91564ae3ab5fda91793" title="grman::Widget::is_gui\l_focus" alt="" coords="437,552,586,593"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#aabd6d3ac051e0d51f39e3320e00f4ec8" title="grman::Widget::create\l_frame_context" alt="" coords="436,5,587,47"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#a7077b865ce348e339328aaaeb2fc4892" title="grman::Widget::is_mouse_over" alt="" coords="411,71,612,98"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#a00c050eae20689d2d1420139916defdd" title="grman::Widget::captures\l_focus" alt="" coords="429,123,594,164"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a09e40491ed42e4804ed00718944209db" title="grman::Widget::is_gui_over" alt="" coords="422,189,601,215"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#a31929a6be1dfd317cd2b41afda8f1a6d" title="grman::Widget::interact_over" alt="" coords="417,239,605,266"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget.html#a0e91fad56a2f62945bc151d951df9dd1" title="grman::Widget::interact\l_focus" alt="" coords="432,291,591,332"/>
+<area shape="rect" id="node10" href="$classgrman_1_1_widget.html#afb93db633b43f5003c3437bad3d7f9cf" title="grman::Widget::is_gui\l_leave" alt="" coords="437,356,586,397"/>
+<area shape="rect" id="node11" href="$classgrman_1_1_widget.html#af6927f50345fedd1c2356c91490845b9" title="grman::Widget::interact\l_leave" alt="" coords="432,421,591,463"/>
+<area shape="rect" id="node12" href="$classgrman_1_1_widget.html#a73c35eff5fd248b4b239e066020bba54" title="grman::Widget::destroy\l_frame_context" alt="" coords="432,487,591,528"/>
+</map>

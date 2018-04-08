@@ -1,0 +1,8 @@
+<map id="grman::Widget::set_pos" name="grman::Widget::set_pos">
+<area shape="rect" id="node2" href="$class_fenetre_interface.html#a28574bf8caca4d6ea996efe95abb5396" title="FenetreInterface::Fenetre\lInterface" alt="" coords="233,5,400,47"/>
+<area shape="rect" id="node3" href="$class_vertex_interface.html#aa6d2b8f37afe455ff9eb84e38631a119" title="Le constructeur met en place les éléments de l&#39;interface. " alt="" coords="215,71,419,98"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_edge.html#adbaeb94bef0a5334fd3ddc0fe30343c5" title="grman::WidgetEdge::draw" alt="" coords="231,122,403,149"/>
+<area shape="rect" id="node5" href="$class_r_vertex_interface.html#a853a2ead57ed6dd4e48b2b5ef2f58014" title="Le constructeur. " alt="" coords="230,173,403,215"/>
+<area shape="rect" id="node6" href="$class_r_graph.html#ab7851796a0e2753328fe2cf85ca1c960" title="Permet d&#39;ajouter un sommet a afficher. " alt="" coords="467,173,625,215"/>
+<area shape="rect" id="node7" href="$class_graph.html#a6d716090e2ae19abf6b40b5f1a7f7f68" title="Le constructeur par default. " alt="" coords="673,181,773,207"/>
+</map>

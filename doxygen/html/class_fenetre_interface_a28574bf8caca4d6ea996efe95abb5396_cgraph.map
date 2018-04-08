@@ -1,0 +1,29 @@
+<map id="FenetreInterface::FenetreInterface" name="FenetreInterface::FenetreInterface">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#aefb181c21510565ba6ebdc1aedb716ad" title="grman::Widget::set_dim" alt="" coords="452,16,613,43"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a0be1eeef817874e6eb21571435a2eb76" title="grman::Widget::set\l_gravity_xy" alt="" coords="245,301,379,342"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#a35220289a92725ff9c7758f5c1f99580" title="grman::Widget::add\l_child" alt="" coords="465,118,601,159"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="873,223,1041,249"/>
+<area shape="rect" id="node11" href="$classgrman_1_1_widget.html#ae8f8fc19b6b0981895c38fdf7df4e4bb" title="Les accesseurs de &quot;styles&quot; sont à compléter... " alt="" coords="245,366,379,407"/>
+<area shape="rect" id="node12" href="$classgrman_1_1_widget_text.html#a2b908c791e86834e8961b645cf835965" title="grman::WidgetText::\lset_message" alt="" coords="242,66,382,107"/>
+<area shape="rect" id="node13" href="$classgrman_1_1_widget.html#aa13b6833ffbec61374921c40be6f3188" title="grman::Widget::set_pos" alt="" coords="231,432,393,459"/>
+<area shape="rect" id="node14" href="$classgrman_1_1_widget.html#ad1dd133abc3ffe41b05eea1485472285" title="grman::Widget::get_posx" alt="" coords="228,483,396,509"/>
+<area shape="rect" id="node15" href="$classgrman_1_1_widget.html#a3be06b9369e93dc60a19032547e90b0a" title="grman::Widget::get_posy" alt="" coords="228,533,396,560"/>
+<area shape="rect" id="node16" href="$classgrman_1_1_widget_text_edit.html#adadf40e241aca2e487bb5b6819e0222f" title="grman::WidgetTextEdit\l::set_edit_color" alt="" coords="235,585,389,626"/>
+<area shape="rect" id="node17" href="$classgrman_1_1_widget.html#a246c3dad41fd2b69b74d0924548398df" title="grman::Widget::set\l_gravity_y" alt="" coords="245,650,379,691"/>
+<area shape="rect" id="node18" href="$classgrman_1_1_widget.html#a8855590bf8b68f5e9e5e11084ed6f7da" title="grman::Widget::set_posx" alt="" coords="228,716,396,743"/>
+<area shape="rect" id="node19" href="$classgrman_1_1_widget.html#a1d96a55b2b8a61ec050e1dfa88a581c2" title="grman::Widget::set\l_border" alt="" coords="245,767,379,809"/>
+<area shape="rect" id="node20" href="$classgrman_1_1_widget.html#ac6b6d52a41f261f396f06320b7778e18" title="grman::Widget::set\l_gravity_x" alt="" coords="245,833,379,874"/>
+<area shape="rect" id="node21" href="$classgrman_1_1_widget_button_switch.html#a851ba731a59979ff29c0ef39edcaff7b" title="grman::WidgetButtonSwitch\l::set_switch" alt="" coords="220,898,404,939"/>
+<area shape="rect" id="node22" href="$classgrman_1_1_widget_button_text.html#a5b1eeb06c4b5e7b31a4eea19db3b3bf5" title="grman::WidgetButtonText\l::set_text" alt="" coords="227,183,397,225"/>
+<area shape="rect" id="node24" href="$classgrman_1_1_widget.html#a909b856d4ac412cd81611ca806ebdb1b" title="grman::Widget::set\l_tmp_pos" alt="" coords="245,963,379,1005"/>
+<area shape="rect" id="node25" href="$classgrman_1_1_widget.html#a5f1d6ebc1e01e380e34f6fda97c8b042" title="grman::Widget::set\l_padding" alt="" coords="245,1029,379,1070"/>
+<area shape="rect" id="node26" href="$classgrman_1_1_widget.html#aea3772c724fd9ebd0a5c830439b0be4c" title="grman::Widget::set\l_margin" alt="" coords="245,1094,379,1135"/>
+<area shape="rect" id="node27" href="$classgrman_1_1_widget_v_slider.html#a379482a4d66b8bedfc84f76cfd8bddb3" title="grman::WidgetVSlider\l::set_range" alt="" coords="237,1159,387,1201"/>
+<area shape="rect" id="node28" href="$classgrman_1_1_widget_v_slider.html#aeb7f889ce3cf0ca948fe79817b25181d" title="grman::WidgetVSlider\l::set_value" alt="" coords="237,1225,387,1266"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#ad7d6b2fcf3549549d07e18d19605248a" title="En principe non directement utiles dans les classes dérivées (aspects techniques) ..." alt="" coords="674,147,807,189"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="661,96,820,123"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="873,45,1041,72"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="868,96,1047,123"/>
+<area shape="rect" id="node10" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="868,147,1047,173"/>
+<area shape="rect" id="node23" href="$classgrman_1_1_widget.html#acfd5cb20e83cb0cce4973530b467352b" title="Gestion familiale... navigation et édition de l&#39;arbre des sous&#45;éléments... " alt="" coords="466,183,599,225"/>
+</map>

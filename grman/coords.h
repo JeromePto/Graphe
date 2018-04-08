@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+
+/// Classe representant des coordonnées
 struct Coords
 {
         double x;
@@ -62,6 +64,7 @@ struct Coords
 
 };
 
+///Classe representant un cadre
 struct Frame
 {
         Coords pos;

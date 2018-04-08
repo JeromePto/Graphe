@@ -1,0 +1,9 @@
+<map id="Coords::Coords" name="Coords::Coords">
+<area shape="rect" id="node2" href="$struct_coords.html#ac944cc5d385b4d27737884bded760405" title="Coords::operator+" alt="" coords="165,5,292,32"/>
+<area shape="rect" id="node3" href="$struct_coords.html#a26ea503389f21fbc5d32a6163000d778" title="Coords::operator&#45;" alt="" coords="167,56,290,83"/>
+<area shape="rect" id="node4" href="$struct_coords.html#ace147b80eedcc1cd7867d76bf6a075f5" title="Coords::operator*" alt="" coords="167,107,290,133"/>
+<area shape="rect" id="node5" href="$struct_coords.html#ad44e0635a9ef86ab5f655901e1d00d8c" title="Coords::operator/" alt="" coords="167,157,290,184"/>
+<area shape="rect" id="node6" href="$struct_coords.html#a5cb214fa037c0e331feab38a578557e5" title="Coords::normalize" alt="" coords="165,208,292,235"/>
+<area shape="rect" id="node8" href="$struct_coords.html#a2ebd98fed71466a261f524a69b2edb49" title="Coords::rotate_90" alt="" coords="166,259,291,285"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget_edge.html#adbaeb94bef0a5334fd3ddc0fe30343c5" title="grman::WidgetEdge::draw" alt="" coords="340,233,512,260"/>
+</map>

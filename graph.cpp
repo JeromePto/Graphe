@@ -1,10 +1,10 @@
 #include "graph.h"
 
-/***************************************************
+/* **************************************************
                     VERTEX
 ****************************************************/
 
-/// Le constructeur met en place les éléments de l'interface
+// Le constructeur met en place les éléments de l'interface
 VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, int pic_idx)
 {
     // La boite englobante
@@ -66,19 +66,19 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 }
 
 
-/// Gestion du Vertex avant l'appel à l'interface
+// Gestion du Vertex avant l'appel à l'interface
 void Vertex::pre_update()
 {
     if (!m_interface)
         return;
 
-    /// Copier la valeur locale de la donnée m_value vers le label sous le slider
+    // Copier la valeur locale de la donnée m_value vers le label sous le slider
     m_interface->m_slider.set_value(m_value);
     m_interface->m_label_value.set_message( toString(m_value) );
 }
 
 
-/// Gestion du Vertex après l'appel à l'interface
+// Gestion du Vertex après l'appel à l'interface
 void Vertex::post_update()
 {
     if (!m_interface)
@@ -89,11 +89,11 @@ void Vertex::post_update()
 
 
 
-/***************************************************
+/* **************************************************
                     EDGE
 ****************************************************/
 
-/// Le constructeur met en place les éléments de l'interface
+// Le constructeur met en place les éléments de l'interface
 EdgeInterface::EdgeInterface(Vertex& from, Vertex& to)
 {
     // Le WidgetEdge de l'interface de l'arc
@@ -119,17 +119,17 @@ EdgeInterface::EdgeInterface(Vertex& from, Vertex& to)
 }
 
 
-/// Gestion du Edge avant l'appel à l'interface
+// Gestion du Edge avant l'appel à l'interface
 void Edge::pre_update()
 {
     if (!m_interface)
         return;
 
-    /// Copier la valeur locale de la donnée m_weight vers le label sous le slider
+    // Copier la valeur locale de la donnée m_weight vers le label sous le slider
     m_interface->m_label_weight.set_message( toString( m_weight ) );
 }
 
-/// Gestion du Edge après l'appel à l'interface
+// Gestion du Edge après l'appel à l'interface
 void Edge::post_update()
 {
     if (!m_interface)
@@ -138,7 +138,7 @@ void Edge::post_update()
 
 
 
-/***************************************************
+/* **************************************************
                     GRAPH & Co
 ****************************************************/
 
@@ -211,8 +211,8 @@ void Select::clear()
     m_file.push_back(std::pair<int, int>(-1, -1));
 }
 
-/// Ici le constructeur se contente de préparer un cadre d'accueil des
-/// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
+// Ici le constructeur se contente de préparer un cadre d'accueil des
+// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
     m_main_box.set_dim(w, h);
@@ -234,18 +234,18 @@ Graph::Graph (Graph const & other)
     }
 }
 
-/// Méthode spéciale qui construit un graphe arbitraire (démo)
-/// Cette méthode est à enlever et remplacer par un système
-/// de chargement de fichiers par exemple.
-/// Bien sûr on ne veut pas que vos graphes soient construits
-/// "à la main" dans le code comme ça.
+// Méthode spéciale qui construit un graphe arbitraire (démo)
+// Cette méthode est à enlever et remplacer par un système
+// de chargement de fichiers par exemple.
+// Bien sûr on ne veut pas que vos graphes soient construits
+// "à la main" dans le code comme ça.
 void Graph::make_example()
 {
     m_interface = std::make_shared<GraphInterface>(0, TAILLE_BAR, LARGEUR_FENETRE, HAUTEUR_FENETRE - TAILLE_BAR);
     // La ligne précédente est en gros équivalente à :
     // m_interface = new GraphInterface(50, 0, 750, 600);
 
-    /// Les sommets doivent être définis avant les arcs
+    // Les sommets doivent être définis avant les arcs
     // Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...
     add_interfaced_vertex(0, 30.0, 200, 100, "clown1.jpg");
     add_interfaced_vertex(1, 60.0, 400, 100, "clown2.jpg");
@@ -256,7 +256,7 @@ void Graph::make_example()
     add_interfaced_vertex(6,  0.0, 300, 500, "bad_clowns_xx3xx.jpg", 1);
     add_interfaced_vertex(7,  0.0, 500, 500, "bad_clowns_xx3xx.jpg", 2);
 
-    /// Les arcs doivent être définis entre des sommets qui existent !
+    // Les arcs doivent être définis entre des sommets qui existent !
     // AJouter l'arc d'indice 0, allant du sommet 1 au sommet 2 de poids 50 etc...
     add_interfaced_edge(0, 1, 2, 50.0);
     add_interfaced_edge(1, 0, 1, 50.0);
@@ -626,42 +626,42 @@ void Graph::delete_vertex(int idx)
 
 void Graph::delete_edge(int eidx)
 {
-    /// référence vers le Edge à enlever
+    // référence vers le Edge à enlever
     Edge &remed=m_edges.at(eidx);
 
     //std::cout << "Removing edge " << eidx << " " << remed.m_from << "->" << remed.m_to << " " << remed.m_weight << std::endl;
 
-    /// Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
+    // Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
     //std::cout << m_vertices[remed.m_from].m_in.size() << " " << m_vertices[remed.m_from].m_out.size() << std::endl;
     //std::cout << m_vertices[remed.m_to].m_in.size() << " " << m_vertices[remed.m_to].m_out.size() << std::endl;
     //std::cout << m_edges.size() << std::endl;
 
-    /// test : on a bien des éléments interfacés
+    // test : on a bien des éléments interfacés
     if (m_interface && remed.m_interface)
     {
-    /// Ne pas oublier qu'on a fait ça à l'ajout de l'arc :
+    // Ne pas oublier qu'on a fait ça à l'ajout de l'arc :
     /* EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]); */
     /* m_interface->m_main_box.add_child(ei->m_top_edge); */
     /* m_edges[idx] = Edge(weight, ei); */
-    /// Le new EdgeInterface ne nécessite pas de delete car on a un shared_ptr
-    /// Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
-    /// mais il faut bien enlever le conteneur d'interface m_top_edge de l'arc de la main_box du graphe
+    // Le new EdgeInterface ne nécessite pas de delete car on a un shared_ptr
+    // Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
+    // mais il faut bien enlever le conteneur d'interface m_top_edge de l'arc de la main_box du graphe
     m_interface->m_main_box.remove_child( remed.m_interface->m_top_edge );
     }
 
-    /// Il reste encore à virer l'arc supprimé de la liste des entrants et sortants des 2 sommets to et from !
-    /// References sur les listes de edges des sommets from et to
+    // Il reste encore à virer l'arc supprimé de la liste des entrants et sortants des 2 sommets to et from !
+    // References sur les listes de edges des sommets from et to
     std::vector<int> &vefrom = m_vertices[remed.m_from].m_out;
     std::vector<int> &veto = m_vertices[remed.m_to].m_in;
     vefrom.erase( std::remove( vefrom.begin(), vefrom.end(), eidx ), vefrom.end() );
     veto.erase( std::remove( veto.begin(), veto.end(), eidx ), veto.end() );
 
-    /// Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
-    /// Il suffit donc de supprimer l'entrée de la map pour supprimer à la fois l'Edge et le EdgeInterface
-    /// mais malheureusement ceci n'enlevait pas automatiquement l'interface top_edge en tant que child de main_box !
+    // Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
+    // Il suffit donc de supprimer l'entrée de la map pour supprimer à la fois l'Edge et le EdgeInterface
+    // mais malheureusement ceci n'enlevait pas automatiquement l'interface top_edge en tant que child de main_box !
     m_edges.erase( eidx );
 
-    /// Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
+    // Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
     //std::cout << m_vertices[remed.m_from].m_in.size() << " " << m_vertices[remed.m_from].m_out.size() << std::endl;
     //std::cout << m_vertices[remed.m_to].m_in.size() << " " << m_vertices[remed.m_to].m_out.size() << std::endl;
     //std::cout << m_edges.size() << std::endl;
@@ -726,7 +726,7 @@ void Graph::update_time(double r, double pred, double proi, double speed)
     }
 }
 
-/// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
+// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
 void Graph::update()
 {
     if (!m_interface)
@@ -766,7 +766,7 @@ void Graph::update()
     m_select.work();
 }
 
-/// Aide à l'ajout de sommets interfacés
+// Aide à l'ajout de sommets interfacés
 void Graph::add_interfaced_vertex(int idx, double value, int x, int y, std::string pic_name, int pic_idx )
 {
     if ( m_vertices.find(idx)!=m_vertices.end() )
@@ -782,7 +782,7 @@ void Graph::add_interfaced_vertex(int idx, double value, int x, int y, std::stri
     m_vertices[idx] = Vertex(value, vi);
 }
 
-/// Aide à l'ajout d'arcs interfacés
+// Aide à l'ajout d'arcs interfacés
 void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weight)
 {
     if ( m_edges.find(idx)!=m_edges.end() )

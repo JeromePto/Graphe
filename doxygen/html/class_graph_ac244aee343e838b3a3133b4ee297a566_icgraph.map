@@ -1,0 +1,5 @@
+<map id="Graph::delete_edge" name="Graph::delete_edge">
+<area shape="rect" id="node2" href="$class_graph.html#a70e989f5183fe2ce7f2fb35b129f9357" title="Permet de supprimer un sommet. " alt="" coords="189,5,330,32"/>
+<area shape="rect" id="node4" href="$class_graph.html#a98cfda281e2d28c983b9cd043933aa5f" title="Permet de supprimer le contenu du graphe. " alt="" coords="188,56,331,83"/>
+<area shape="rect" id="node3" href="$class_graph.html#ad12793824910448c82c5face1e6d4b83" title="Renvoit les composantes k&#45;connee. " alt="" coords="379,5,500,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="grman::Widget::get_posx" name="grman::Widget::get_posx">
+<area shape="rect" id="node2" href="$class_fenetre_interface.html#a28574bf8caca4d6ea996efe95abb5396" title="FenetreInterface::Fenetre\lInterface" alt="" coords="240,5,407,47"/>
+<area shape="rect" id="node3" href="$class_vertex_interface.html#aa6d2b8f37afe455ff9eb84e38631a119" title="Le constructeur met en place les éléments de l&#39;interface. " alt="" coords="221,71,425,98"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_box.html#a5de9d1bfbe85e470cdcc6ebb00f36b26" title="grman::WidgetBox::interact\l_focus" alt="" coords="233,123,414,164"/>
+</map>

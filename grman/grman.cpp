@@ -17,18 +17,18 @@
 namespace grman
 {
 
-// Permet de compiler en mode plein écran (décommenter)
+/// Permet de compiler en mode plein écran (décommenter)
 #define MODE_GRAPHIQUE GFX_AUTODETECT_WINDOWED
 //#define MODE_GRAPHIQUE GFX_AUTODETECT_FULLSCREEN
 
-// Nombre de pixels horizontalement et verticalement
+/// Nombre de pixels horizontalement et verticalement
 #define LARGEURECRAN 1024
 #define HAUTEURECRAN 768
 
-// Couleur initiale :
+/// Couleur initiale :
 #define PAGE_COULEUR_INIT BLANC
 
-// Temporisation de la boucle de jeu en ms ( rest dans mettre_a_jour )
+/// Temporisation de la boucle de jeu en ms ( rest dans mettre_a_jour )
 #define TEMPO_MAJ 20
 
 int page_color=PAGE_COULEUR_INIT;
@@ -56,7 +56,7 @@ Widget *gui_focus = nullptr;
 Widget *gui_leave = nullptr;
 
 
-/// Gestion des contenus graphiques (fichiers images)
+// Gestion des contenus graphiques (fichiers images)
 std::unordered_map<std::string, BITMAP *> g_pic_names;
 std::unordered_set<std::string> g_failed_pic_names;
 std::string g_pic_path;
@@ -138,7 +138,7 @@ void mettre_a_jour()
     rafraichir_clavier_souris();
     buf_effacer_page();
 
-    /// mouse_unclick && !gui_grabbed  ||  new click select || capture left (key ENTER or KEY ESC) ?
+    // mouse_unclick && !gui_grabbed  ||  new click select || capture left (key ENTER or KEY ESC) ?
     if (mouse_unclick)
     {
         gui_leave = gui_focus;
@@ -159,7 +159,7 @@ void init()
 
     srand(time(NULL));
 
-    /// Gestion des caractères accentués
+    // Gestion des caractères accentués
     set_uformat(U_ASCII);
 
     allegro_init();
@@ -271,6 +271,6 @@ void thick_line(BITMAP *bmp, int x1, int y1, int x2, int y2, int thickness, int 
 }
 
 
-} /// FIN DE NAMESPACE GRMAN
+} // FIN DE NAMESPACE GRMAN
 
 

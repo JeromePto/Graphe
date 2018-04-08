@@ -1,0 +1,8 @@
+<map id="grman::Widget::add_child" name="grman::Widget::add_child">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#ad7d6b2fcf3549549d07e18d19605248a" title="En principe non directement utiles dans les classes dérivées (aspects techniques) ..." alt="" coords="202,15,335,57"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="189,81,348,108"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="401,5,569,32"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="401,56,569,83"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="396,107,575,133"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="396,157,575,184"/>
+</map>

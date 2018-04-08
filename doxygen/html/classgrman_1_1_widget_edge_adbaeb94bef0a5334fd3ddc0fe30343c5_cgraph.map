@@ -1,0 +1,10 @@
+<map id="grman::WidgetEdge::draw" name="grman::WidgetEdge::draw">
+<area shape="rect" id="node2" href="$namespacegrman.html#a3bae6cee5ee6d40477a2c68b66939f33" title="Auxiliaires : compléments aux fonctions graphiques allegro. " alt="" coords="245,5,367,32"/>
+<area shape="rect" id="node3" href="$struct_coords.html#a5cb214fa037c0e331feab38a578557e5" title="Coords::normalize" alt="" coords="243,56,369,83"/>
+<area shape="rect" id="node7" href="$struct_coords.html#a2ebd98fed71466a261f524a69b2edb49" title="Coords::rotate_90" alt="" coords="243,107,369,133"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#aa13b6833ffbec61374921c40be6f3188" title="grman::Widget::set_pos" alt="" coords="225,157,387,184"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget.html#a4f4e9b1c845aee91bd8792100a4bcd8d" title="grman::Widget::get\l_parent_abs_frame" alt="" coords="239,209,373,250"/>
+<area shape="rect" id="node4" href="$struct_coords.html#a2d62e940e7ed4cb05a24d049170b9aa9" title="Coords::norm" alt="" coords="441,56,541,83"/>
+<area shape="rect" id="node6" href="$struct_coords.html#a5922d1783cefa759950faa50ac347191" title="Coords::Coords" alt="" coords="435,107,547,133"/>
+<area shape="rect" id="node5" href="$struct_coords.html#a1ea0e81134f3d690bd448d8cf004993f" title="Coords::norm2" alt="" coords="595,56,701,83"/>
+</map>

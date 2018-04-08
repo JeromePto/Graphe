@@ -1,0 +1,5 @@
+<map id="grman::Widget::get_bp" name="grman::Widget::get_bp">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget_v_slider.html#a1045608d559b20463042553067b9eaa6" title="grman::WidgetVSlider\l::interact_focus" alt="" coords="208,5,357,47"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a611f41523b29506c802ff341d81f11c5" title="grman::Widget::get\l_parent_bp" alt="" coords="216,71,349,112"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_box.html#a5de9d1bfbe85e470cdcc6ebb00f36b26" title="grman::WidgetBox::interact\l_focus" alt="" coords="405,71,587,112"/>
+</map>

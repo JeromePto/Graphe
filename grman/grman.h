@@ -122,13 +122,5 @@ void thick_line(BITMAP *bmp, int x1, int y1, int x2, int y2, int thickness, int 
 
 }
 
-/************************************************
-            A CORRIGER
-*************************************************/
-
-/// Cette inclusion en fin de header parce que widget dépend de grman
-/// Ceci est évitable (et à éviter) en re-factorisant le projet et les dépendance...
-#include "widget.h"
-
 
 #endif // GRMAN_H_INCLUDED

@@ -1,0 +1,7 @@
+<map id="grman::WidgetTextEdit::set_message" name="grman::WidgetTextEdit::set_message">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="208,81,367,108"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="420,5,588,32"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="420,56,588,83"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="415,107,593,133"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="415,157,593,184"/>
+</map>

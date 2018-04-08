@@ -1,0 +1,5 @@
+<map id="grman::init" name="grman::init">
+<area shape="rect" id="node2" href="$namespacegrman.html#a2c2ccd2231089b13b05d54193c8bb117" title="Entrées clavier/souris. " alt="" coords="140,5,299,47"/>
+<area shape="rect" id="node3" href="$namespacegrman.html#a0bee1e2880b629a96aca7dd3a752820a" title="Buffer et sorties graphiques. " alt="" coords="138,71,301,98"/>
+<area shape="rect" id="node4" href="$namespacegrman.html#ab03d1a6a11e74604d09a10226bfb1021" title="grman::buf_afficher_page" alt="" coords="136,122,303,149"/>
+</map>

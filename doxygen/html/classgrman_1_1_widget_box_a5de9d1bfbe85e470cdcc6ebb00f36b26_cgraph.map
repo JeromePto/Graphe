@@ -1,0 +1,9 @@
+<map id="grman::WidgetBox::interact_focus" name="grman::WidgetBox::interact_focus">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#a611f41523b29506c802ff341d81f11c5" title="grman::Widget::get\l_parent_bp" alt="" coords="252,5,385,47"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#ae087f20809b9ec4ae1c0396d25aa7fb0" title="grman::Widget::get\l_parent_frame" alt="" coords="252,71,385,112"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#ad1dd133abc3ffe41b05eea1485472285" title="grman::Widget::get_posx" alt="" coords="235,137,403,163"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a8855590bf8b68f5e9e5e11084ed6f7da" title="grman::Widget::set_posx" alt="" coords="235,187,403,214"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#a3be06b9369e93dc60a19032547e90b0a" title="grman::Widget::get_posy" alt="" coords="235,238,403,265"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#a5655510a49e5f9f53ae41c55b5358c41" title="grman::Widget::set_posy" alt="" coords="235,289,403,315"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a5ae6e35c94712d55e44258bd5c4dee15" title="grman::Widget::get_bp" alt="" coords="451,13,605,39"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Fenetre" name="Fenetre">
+<area shape="rect" id="node2" href="$class_graph.html" title="La classe representant le graphe. " alt="" coords="5,351,172,692"/>
+<area shape="rect" id="node3" href="$class_select.html" title="La classe representant le sommet selectionnée. " alt="" coords="14,5,163,288"/>
+<area shape="rect" id="node4" href="$class_r_graph.html" title="Le graphe reduit. " alt="" coords="196,409,363,633"/>
+</map>

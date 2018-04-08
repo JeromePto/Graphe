@@ -1,0 +1,5 @@
+<map id="grman::WidgetImage::draw" name="grman::WidgetImage::draw">
+<area shape="rect" id="node2" href="$namespacegrman.html#a2139034e3a5eaee44ba4409a53bc5ae6" title="Gestion des ressources image (fichiers images et BITMAP chargées) " alt="" coords="387,5,537,32"/>
+<area shape="rect" id="node3" href="$namespacegrman.html#a41d7cab1779d4b6c0ed8e9c944377363" title="grman::show_picture" alt="" coords="196,56,339,83"/>
+<area shape="rect" id="node4" href="$namespacegrman.html#a5bf4a37e4e86d4146d22743d3a1f0593" title="grman::get_picture" alt="" coords="397,56,527,83"/>
+</map>

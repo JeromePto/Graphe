@@ -1,0 +1,5 @@
+<map id="Fenetre::make_example" name="Fenetre::make_example">
+<area shape="rect" id="node2" href="$class_graph.html#a139b0097551af1043a358500a52cce98" title="La methode example. " alt="" coords="216,42,369,69"/>
+<area shape="rect" id="node3" href="$class_graph.html#ab7a69c10c16dc4ae88e1131c89fb7e26" title="Permet d&#39;ajouter un sommet a afficher. " alt="" coords="435,5,584,47"/>
+<area shape="rect" id="node4" href="$class_graph.html#aa824f04c8fd5a315f23f4af61db9c301" title="Permet d&#39;ajouter une arrete a afficher. " alt="" coords="417,71,601,98"/>
+</map>

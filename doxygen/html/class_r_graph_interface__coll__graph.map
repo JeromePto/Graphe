@@ -1,0 +1,6 @@
+<map id="RGraphInterface" name="RGraphInterface">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget_box.html" title="{grman::WidgetBox\n|# m_moveable\l# m_contained\l# m_lock_focus\l# m_selected\l|+ interact_focus()\l+ captures_focus()\l+ set_moveable()\l+ set_lock_focus()\l+ set_selected()\l+ is_selected()\l}" alt="" coords="7,1087,138,1281"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html" title="{grman::Widget\n|# m_children\l# m_view\l# m_view_wb\l# m_gravity_x\l# m_gravity_y\l# m_bg_color\l# m_border_color\l# m_border_color_over\l# m_border_color_focus\l# m_border\l# m_margin\l# m_padding\l|+ Widget()\l+ Widget()\l+ ~Widget()\l+ get_child()\l+ add_child()\l+ remove_child()\l+ reframe()\l+ set_no_gravity()\l+ get_abs_frame()\l+ get_abs_pos()\l+ get_center_abs_pos()\l+ set_frame()\l+ set_frame()\l+ get_frame()\l+ set_frame_dim()\let 49 de plus...\l&#45; set_parent()\l&#45; create_frame_context()\l&#45; destroy_frame_context()\l}" alt="" coords="86,535,257,1037"/>
+<area shape="rect" id="node4" href="$struct_coords.html" title="Classe representant des coordonnées. " alt="" coords="122,5,221,259"/>
+<area shape="rect" id="node5" href="$struct_frame.html" title="Classe representant un cadre. " alt="" coords="276,336,368,457"/>
+</map>

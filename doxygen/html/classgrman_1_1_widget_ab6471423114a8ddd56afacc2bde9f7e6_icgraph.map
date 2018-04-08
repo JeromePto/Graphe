@@ -1,0 +1,12 @@
+<map id="grman::Widget::get_dimy" name="grman::Widget::get_dimy">
+<area shape="rect" id="node2" href="$class_fenetre_interface.html#a28574bf8caca4d6ea996efe95abb5396" title="FenetreInterface::Fenetre\lInterface" alt="" coords="883,55,1049,96"/>
+<area shape="rect" id="node3" href="$class_vertex_interface.html#aa6d2b8f37afe455ff9eb84e38631a119" title="Le constructeur met en place les éléments de l&#39;interface. " alt="" coords="631,211,835,238"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="221,146,380,173"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget_text.html#a2b908c791e86834e8961b645cf835965" title="grman::WidgetText::\lset_message" alt="" coords="435,204,575,245"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget_text_edit.html#a36e5b0d029be63d79cf8b84d830382f7" title="grman::WidgetTextEdit\l::set_message" alt="" coords="428,139,583,180"/>
+<area shape="rect" id="node10" href="$classgrman_1_1_widget.html#a35220289a92725ff9c7758f5c1f99580" title="grman::Widget::add\l_child" alt="" coords="437,73,573,115"/>
+<area shape="rect" id="node6" href="$class_r_vertex_interface.html#a853a2ead57ed6dd4e48b2b5ef2f58014" title="Le constructeur. " alt="" coords="646,145,819,187"/>
+<area shape="rect" id="node7" href="$class_r_graph.html#ab7851796a0e2753328fe2cf85ca1c960" title="Permet d&#39;ajouter un sommet a afficher. " alt="" coords="887,145,1045,187"/>
+<area shape="rect" id="node8" href="$class_graph.html#a6d716090e2ae19abf6b40b5f1a7f7f68" title="Le constructeur par default. " alt="" coords="1097,153,1197,179"/>
+<area shape="rect" id="node11" href="$classgrman_1_1_widget_button_text.html#a5b1eeb06c4b5e7b31a4eea19db3b3bf5" title="grman::WidgetButtonText\l::set_text" alt="" coords="647,28,818,69"/>
+</map>

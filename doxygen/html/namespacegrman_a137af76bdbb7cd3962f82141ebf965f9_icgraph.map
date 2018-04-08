@@ -1,0 +1,5 @@
+<map id="grman::rect_around" name="grman::rect_around">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#a9020ab0e9f06cea13ff6553d4a157608" title="grman::Widget::draw\l_border" alt="" coords="188,5,331,47"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a581df4bb0e082d674253f142667a5d81" title="Gestion des affichages. " alt="" coords="379,13,567,39"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#a22b2a25ad397e05dfd21fd834d667ec5" title="Gestion affichage et interaction. " alt="" coords="615,13,769,39"/>
+</map>

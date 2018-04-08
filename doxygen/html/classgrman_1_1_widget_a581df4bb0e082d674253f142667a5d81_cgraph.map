@@ -1,0 +1,8 @@
+<map id="grman::Widget::update_draw" name="grman::Widget::update_draw">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#aabd6d3ac051e0d51f39e3320e00f4ec8" title="grman::Widget::create\l_frame_context" alt="" coords="245,5,396,47"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#aad005761a6d7ac032a760df0872ab9c1" title="grman::Widget::draw" alt="" coords="249,71,392,98"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#a9020ab0e9f06cea13ff6553d4a157608" title="grman::Widget::draw\l_border" alt="" coords="249,123,392,164"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#a73c35eff5fd248b4b239e066020bba54" title="grman::Widget::destroy\l_frame_context" alt="" coords="241,188,400,229"/>
+<area shape="rect" id="node5" href="$namespacegrman.html#a137af76bdbb7cd3962f82141ebf965f9" title="grman::rect_around" alt="" coords="448,101,583,127"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a53be51006d3635bfbcf6780df1237536" title="grman::Widget::get\l_border_color" alt="" coords="449,152,582,193"/>
+</map>

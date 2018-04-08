@@ -1,0 +1,5 @@
+<map id="grman::Widget::is_gui_over" name="grman::Widget::is_gui_over">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#ab214adec555487fd72702eb735d445cc" title="Gestion des événements. " alt="" coords="232,57,387,98"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#a22b2a25ad397e05dfd21fd834d667ec5" title="Gestion affichage et interaction. " alt="" coords="435,5,589,32"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_text_edit.html#a729f336e4be6635a987c49c094b1f075" title="grman::WidgetTextEdit\l::update_interact" alt="" coords="435,57,589,98"/>
+</map>

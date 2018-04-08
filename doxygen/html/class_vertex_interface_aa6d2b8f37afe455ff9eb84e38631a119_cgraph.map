@@ -1,0 +1,25 @@
+<map id="VertexInterface::VertexInterface" name="VertexInterface::VertexInterface">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#aa13b6833ffbec61374921c40be6f3188" title="grman::Widget::set_pos" alt="" coords="261,5,422,32"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#aefb181c21510565ba6ebdc1aedb716ad" title="grman::Widget::set_dim" alt="" coords="473,64,635,91"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget_box.html#aa710d5e6e9c0c6dc11dd892ea0f5ccc9" title="grman::WidgetBox::set\l_lock_focus" alt="" coords="263,341,419,382"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#a5f1d6ebc1e01e380e34f6fda97c8b042" title="grman::Widget::set\l_padding" alt="" coords="275,406,408,447"/>
+<area shape="rect" id="node6" href="$classgrman_1_1_widget.html#a35220289a92725ff9c7758f5c1f99580" title="grman::Widget::add\l_child" alt="" coords="273,173,409,214"/>
+<area shape="rect" id="node9" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="688,219,856,245"/>
+<area shape="rect" id="node10" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="688,269,856,296"/>
+<area shape="rect" id="node13" href="$classgrman_1_1_widget_image.html#a024e6d7101993d1dbc022f02241e3484" title="grman::WidgetImage\l::set_pic_name" alt="" coords="270,471,413,513"/>
+<area shape="rect" id="node14" href="$classgrman_1_1_widget_image.html#abaf937bd9edc6e51d4286021d1e302ff" title="grman::WidgetImage\l::set_pic_idx" alt="" coords="270,537,413,578"/>
+<area shape="rect" id="node15" href="$classgrman_1_1_widget.html#a0be1eeef817874e6eb21571435a2eb76" title="grman::Widget::set\l_gravity_xy" alt="" coords="275,602,408,643"/>
+<area shape="rect" id="node16" href="$classgrman_1_1_widget.html#aea3772c724fd9ebd0a5c830439b0be4c" title="grman::Widget::set\l_margin" alt="" coords="275,667,408,709"/>
+<area shape="rect" id="node17" href="$classgrman_1_1_widget.html#ae8f8fc19b6b0981895c38fdf7df4e4bb" title="Les accesseurs de &quot;styles&quot; sont à compléter... " alt="" coords="275,733,408,774"/>
+<area shape="rect" id="node18" href="$classgrman_1_1_widget.html#a1d96a55b2b8a61ec050e1dfa88a581c2" title="grman::Widget::set\l_border" alt="" coords="275,798,408,839"/>
+<area shape="rect" id="node19" href="$classgrman_1_1_widget.html#a8855590bf8b68f5e9e5e11084ed6f7da" title="grman::Widget::set_posx" alt="" coords="257,864,425,891"/>
+<area shape="rect" id="node20" href="$classgrman_1_1_widget.html#ad1dd133abc3ffe41b05eea1485472285" title="grman::Widget::get_posx" alt="" coords="257,915,425,941"/>
+<area shape="rect" id="node21" href="$classgrman_1_1_widget_text.html#a2b908c791e86834e8961b645cf835965" title="grman::WidgetText::\lset_message" alt="" coords="271,107,411,149"/>
+<area shape="rect" id="node22" href="$classgrman_1_1_widget.html#ac6b6d52a41f261f396f06320b7778e18" title="grman::Widget::set\l_gravity_x" alt="" coords="275,966,408,1007"/>
+<area shape="rect" id="node23" href="$classgrman_1_1_widget_v_slider.html#a379482a4d66b8bedfc84f76cfd8bddb3" title="grman::WidgetVSlider\l::set_range" alt="" coords="267,1031,416,1073"/>
+<area shape="rect" id="node24" href="$classgrman_1_1_widget_v_slider.html#a69d7aab7d63b5786d457b9bb04a4bf99" title="grman::WidgetVSlider\l::set_lim_max" alt="" coords="267,1097,416,1138"/>
+<area shape="rect" id="node7" href="$classgrman_1_1_widget.html#ad7d6b2fcf3549549d07e18d19605248a" title="En principe non directement utiles dans les classes dérivées (aspects techniques) ..." alt="" coords="487,173,621,214"/>
+<area shape="rect" id="node8" href="$classgrman_1_1_widget.html#a8251d948b6d2bfa5ebd61f9ae0b644a4" title="grman::Widget::reframe" alt="" coords="475,121,633,148"/>
+<area shape="rect" id="node11" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="683,96,861,123"/>
+<area shape="rect" id="node12" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="683,147,861,173"/>
+</map>

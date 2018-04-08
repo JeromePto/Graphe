@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Graphe:  Fichier source de D:/Documents/ECE/ING2/Informatique/Projet 2/Graphe/basics.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Graphe
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/Documents/ECE/ING2/Informatique/Projet 2/Graphe/basics.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="basics_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BASICS_H_INCLUDED</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BASICS_H_INCLUDED</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="basics_8h.html#a228c83f417c8a2e96e6ea047b6fc4274">    8</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="basics_8h.html#a228c83f417c8a2e96e6ea047b6fc4274">toString</a>(<span class="keywordtype">double</span> val)</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    std::ostringstream oss;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    oss &lt;&lt; val;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> oss.str();</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="basics_8h.html#aedc1bdfc34d3b9be2d58d3604aeb3635">   15</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="basics_8h.html#aedc1bdfc34d3b9be2d58d3604aeb3635">toDouble</a>(std::string in)</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">double</span> out;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::istringstream iss;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    iss.str(in);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    iss &gt;&gt; out;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> out;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="basics_8h.html#a87e236d6f62b86766dbfea2a98a7dd65">   24</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="basics_8h.html#a87e236d6f62b86766dbfea2a98a7dd65">puis</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> a, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> b)</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> out(1);</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0 ; i &lt; b ; i++) {</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        out = out * a;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> out;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif // BASICS_H_INCLUDED</span></div><div class="ttc" id="basics_8h_html_a87e236d6f62b86766dbfea2a98a7dd65"><div class="ttname"><a href="basics_8h.html#a87e236d6f62b86766dbfea2a98a7dd65">puis</a></div><div class="ttdeci">unsigned long puis(unsigned long a, unsigned long b)</div><div class="ttdef"><b>Definition:</b> basics.h:24</div></div>
+<div class="ttc" id="basics_8h_html_a228c83f417c8a2e96e6ea047b6fc4274"><div class="ttname"><a href="basics_8h.html#a228c83f417c8a2e96e6ea047b6fc4274">toString</a></div><div class="ttdeci">std::string toString(double val)</div><div class="ttdef"><b>Definition:</b> basics.h:8</div></div>
+<div class="ttc" id="basics_8h_html_aedc1bdfc34d3b9be2d58d3604aeb3635"><div class="ttname"><a href="basics_8h.html#aedc1bdfc34d3b9be2d58d3604aeb3635">toDouble</a></div><div class="ttdeci">double toDouble(std::string in)</div><div class="ttdef"><b>Definition:</b> basics.h:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<map id="Graph::kconnexe" name="Graph::kconnexe">
+<area shape="rect" id="node2" href="$basics_8h.html#a87e236d6f62b86766dbfea2a98a7dd65" title="puis" alt="" coords="222,5,269,32"/>
+<area shape="rect" id="node3" href="$class_graph.html#a70e989f5183fe2ce7f2fb35b129f9357" title="Permet de supprimer un sommet. " alt="" coords="175,56,316,83"/>
+<area shape="rect" id="node5" href="$class_graph.html#a1b1b71316772f1a2ad066492eb88e517" title="Renvoie si le graphe est connexe. " alt="" coords="188,107,303,133"/>
+<area shape="rect" id="node4" href="$class_graph.html#ac244aee343e838b3a3133b4ee297a566" title="Permet de supprimer une arrete. " alt="" coords="364,56,499,83"/>
+</map>

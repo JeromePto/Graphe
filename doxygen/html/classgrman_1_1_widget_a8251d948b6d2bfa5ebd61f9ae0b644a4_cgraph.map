@@ -1,0 +1,6 @@
+<map id="grman::Widget::reframe" name="grman::Widget::reframe">
+<area shape="rect" id="node2" href="$classgrman_1_1_widget.html#a8c8299f13852da3bece65c6a95750080" title="grman::Widget::get_dimx" alt="" coords="217,5,385,32"/>
+<area shape="rect" id="node3" href="$classgrman_1_1_widget.html#ab6471423114a8ddd56afacc2bde9f7e6" title="grman::Widget::get_dimy" alt="" coords="217,56,385,83"/>
+<area shape="rect" id="node4" href="$classgrman_1_1_widget.html#ac4c033333752a28ab9f345546f5c356e" title="grman::Widget::reset_posx" alt="" coords="212,107,391,133"/>
+<area shape="rect" id="node5" href="$classgrman_1_1_widget.html#a27aa72773906212afb24de8524daee7a" title="grman::Widget::reset_posy" alt="" coords="212,157,391,184"/>
+</map>
